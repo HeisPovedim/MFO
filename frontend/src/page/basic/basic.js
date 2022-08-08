@@ -1,3 +1,4 @@
+import React from 'react'
 import './basic.scss'
 
 const Basic = () => {
@@ -10,12 +11,12 @@ const Basic = () => {
       <div className="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
         <div className="site-header">
           <div className="wrapper container site-header__wrapper">
-            <nav className="nav">
+            <nav className="nav" style={{ display: 'flex' }}>
               <button id="config-btn" className="nav__toggle navbar-toggle" data-toggle="collapse" data-target="#menu" type="button">
               <i className=""><img src="/themes/zabiray/img/burger.png" alt=""/></i>
               </button>
               <div id="menu" className="faqs-container collapse navbar-collapse">
-                <div className="faq">
+                <div className="faq" style={{ borderTop: '1px solid #9fa4a8' }}>
                   <a href="/o-nas" className="faq-title">
                   О нас
                   </a>
@@ -338,7 +339,7 @@ const Basic = () => {
               <div className="title">
                 <h1>НАШИ ТАРИФЫ</h1>
               </div>
-              <div className="tariff_wrapper wrapper flex --just-space">
+              <div className="tariff_wrapper wrapper flex --just-space" style={{ justifyContent: 'center' }}>
                 <div className="__tariff">
                   <div className="__tariff__wrapper__img__text flex">
                     <div className="tariff__img">

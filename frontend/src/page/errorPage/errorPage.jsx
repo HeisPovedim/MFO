@@ -3,7 +3,7 @@ import './errorPage.scss'
 
 const ErrorPage  = () => {
   return (
-    <div>Error 404</div>
+    <div className='errorPage'>Error 404</div>
   )
 }
 
