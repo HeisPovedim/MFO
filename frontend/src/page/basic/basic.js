@@ -1,6 +1,53 @@
 import React from 'react'
 import './basic.scss'
 
+import PresonPng from '../../themes/zabiray/img/person.png'
+import BurgerPng from '../../themes/zabiray/img/burger.png'
+
+// className = carts_wrapper flex --just-center
+import ViasPng from '../../themes/zabiray/img/visa.png'
+import MasterCardPng from '../../themes/zabiray/img/mastercard.png'
+import MirPng from '../../themes/zabiray/img/mir.png'
+
+// className = blocks wrapper flex --just-center
+import OneBlock from '../../themes/zabiray/img/1.png'
+import TicketPng from '../../themes/zabiray/img/ticket.png'
+import TwoBlock from '../../themes/zabiray/img/2.png'
+import WatchPng from '../../themes/zabiray/img/watch.png'
+import ThreeBlock from '../../themes/zabiray/img/3.png'
+import MobilePng from '../../themes/zabiray/img/mobile.png'
+
+// className = info__imgs
+import CapPng from '../../themes/zabiray/img/cap.png'
+import TvPng from '../../themes/zabiray/img/tv.png'
+import MedicPng from '../../themes/zabiray/img/medic.png'
+import CoinPng from '../../themes/zabiray/img/coin.png'
+import TrevelPng from '../../themes/zabiray/img/trevel.png'
+
+// className = __tariff
+import TariffIconPng from '../../themes/zabiray/img/tariff-icon.png'
+import TariffCoinPng from '../../themes/zabiray/img/tariif-coin.png'
+import Tariff24Png from '../../themes/zabiray/img/tariff-24.png'
+
+// className = grid 
+import N200Png from '../../sites/default/files/2022-02/n200.jpg'
+import MFOPng from '../../sites/default/files/2021-12/MFO.jpg'
+import CentroPng from '../../sites/default/files/2021-10/4.png'
+import LoanPng from '../../sites/default/files/2021-10/3.png'
+
+// className = apply-loan__body
+import Loan1Png from '../../themes/zabiray/img/loan1.png'
+import Loan2Png from '../../themes/zabiray/img/loan2.png'
+import Loan3Png from '../../themes/zabiray/img/loan3.png'
+import Loan4Png from '../../themes/zabiray/img/loan4.png'
+import Loan5Png from '../../themes/zabiray/img/loan5.png'
+import Loan6Png from '../../themes/zabiray/img/loan6.png'
+
+//className = footer-phone flex
+import IconEmailPng from '../../themes/zabiray/img/icon-email.png'
+import FooterWatchPng from '../../themes/zabiray/img/footer-watch.png'
+import FooterLocationPng from '../../themes/zabiray/img/footer-location.png'
+
 const Basic = () => {
   return (
   <>
@@ -13,7 +60,7 @@ const Basic = () => {
           <div className="wrapper container site-header__wrapper">
             <nav className="nav" style={{ display: 'flex' }}>
               <button id="config-btn" className="nav__toggle navbar-toggle" data-toggle="collapse" data-target="#menu" type="button">
-              <i className=""><img src="/themes/zabiray/img/burger.png" alt=""/></i>
+              <i className=""><img src={BurgerPng} alt=""/></i>
               </button>
               <div id="menu" className="faqs-container collapse navbar-collapse">
                 <div className="faq" style={{ borderTop: '1px solid #9fa4a8' }}>
@@ -89,12 +136,16 @@ const Basic = () => {
               </div>
             </nav>
             <a className="brand" href="/">
-              <svg className="logo" id="a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 468.12 150.06"></svg>
+              <svg className="logo" id="a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 468.12 150.06">
+              <defs><style>{ `.b{fill:#ff6700;}.c{fill:#2b2b2b;}` }</style></defs>
+              <g><rect class="b" x="13.42" y="103.51" width="35.7" height="11.06"></rect><rect class="b" x="13.42" y="65.67" width="64.15" height="11.06"></rect><rect class="b" x="13.42" y="84.59" width="49.92" height="11.06"></rect><rect class="b" x="13.42" y="27.82" width="92.6" height="11.06"></rect><rect class="b" x="13.42" y="46.74" width="78.37" height="11.06"></rect></g>
+              <g><rect class="c" x="423" y="46.67" width="17.92" height="5.48"></rect><path class="c" d="M120.31,61.62c5.09-3.45,12.96-4.66,19.06-4.66,3.77,0,8.45,.6,11.7,2.5,2.24,1.3,4.99,3.8,4.99,7.94,0,4.75-4.07,7.08-6.11,8.03,2.14,.43,4.27,1.38,5.8,2.5,1.93,1.47,3.36,3.71,3.36,6.91,0,4.4-2.75,7.17-5.09,8.63-3.77,2.42-9.77,3.28-14.45,3.28-5.29,0-14.21-1.04-20.12-6.22l6.11-6.39c3.56,2.85,9.63,3.97,12.99,3.97,6.31,0,7.73-2.5,7.73-4.23,0-1.12-.61-2.33-2.34-3.11-1.42-.6-3.26-.69-5.29-.69h-5.19v-7.6h4.99c1.63,0,3.66-.17,4.89-.86,1.32-.78,1.53-1.81,1.53-2.59,0-1.99-1.63-3.8-6.72-3.8-3.97,0-9.5,1.04-12.14,2.94l-5.7-6.56Z"></path><path class="c" d="M194.57,58.16h10.99v37.38h-10.99v-4.83c-3.96,5.44-9.19,6.04-11.98,6.04-11.98,0-19.91-8.98-19.91-19.94s7.84-19.86,19.37-19.86c2.97,0,8.83,.52,12.52,6.04v-4.83Zm-20.54,18.65c0,5.96,4.51,10.62,10.81,10.62s10.81-4.66,10.81-10.62-4.51-10.53-10.81-10.53-10.81,4.58-10.81,10.53Z"></path><path class="c" d="M236.58,56.95c-4.87,0-10.72,1.47-13.7,5.09h0c.27-3.28,1.49-5.28,3.77-7.06,4.9-3.84,7.95-1.99,15.6-4.24,4.15-1.22,10.37-3.89,12.45-11.87h-10.57c-1.25,1.68-3.6,2.71-8.09,3.58-5.23,1.04-13.44,1.82-18.49,8.47-2.88,3.8-5.03,7.66-5.03,22,0,5.35,.54,13.3,7.03,18.91,5.05,4.4,11.35,4.92,15.59,4.92,6.22,0,11.17-1.47,15.5-5.27,3.15-2.76,6.58-7.51,6.58-14.76,0-7.94-3.87-12.52-6.04-14.51-3.78-3.54-8.74-5.27-14.6-5.27Zm-1.71,30.48c-6.49,0-10.99-4.66-10.99-10.53s4.42-10.62,10.99-10.62,10.99,4.66,10.99,10.62-4.51,10.53-10.99,10.53Z"></path><path class="c" d="M275.56,58.16v23.05l18.02-23.05h10.99v37.38h-10.99v-23.05l-18.02,23.05h-10.99V58.16h10.99Z"></path><path class="c" d="M336.5,56.96c-3.33,0-8.83,.86-12.7,6.04v-4.83h-10.99v49h10.99v-16.45c4.23,5.61,9.91,6.04,12.43,6.04,11.53,0,19.46-8.55,19.46-19.94s-7.66-19.86-19.19-19.86Zm-2.97,30.48c-6.31,0-10.81-4.66-10.81-10.62s4.5-10.53,10.81-10.53,10.81,4.58,10.81,10.53-4.5,10.62-10.81,10.62Z"></path><path class="c" d="M392.96,58.16h10.99v37.38h-10.99v-4.83c-3.96,5.44-9.19,6.04-11.98,6.04-11.98,0-19.91-8.98-19.91-19.94s7.84-19.86,19.37-19.86c2.97,0,8.83,.52,12.52,6.04v-4.83Zm-20.54,18.65c0,5.96,4.5,10.62,10.81,10.62s10.81-4.66,10.81-10.62-4.5-10.53-10.81-10.53-10.81,4.58-10.81,10.53Z"></path><polygon class="c" points="422.95 58.16 422.95 81.21 440.97 58.16 451.96 58.16 451.96 95.55 440.97 95.55 440.97 72.49 422.95 95.55 411.96 95.55 411.96 58.16 422.95 58.16"></polygon></g>
+              </svg>
             </a>
             <div className="user_login">
               <a className="button button--icon" href="/login" aria-label="Sign in">
-              <img src="/themes/zabiray/img/person.png" alt="person"/>
-              <span>&Lcy;&icy;&chcy;&ncy;&ycy;&jcy; &kcy;&acy;&bcy;&icy;&ncy;&iecy;&tcy;</span>
+              <img src={PresonPng} alt="person"/>
+              <span>Личный кабинет</span>
               </a>
             </div>
             <div className="user_info hidden">
@@ -240,13 +291,13 @@ const Basic = () => {
             <div className="container">
               <div className="carts_wrapper flex --just-center">
                 <div className="__cart">
-                  <img src="/themes/zabiray/img/visa.png" alt=""/>
+                  <img src={ViasPng} alt="Visa Card"/>
                 </div>
                 <div className="__cart">
-                  <img src="/themes/zabiray/img/mastercard.png" alt=""/>
+                  <img src={MasterCardPng} alt="Master Card"/>
                 </div>
                 <div className="__cart">
-                  <img src="/themes/zabiray/img/mir.png" alt=""/>
+                  <img src={MirPng} alt="Mir Card"/>
                 </div>
               </div>
             </div>
@@ -259,22 +310,22 @@ const Basic = () => {
               <div className="blocks wrapper flex --just-center">
                 <div className="container-for-img-text">
                   <div className="block">
-                    <img src="/themes/zabiray/img/1.png" alt=""/>
+                    <img src={OneBlock} alt=""/>
                     <div className="text">
-                      <img src="/themes/zabiray/img/ticket.png" alt=""/>
+                      <img src={TicketPng} alt=""/>
                       <p>ЗАПОЛНИТЕ ЗАЯВКУ</p>
                       <span>Процесс максимально упрощен</span>
                     </div>
-                    {/* <button className="common-btn set__ticket" onClick="window.top.location='/form/reg.php'">
+                    <button className="common-btn set__ticket" onClick="window.top.location='/form/reg.php'">
                     ЗАПОЛНИТЬ АНКЕТУ
-                    </button> */}
+                    </button>
                   </div>
                 </div>
                 <div className="container-for-img-text">
                   <div className="block">
-                    <img src="/themes/zabiray/img/2.png" alt=""/>
+                    <img src={TwoBlock} alt=""/>
                     <div className="text">
-                      <img src="/themes/zabiray/img/watch.png" alt=""/>
+                      <img src={WatchPng} alt=""/>
                       <p>ОЖИДАЙТЕ РЕШЕНИЯ</p>
                       <span>Мы дадим ответ за 1 минуту</span>
                     </div>
@@ -282,9 +333,9 @@ const Basic = () => {
                 </div>
                 <div className="container-for-img-text">
                   <div className="block">
-                    <img src="/themes/zabiray/img/3.png" alt=""/>
+                    <img src={ThreeBlock} alt=""/>
                     <div className="text">
-                      <img src="/themes/zabiray/img/mobile.png" alt=""/>
+                      <img src={MobilePng} alt=""/>
                       <p>ПОЛУЧИТЕ ДЕНЬГИ</p>
                       <span>Мы переведем деньги на вашу банковскую карту</span>
                     </div>
@@ -310,23 +361,23 @@ const Basic = () => {
                   </div>
                   <div className="info__imgs">
                     <div className="info__img">
-                      <img src="/themes/zabiray/img/cap.png" alt=""/>
+                      <img src={CapPng} alt=""/>
                       <p>оплатить обучение</p>
                     </div>
                     <div className="info__img">
-                      <img src="/themes/zabiray/img/tv.png" alt=""/>
+                      <img src={TvPng} alt=""/>
                       <p>купить желаемое</p>
                     </div>
                     <div className="info__img">
-                      <img src="/themes/zabiray/img/medic.png" alt=""/>
+                      <img src={MedicPng} alt=""/>
                       <p>получить платную медицинскую услугу</p>
                     </div>
                     <div className="info__img">
-                      <img src="/themes/zabiray/img/coin.png" alt=""/>
+                      <img src={CoinPng} alt=""/>
                       <p>одолжить денег до зарплаты</p>
                     </div>
                     <div className="info__img">
-                      <img src="/themes/zabiray/img/trevel.png" alt=""/>
+                      <img src={TrevelPng} alt=""/>
                       <p>решить любую другую необходимость</p>
                     </div>
                   </div>
@@ -343,7 +394,7 @@ const Basic = () => {
                 <div className="__tariff">
                   <div className="__tariff__wrapper__img__text flex">
                     <div className="tariff__img">
-                      <img src="/themes/zabiray/img/tariff-icon.png" alt=""/>
+                      <img src={TariffIconPng} alt=""/>
                     </div>
                     <div className="tariff__title">
                       <h2>МИНУТОЧКА</h2>
@@ -356,7 +407,7 @@ const Basic = () => {
                   <div className="tariff__inner">
                     <div className="tariff__inner__left">
                       <div className="tariff__icon">
-                        <img src="/themes/zabiray/img/tariif-coin.png" alt=""/>
+                        <img src={TariffCoinPng} alt=""/>
                       </div>
                       <div className="tariff__icon__text">
                         <p>Микрозайм</p>
@@ -365,7 +416,7 @@ const Basic = () => {
                     </div>
                     <div className="tariff__inner__right">
                       <div className="tariff__icon">
-                        <img src="/themes/zabiray/img/tariff-24.png" alt=""/>
+                        <img src={Tariff24Png} alt=""/>
                       </div>
                       <div className="tariff__icon__text">
                         <p>На срок</p>
@@ -373,9 +424,9 @@ const Basic = () => {
                       </div>
                     </div>
                   </div>
-                  {/* <button className="common-btn tariff__button" onClick="window.top.location.href='/form/reg.php'">
+                  <button className="common-btn tariff__button" onClick="window.top.location.href='/form/reg.php'">
                   ЗАБИРАЙ
-                  </button> */}
+                  </button>
                 </div>
               </div>
             </div>
@@ -394,7 +445,7 @@ const Basic = () => {
                           <span className="field-content">
                             <article className="grid-item">
                               <div className="image">
-                                <img src="/sites/default/files/2022-02/n200.jpg" alt="Каждому третьему россиянину не дадут займ"/>
+                                <img src={N200Png} alt="Каждому третьему россиянину не дадут займ"/>
                               </div>
                               <div className="info">
                                 <p className="info-date">22.07.2020</p>
@@ -410,7 +461,7 @@ const Basic = () => {
                           <span className="field-content">
                             <article className="grid-item">
                               <div className="image">
-                                <img src="/sites/default/files/2021-12/%D0%9D%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82.jpg" alt="Россияне стали чаще занимать в МФО"/>
+                                <img src={MFOPng} alt="Россияне стали чаще занимать в МФО"/>
                               </div>
                               <div className="info">
                                 <p className="info-date">22.07.2020</p>
@@ -426,7 +477,7 @@ const Basic = () => {
                           <span className="field-content">
                             <article className="grid-item">
                               <div className="image">
-                                <img src="/sites/default/files/2021-10/4.png" alt="Центробанк рекомендовал не портить кредитные истории граждан из-за коронавируса"/>
+                                <img src={CentroPng} alt="Центробанк рекомендовал не портить кредитные истории граждан из-за коронавируса"/>
                               </div>
                               <div className="info">
                                 <p className="info-date">22.07.2020</p>
@@ -442,7 +493,7 @@ const Basic = () => {
                           <span className="field-content">
                             <article className="grid-item">
                               <div className="image">
-                                <img src="/sites/default/files/2021-10/3.png" alt="Погашение займа с 01 по 10 мая 2021 года"/>
+                                <img src={LoanPng} alt="Погашение займа с 01 по 10 мая 2021 года"/>
                               </div>
                               <div className="info">
                                 <p className="info-date">22.07.2020</p>
@@ -459,9 +510,9 @@ const Basic = () => {
                   </div>
                 </div>
               </div>
-              {/* <button className="common-btn news__button" onClick="window.top.location='/novosti'">
+              <button className="common-btn news__button" onClick="window.top.location='/novosti'">
               ВСЕ НОВОСТИ
-              </button> */}
+              </button>
             </div>
           </div>
           <div className="promo">
@@ -493,7 +544,7 @@ const Basic = () => {
                   <div className="apply-loan__column">
                     <div className="apply-loan__item">
                       <div className="apply-loan__img">
-                        <img src="/themes/zabiray/img/loan1.png" alt=""/>
+                        <img src={Loan1Png} alt=""/>
                       </div>
                       <div className="apply-loan__text">
                         <a href="/form/reg.php">Заполнить заявку</a>
@@ -513,7 +564,7 @@ const Basic = () => {
                   <div className="apply-loan__column">
                     <div className="apply-loan__item">
                       <div className="apply-loan__img">
-                        <img src="/themes/zabiray/img/loan2.png" alt=""/>
+                        <img src={Loan2Png} alt=""/>
                       </div>
                       <div className="apply-loan__text">
                         <p>Подтвердить телефон кодом
@@ -532,7 +583,7 @@ const Basic = () => {
                   <div className="apply-loan__column">
                     <div className="apply-loan__item">
                       <div className="apply-loan__img">
-                        <img src="/themes/zabiray/img/loan3.png" alt=""/>
+                        <img src={Loan3Png} alt=""/>
                       </div>
                       <div className="apply-loan__text">
                         <p>Выбрать сумму
@@ -551,7 +602,7 @@ const Basic = () => {
                   <div className="apply-loan__column">
                     <div className="apply-loan__item">
                       <div className="apply-loan__img">
-                        <img src="/themes/zabiray/img/loan4.png" alt=""/>
+                        <img src={Loan4Png} alt=""/>
                       </div>
                       <div className="apply-loan__text">
                         <p>Подтвердить Вашу банковскую карту</p>
@@ -568,7 +619,7 @@ const Basic = () => {
                   <div className="apply-loan__column">
                     <div className="apply-loan__item">
                       <div className="apply-loan__img">
-                        <img src="/themes/zabiray/img/loan5.png" alt=""/>
+                        <img src={Loan5Png} alt=""/>
                       </div>
                       <div className="apply-loan__text">
                         <p>Получить одобрение
@@ -587,7 +638,7 @@ const Basic = () => {
                   <div className="apply-loan__column">
                     <div className="apply-loan__item">
                       <div className="apply-loan__img">
-                        <img src="/themes/zabiray/img/loan6.png" alt=""/>
+                        <img src={Loan6Png} alt=""/>
                       </div>
                       <div className="apply-loan__text">
                         <p>Проверить свой баланс на карте</p>
@@ -689,18 +740,18 @@ const Basic = () => {
             <div>
               <ul>
                 <li className="footer-phone flex">
-                  <img src="/themes/zabiray/img/icon-email.png" alt="" style={{ width: '22px' }} />
+                  <img src={IconEmailPng} alt="" style={{ width: '22px' }} />
                   <p><a href="/cdn-cgi/l/email-protection" className="__cf_email__" data-cfemail="dcafa9acacb3aea89ca6bdbeb5aebda5f2aea9">[email&#160;protected]</a></p>
                 </li>
                 <li className="footer-watch flex">
-                  <img src="/themes/zabiray/img/footer-watch.png" alt=""/>
+                  <img src={FooterWatchPng} alt=""/>
                   <div className="footer-watch-text">
                     <p><span>Пн-Пт</span> 8:00 - 18:00(МСК)</p>
                     <p><span>Сб-Вс</span> выходной</p>
                   </div>
                 </li>
                 <li className="footer-location flex">
-                  <img src="/themes/zabiray/img/footer-location.png" alt=""/>
+                  <img src={FooterLocationPng} alt=""/>
                   <p>620014, Свердловская область,<br/>г. Екатеринбург, ул. Чернышевского,<br/>строение 7, офис 520</p>
                 </li>
               </ul>

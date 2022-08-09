@@ -9,7 +9,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   outline: none;
 }
 html { height: 101%; } /* always display scrollbars */
-body { font-size: 62.5%; line-height: 1; font-family: Arial, Tahoma, Verdana, sans-serif; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
 ol, ul { list-style: none; }
@@ -25,15 +24,3 @@ img { border: 0; max-width: 100%; }
 
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
-
-//Свой @font-face
-// @font-face{ 
-//   font-family: 'MyFont';
-//   src: url('myfont.eot');
-//   src: url('myfont.eot?#iefix') format('embedded-opentype'),
-//     url('myfont.woff') format('woff'),
-//     url('myfont.ttf') format('truetype'),
-//     url('myfont.svg#webfont') format('svg');
-// }
-
-h1 { font-family: 'MyFont', sans-serif; }
