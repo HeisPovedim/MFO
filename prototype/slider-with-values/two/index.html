@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Range</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="slider">
+    <h2 id="rangeValue"></h2>
+    <!-- <div id="fillRangeValue" ></div> -->
+    <input type="range" class="range" name="" min="1000" max="15000" value="0" step="500" onmouseover="rangeSliden(this.value)" onchange="rangeSliden(this.value)">
+  </div>
+
+  <script type="text/javascript">
+    function rangeSliden(value) {
+      document.getElementById('rangeValue').innerHTML = value;
+    }
+  </script>
+
+</body>
+</html>

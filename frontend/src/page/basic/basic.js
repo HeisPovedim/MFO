@@ -1,4 +1,14 @@
-import React from 'react'
+import React, {
+  Component,
+  memo,
+  useCallback,
+  useState,
+  useEffect,
+  useMemo
+} from "react";
+import Slider, { Range } from 'rc-slider' // custom library - rc-slider
+import styled from 'styled-components' // custom library - styled-components
+import 'rc-slider/assets/index.css' // custom library - styled-components
 import './basic.scss'
 
 import PresonPng from '../../themes/zabiray/img/person.png'
@@ -48,7 +58,71 @@ import IconEmailPng from '../../themes/zabiray/img/icon-email.png'
 import FooterWatchPng from '../../themes/zabiray/img/footer-watch.png'
 import FooterLocationPng from '../../themes/zabiray/img/footer-location.png'
 
+// const RangeSlider = memo(
+//   ({ classes, label, onChange, value, ...sliderProps }) => {
+//     const [sliderVal, setSliderVal] = useState(0);
+//     const [mouseState, setMouseState] = useState(null);
+
+//     useEffect(() => {
+//       setSliderVal(value);
+//     }, [value]);
+
+//     const changeCallback = e => {
+//       setSliderVal(e.target.value);
+//     };
+
+//     useEffect(() => {
+//       if (mouseState === "up") {
+//         onChange(sliderVal);
+//       }
+//     }, [mouseState]);
+//     return (
+//       <div className="range-slider">
+//         <input
+//           type="range"
+//           value={sliderVal}
+//           {...sliderProps}
+//           className={`slider ${classes}`}
+//           id="myRange"
+//           onChange={changeCallback}
+//           onMouseDown={() => setMouseState("down")}
+//           onMouseUp={() => setMouseState("up")}
+//           className="styled-slider slider-progress"
+//         />
+//       </div>
+//     );
+//   }
+// );
+
 const Basic = () => {
+
+  const [value, setValue] = useState()
+  // const Slider = require('rc-slider')
+  // const createSliderWithTooltip = Slider.createSliderWithTooltip
+  // const Range = createSliderWithTooltip(Slider.Range)
+
+  const test = styled.input`
+    color: green;
+  `
+
+  // const [parentVal, setParentVal] = useState(1000);
+
+  // const sliderValueChanged = useCallback(val => {
+  //   setParentVal(val);
+  // });
+
+  // const sliderProps = useMemo(
+  //   () => ({
+  //     min: 1000,
+  //     max: 15000,
+  //     value: parentVal,
+  //     step: 500,
+  //     label: "This is a reusable slider",
+  //     onChange: e => sliderValueChanged(e)
+  //   }),
+  //   [parentVal]
+  // );
+
   return (
   <>
     <body>
@@ -64,74 +138,46 @@ const Basic = () => {
               </button>
               <div id="menu" className="faqs-container collapse navbar-collapse">
                 <div className="faq" style={{ borderTop: '1px solid #9fa4a8' }}>
-                  <a href="/o-nas" className="faq-title">
-                  О нас
-                  </a>
-                  <a href="/novosti" className="faq-text">
-                  Новости
-                  </a>
-                  <a href="/dokumenty" className="faq-text">
-                  Документы
-                  </a>
-                  <a href="/kontakty" className="faq-text">
-                  Контакты
-                  </a>
+                  <a href="/o-nas" className="faq-title">О нас</a>
+                  <a href="/novosti" className="faq-text">Новости</a>
+                  <a href="/dokumenty" className="faq-text">Документы</a>
+                  <a href="/kontakty" className="faq-text">Контакты</a>
+                  <button className="faq-toggle">
+                    <i className="fa fa-chevron-down"></i>
+                    <i className="fa fa-chevron-up"></i>
+                  </button>
+                </div>
+                <div className="faq">
+                  <a href="/kak-oformit-zajm" className="faq-title">Как оформить займ</a>
+                  <a href="/legal-assistance" className="faq-text">Дополнительные услуги</a>
+                  <a href="/kak-otsrochit-vyplatu" className="faq-text">Как отсрочить выплату</a>
                   <button className="faq-toggle">
                   <i className="fa fa-chevron-down"></i>
                   <i className="fa fa-chevron-up"></i>
                   </button>
                 </div>
                 <div className="faq">
-                  <a href="/kak-oformit-zajm" className="faq-title">
-                  Как оформить займ
-                  </a>
-                  <a href="/legal-assistance" className="faq-text">
-                  Дополнительные услуги
-                  </a>
-                  <a href="/kak-otsrochit-vyplatu" className="faq-text">
-                  Как отсрочить выплату
-                  </a>
+                  <a href="/kak-poluchit-dengi" className="faq-title">Как получить деньги</a>
+                  <a href="/na-bankovskuyu-kartu" className="faq-text">На банковскую карту</a>
                   <button className="faq-toggle">
                   <i className="fa fa-chevron-down"></i>
                   <i className="fa fa-chevron-up"></i>
                   </button>
                 </div>
                 <div className="faq">
-                  <a href="/kak-poluchit-dengi" className="faq-title">
-                  Как получить деньги
-                  </a>
-                  <a href="/na-bankovskuyu-kartu" className="faq-text">
-                  На банковскую карту
-                  </a>
+                  <a href="/kak-pogasit-zaem" className="faq-title">Как погасить</a>
+                  <a href="/bankovskaya-karta" className="faq-text">Банковская карта</a>
+                  <a href="/bankovskij-perevod" className="faq-text">Банковский перевод</a>
                   <button className="faq-toggle">
                   <i className="fa fa-chevron-down"></i>
                   <i className="fa fa-chevron-up"></i>
                   </button>
                 </div>
                 <div className="faq">
-                  <a href="/kak-pogasit-zaem" className="faq-title">
-                  Как погасить
-                  </a>
-                  <a href="/bankovskaya-karta" className="faq-text">
-                  Банковская карта
-                  </a>
-                  <a href="/bankovskij-perevod" className="faq-text">
-                  Банковский перевод
-                  </a>
-                  <button className="faq-toggle">
-                  <i className="fa fa-chevron-down"></i>
-                  <i className="fa fa-chevron-up"></i>
-                  </button>
+                  <a href="/faq" className="faq-title">Вопросы/Ответы</a>
                 </div>
                 <div className="faq">
-                  <a href="/faq" className="faq-title">
-                  Вопросы/Ответы
-                  </a>
-                </div>
-                <div className="faq">
-                  <a href="/vashi-prava-klienta-narusheny" className="faq-title">
-                  Пожаловаться
-                  </a>
+                  <a href="/vashi-prava-klienta-narusheny" className="faq-title">Пожаловаться</a>
                 </div>
               </div>
             </nav>
@@ -224,15 +270,40 @@ const Basic = () => {
                               <h4>Сумма</h4>
                               <div className="calc-value-box">
                                 <div className="calc-value-info calc-value-info-amount">
-                                  <span className="calc-summ">
-                                  1 500&nbsp;<small>&#8381;</small>
+                                  <span id="rangeValue" className="calc-summ">
+                                  {value}
                                   </span>
                                 </div>
                                 <input type="text" defaultValue="1 500" className="calc-summ num"/>
                               </div>
                               <div className="slider-range-box">
-                                <div className="uislider summ"></div>
+                              {/* <RangeSlider {...sliderProps} classes="additional-css-classes" /> */}
+                              <Slider
+                              min={1000}
+                              max={15000}
+                              step={500}
+                              defaultValue={1000}
+                              onChange={setValue}
+                              railStyle={{
+                                backgroundColor: 'rgb(221, 221, 221)'
+                              }}
+                              trackStyle={{
+                                backgroundColor: 'rgb(255, 102, 43)'
+                              }}
+                              dotStyle={{
+                                backgroundColor: 'rgb(255,102,43)',
+                                // border: '3px solid white',
+                                // borderRadius: '50%',
+                                // boxShadow: '0 0 2px rgba(0,0,0, 0.5)',
+                                // cursor: 'pointer',
+                                // height: '14px',
+                                // width: '14px',
+                              }}
+                              />
                               </div>
+                              {/* <input type="range" id="example_id" name="example_name" value="" /> */}
+                              
+
                               <p className="range_label flex justify-content-between">
                                 <span>1 500</span>
                                 <span>15 000</span>
@@ -267,7 +338,7 @@ const Basic = () => {
                             </div>
                             <div className="cd_info">
                               <p>До (включительно)</p>
-                              <p><span className="calc-day-short"></span></p>
+                              <p><span className="calc-day-short">14.08.2022 г.</span></p>
                             </div>
                             <div className="cd_info">
                               <p className="payment_period">Возвращаете</p>

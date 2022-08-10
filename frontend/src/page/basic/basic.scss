@@ -14400,8 +14400,6 @@ a.text-dark:hover {
   width: 7px;
 }
 
-.dialog--chats::-webkit-scrollbar-track {}
-
 .dialog--chats::-webkit-scrollbar-thumb {
   background: #afafaf;
 }
@@ -18051,6 +18049,7 @@ label {
 
   .uislider {
     cursor: pointer;
+    // position: relative;
     font-weight: 700;
     border: none !important;
     border-bottom-left-radius: 20px;
@@ -25742,8 +25741,95 @@ div#form_place_of_birth:after {
   }
 }
 
+.activeTrack, .inputRange {
+  width: 50px;
+  height: 50px;
+  color: green;
+}
 
+// input[type=range] {
+//   -webkit-appearance: none;
+//   width: 100%;
+//   position: absolute;
+//   left: 0;
+//   top: 0;
+//   bottom: -5px;
+//   z-index: 10;
+// }
+// input[type=range]::-webkit-slider-thumb {
+//   -webkit-appearance: none;
+// }
 
+// input[type=range]:focus {
+//   outline: none;
+// }
 
+// input[type=range]::-ms-track {
+//   width: 100%;
+//   cursor: pointer;
+//   background: transparent; 
+//   border-color: transparent;
+//   color: transparent;
+// }
 
+// input[type=range]::-moz-focus-outer {
+//   border: 0;
+// }
+
+// input[type=range]::-webkit-slider-thumb {
+//   -webkit-appearance: none;
+//   background: #ff662b !important;
+//   border: 3px solid white;
+//   border-radius: 50%;
+//   -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.50);
+//   box-shadow: 0 0 2px rgba(0,0,0, 0.5);
+//   cursor: pointer;
+//   height: 14px;
+//   width: 14px;
+//   margin-top: -5px;
+// }
+
+// input[type=range]::-moz-range-thumb {
+//   -webkit-appearance: none;
+//   background: #ff662b !important;
+//   border: 3px solid white;
+//   border-radius: 50%;
+//   -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.50);
+//   box-shadow: 0 0 2px rgba(0,0,0, 0.5);
+//   cursor: pointer;
+//   height: 10px;
+//   width: 10px;
+// }
+
+// input[type=range]::-ms-thumb {
+//   -webkit-appearance: none;
+//   background: #ff662b !important;
+//   border: 3px solid white;
+//   border-radius: 50%;
+//   -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.50);
+//   box-shadow: 0 0 2px rgba(0,0,0, 0.5);
+//   cursor: pointer;
+//   height: 14px;
+//   width: 14px;
+// }
+
+// input[type=range]::-webkit-slider-runnable-track {
+//   width: 100%;
+//   height: 5px;
+//   cursor: pointer;
+//   background: #dddddd;
+//   border-radius: 0 0px 100px 100px;
+// }
+
+// input[type=range]::-moz-range-track {
+//   width: 100%;
+//   height: 5px;
+//   cursor: pointer;
+//   background: #dddddd;
+//   border-radius: 0 0px 100px 100px;
+// }
+
+// .slider-range-box {
+//   position: relative;
+// }
 

@@ -1,0 +1,47 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.slider {
+  position: relative;
+  background: #f4f4f4;
+  border-radius: 8px;
+  width: 610px;
+  height: 18px;
+}
+
+output {
+  position: absolute;
+  left: -20px;
+  top: -40px;
+  padding: 7px 10px;
+  background: #76de76;
+  color: #fff;
+  border-radius: 10px 10px 0 10px;
+  font-weight: bold;
+}
+
+#fader {
+  position: relative;
+  left: 3px;
+  width: 600px;
+  height: 10px;
+  background: #76de76;
+  -webkit-appearance: none;
+  outline: none;
+  border-radius: 4px;
+}
+
+#fader::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #76de76;
+  box-shadow: 0 0 2px #222;
+}

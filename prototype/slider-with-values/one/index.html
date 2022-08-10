@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Range</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="slider">
+    <output for="fader" id="volume">1000</output>
+    <input type="range" id="fader" min="1000" max="15000" value="0" step="1000" oninput="outputUpdate(value)">
+  </div>
+
+  <script type="text/javascript">
+    function outputUpdate(vol) {
+      var output = document.querySelector('#volume');
+      output.value = vol;
+      output.style.left = vol - 20 + 'px';
+      if(output.value > 9) {
+        output.style.left = vol - 30 + 'px';
+      }
+      if(output.value > 99) {
+        output.style.left = vol - 40 + 'px';
+      }
+      if(output.value > 240) {
+        output.style.left = vol - 45 + 'px';
+      }
+      if(output.value > 430) {
+        output.style.left = vol - 50 + 'px';
+      }
+      if(output.value > 470) {
+        output.style.left = vol - 55 + 'px';
+      }
+    }
+  </script>
+
+</body>
+</html>
