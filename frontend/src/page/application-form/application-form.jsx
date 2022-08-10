@@ -1,4 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import styled from 'styled-components'
+
 import './application-form.scss'
 
 //className = wrapper container site-header__wrapper
@@ -14,6 +18,29 @@ import FooterWatchPng from '../../img/basic-page-img/footer-watch.png'
 import FooterLocationPng from '../../img/basic-page-img/footer-location.png'
 
 const ApplicationFormPage = () => {
+
+  const { 
+    register,
+    formState:
+    { errors, },
+    handleSubmit,
+    reset,
+  } = useForm({ mode: "onBlur" })
+
+  const onSubmit = (data) => {
+    reset();
+  }
+
+  const WarrningError = styled.p`
+    padding-top: 5px;
+    margin: 0;
+    >p{
+      color: red;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+    }
+  `
 
   return(
   <>
@@ -148,7 +175,7 @@ const ApplicationFormPage = () => {
           <div className="bread__wrapper">
             <div className="bread__body">
               <div className="bread__text">
-                <a href="index.htm">Главная</a>
+                <Link to="/">Главная</Link>
                 <span>/</span>
                 <p>Форма анкеты</p>
               </div>
@@ -208,24 +235,60 @@ const ApplicationFormPage = () => {
               </div>
               <div className="mr_content-box frst_stp" data-step_id="kontaktnaya_informaciya" data-step_index="1">
                 <h2>Контактная информация</h2>
-                <form className="content-form" method="post">
-                  <div className="alert alert-danger hidden"></div>
+                <form className="content-form" method="post" onSubmit={handleSubmit(onSubmit)}>
                   <div className="wrapper-master">
                     <div className="wrapper-inputs frst_stp">
                       <div className="input-box inpBxFF" id="form_last_name">
                         <label className="control-label">Фамилия</label>
-                        <input id="last_name" className="input_field rus search_in_session" type="text" maxLength="100" data-required="true" name="kontaktnaya_informaciya[last_name]" data-index_group="" placeholder="" defaultValue="" />
-                        <div id="error_last_name" className="help-block hidden">Необходимо заполнить поле &quot;Фамилия&quot;</div>
+                        <input id="last_name" className="input_field rus search_in_session" type="text" data-required="true" data-index_group="" placeholder="" defaultValue="" 
+                          {...register('lastName', { 
+                            required: true,
+                            minLength: {
+                              value: 2,
+                              message: "Минимум 3 символа"
+                            },
+                            maxLength: {
+                              value:30,
+                              message: "Не больше 30 символов"
+                            },
+                          })}
+                        />
+                      <WarrningError>{errors?.lastName && <p>{errors?.lastName?.message || `*Необходимо заполнить поле "Фамилия"`}</p>}</WarrningError>
                       </div>
                       <div className="input-box inpBxFF" id="form_first_name">
                         <label className="control-label">Имя</label>
-                        <input id="first_name" className="input_field rus" type="text" maxLength="100" data-required="true" name="kontaktnaya_informaciya[first_name]" data-index_group="" placeholder="" defaultValue="" />
-                        <div id="error_first_name" className="help-block hidden">Необходимо заполнить поле &quot;Имя&quot;</div>
+                        <input id="first_name" className="input_field rus" type="text" data-required="true" data-index_group="" placeholder="" defaultValue="" 
+                          {...register('firstName', {
+                            required: true,
+                            minLength: {
+                              value: 2,
+                              message: "Минимум 3 символа"
+                            },
+                            maxLength: {
+                              value: 30,
+                              message: "Не больше 30 символов"
+                            }
+                          })}
+                        />
+                        <WarrningError>{errors?.firstName && <p>{errors?.firstName?.message || `*Необходимо заполнить поле "Имя"`}</p>}</WarrningError>
                       </div>
                       <div className="input-box inpBxFF" id="form_middle_name">
                         <label className="control-label">Отчество</label>
-                        <input id="middle_name" className="input_field rus" type="text" maxLength="100" data-required="false" name="kontaktnaya_informaciya[middle_name]" data-index_group="" placeholder="" defaultValue="" />
-                        <div id="error_middle_name" className="help-block hidden">Необходимо заполнить поле &quot;Отчество&quot;</div>
+                        <input id="middle_name" className="input_field rus" type="text" data-required="false" data-index_group="" placeholder="" defaultValue="" 
+                          {...register('middleName', {
+                            required: true,
+                            minLength: {
+                              value: 2,
+                              message: "Минимум 3 символа"
+                            },
+                            maxLength: {
+                              value: 30,
+                              message: "Не больше 30 символов"
+                            },
+                            disabled: true
+                          })}
+                        />
+                        <WarrningError>{errors?.middleName && <p>{errors?.middleName?.message || `Необходимо заполнить поле "Отчество"`}</p>}</WarrningError>
                       </div>
                       <div className="input-box inpBxFF" id="form_default_mobile_phone">
                         <label className="control-label">Номер телефона</label>
@@ -274,8 +337,7 @@ const ApplicationFormPage = () => {
                     </label>
                   </div>
                   <div className="btn-box">
-                    <button type="button" name="btn_send_sms" className="btn btn-primary btn_submit_modal" data-send-page="master_reg" id="btn_send_sms" defaultValue="kontaktnaya_informaciya"><span>Подтвердить</span></button>
-                    <button type="submit" name="btn_submit_step_save" className="btn btn-primary hidden" id="btn_submit_step_save" defaultValue="kontaktnaya_informaciya"><span>Продолжить</span></button>
+                    <button type="submit" name="btn_send_sms" className="btn btn-primary btn_submit_modal" data-send-page="master_reg" id="btn_send_sms" defaultValue="kontaktnaya_informaciya"><span>Подтвердить</span></button>
                   </div>
                 </form>
                 <div className="gosuslugi_box">

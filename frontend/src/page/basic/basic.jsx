@@ -131,10 +131,7 @@ const BasicPage = () => {
             </div>
             <div className="user_info hidden">
               <div className="user_settings">
-                {/* <button type="button" className="btn_person_settings" className=="window.top.location.href='/cabinet/profile'">
-                <button type="button" className="btn_person_settings" className=="window.top.location.href='/cabinet/profile'"> */}
                 <img src="/img/basic-page-img/person-header.png" alt="settings"/>
-                {/* </button> */}
               </div>
               <div className="user_logout">
                 <a className="button button--icon button--icon--person" href="/cabinet/logout" aria-label="Sign out">
