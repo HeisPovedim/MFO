@@ -1,23 +1,30 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import InputRange from 'react-input-range';
 
-class RangeSlider extends React.Component {
-  constructor(props) {
-    super(props);
+export default class SliderStyle extends React.Component {
+  render(){
+    let style = {
+      position: "absolute",
+      left: "0",
+      height: "15px",
+      borderRadius: "8px",
+      backgroundColor: "#000"
+    };
 
-    this.state = { value: 1000 };
-  }
+    let tracker = {
+      position: "absolute",
+      marginLeft: "-7px",
+      marginTop: "-5px",
+      width: "14px",
+      height: "14px",
+      cursor: "pointer",
+      borderRadius: "50%",
+      border: "solid 2px #000",
+      backgroundColor: "#fff"
+    }
 
-  render() {
-    return (
-      <InputRange
-        maxValue={15000}
-        minValue={1000}
-        value={this.state.value}
-        onChange={value => this.setState({ value })} />
-    );
+
+    return(
+      <div style={style}><div style={tracker}></div></div>
+    )
   }
 }
-
-export default RangeSlider

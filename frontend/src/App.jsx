@@ -1,7 +1,9 @@
-import './App.scss';
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
-import { Basic } from './page/basic/basic'
+import './App.scss';
+
+import { BasicPage } from './page/basic/basic'
+import { ApplicationFormPage } from './page/application-form/application-form'
 import { ErrorPage } from './page/errorPage/errorPage'
 
 const App = () => {
@@ -9,7 +11,8 @@ const App = () => {
     <>
     <div className="App"></div>
     <Routes>
-      <Route path="/" element={ <Basic /> } />
+      <Route path="/" element={ <BasicPage /> } />
+      <Route path="/application-form" element={ <ApplicationFormPage /> } />
       <Route path="*" element={ <ErrorPage /> } />
     </Routes>
     </>
