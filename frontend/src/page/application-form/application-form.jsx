@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import styled from 'styled-components'
+import { IMaskInput } from 'react-imask'
 
 import './application-form.scss'
 
@@ -17,9 +18,12 @@ import IconEmailPng from '../../img/basic-page-img/icon-email.png'
 import FooterWatchPng from '../../img/basic-page-img/footer-watch.png'
 import FooterLocationPng from '../../img/basic-page-img/footer-location.png'
 
+
 const ApplicationFormPage = () => {
 
-  const { 
+
+  const [ value, setValue ] = useState();
+  const {
     register,
     formState:
     { errors, },
@@ -29,6 +33,7 @@ const ApplicationFormPage = () => {
 
   const onSubmit = (data) => {
     reset();
+    console.log(value)
   }
 
   const WarrningError = styled.p`
@@ -250,7 +255,7 @@ const ApplicationFormPage = () => {
                             maxLength: {
                               value:30,
                               message: "Не больше 30 символов"
-                            },
+                            }
                           })}
                         />
                       <WarrningError>{errors?.lastName && <p>{errors?.lastName?.message || `*Необходимо заполнить поле "Фамилия"`}</p>}</WarrningError>
@@ -276,7 +281,7 @@ const ApplicationFormPage = () => {
                         <label className="control-label">Отчество</label>
                         <input id="middle_name" className="input_field rus" type="text" data-required="false" data-index_group="" placeholder="" defaultValue="" 
                           {...register('middleName', {
-                            required: true,
+                            required: false,
                             minLength: {
                               value: 2,
                               message: "Минимум 3 символа"
@@ -284,16 +289,27 @@ const ApplicationFormPage = () => {
                             maxLength: {
                               value: 30,
                               message: "Не больше 30 символов"
-                            },
-                            disabled: true
+                            }
                           })}
                         />
                         <WarrningError>{errors?.middleName && <p>{errors?.middleName?.message || `Необходимо заполнить поле "Отчество"`}</p>}</WarrningError>
                       </div>
                       <div className="input-box inpBxFF" id="form_default_mobile_phone">
                         <label className="control-label">Номер телефона</label>
-                        <input id="default_mobile_phone" className="input_field phone_num search_in_session" type="text" data-number-mask="use" data-autoclear-mask="true" data-required="true" name="kontaktnaya_informaciya[default_mobile_phone]" data-index_group="" placeholder="" defaultValue="" />
-                        <div id="error_default_mobile_phone" className="help-block hidden">Необходимо заполнить поле &quot;Номер телефона&quot;</div>
+                        <IMaskInput
+                          type='tel'
+                          mask={'+{7}(000)000-00-00'}
+                          lazy={false}
+                          placeholderChar="_"
+                          value=""
+                          unmask={true}
+                          onAccept={ (value, mask) => console.log(setValue) }
+                          placeholder={"+7 (___)___-____"}
+                          {...register('phoneNumber',{
+                            required: true
+                          })}
+                        />
+                        <WarrningError>{errors?.phoneNumber && <p>{errors?.phoneNumber?.message || `*Необходимо заполнить поле "Номер телефона"`}</p>}</WarrningError>
                       </div>
                       <div className="input-box inpBxFF" id="form_email">
                         <label className="control-label">Email адрес</label>
