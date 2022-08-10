@@ -3,36 +3,34 @@ import Slider from 'rc-slider' // custom library - rc-slider
 import { Link } from "react-router-dom";
 import 'rc-slider/assets/index.css' // custom library - styled-components
 
-import './basic.scss'
-
 // className = wrapper container site-header__wrapper
-import PresonPng from '../../img/basic-page-img/person.png'
-import BurgerPng from '../../img/basic-page-img/burger.png'
+import PresonPng from '../../img/basic/person.png'
+import BurgerPng from '../../img/basic/burger.png'
 
 // className = carts_wrapper flex --just-center
-import ViasPng from '../../img/basic-page-img/visa.png'
-import MasterCardPng from '../../img/basic-page-img/mastercard.png'
-import MirPng from '../../img/basic-page-img/mir.png'
+import ViasPng from '../../img/basic/visa.png'
+import MasterCardPng from '../../img/basic/mastercard.png'
+import MirPng from '../../img/basic/mir.png'
 
 // className = blocks wrapper flex --just-center
-import OneBlock from '../../img/basic-page-img/1.png'
-import TicketPng from '../../img/basic-page-img/ticket.png'
-import TwoBlock from '../../img/basic-page-img/2.png'
-import WatchPng from '../../img/basic-page-img/watch.png'
-import ThreeBlock from '../../img/basic-page-img/3.png'
-import MobilePng from '../../img/basic-page-img/mobile.png'
+import OneBlock from '../../img/basic/1.png'
+import TicketPng from '../../img/basic/ticket.png'
+import TwoBlock from '../../img/basic/2.png'
+import WatchPng from '../../img/basic/watch.png'
+import ThreeBlock from '../../img/basic/3.png'
+import MobilePng from '../../img/basic/mobile.png'
 
 // className = info__imgs
-import CapPng from '../../img/basic-page-img/cap.png'
-import TvPng from '../../img/basic-page-img/tv.png'
-import MedicPng from '../../img/basic-page-img/medic.png'
-import CoinPng from '../../img/basic-page-img/coin.png'
-import TrevelPng from '../../img/basic-page-img/trevel.png'
+import CapPng from '../../img/basic/cap.png'
+import TvPng from '../../img/basic/tv.png'
+import MedicPng from '../../img/basic/medic.png'
+import CoinPng from '../../img/basic/coin.png'
+import TrevelPng from '../../img/basic/trevel.png'
 
 // className = __tariff
-import TariffIconPng from '../../img/basic-page-img/tariff-icon.png'
-import TariffCoinPng from '../../img/basic-page-img/tariif-coin.png'
-import Tariff24Png from '../../img/basic-page-img/tariff-24.png'
+import TariffIconPng from '../../img/basic/tariff-icon.png'
+import TariffCoinPng from '../../img/basic/tariif-coin.png'
+import Tariff24Png from '../../img/basic/tariff-24.png'
 
 // className = grid 
 import N200Png from '../../img/default/files/2022-02/n200.jpg'
@@ -41,17 +39,17 @@ import CentroPng from '../../img/default/files/2021-10/4.png'
 import LoanPng from '../../img/default/files/2021-10/3.png'
 
 // className = apply-loan__body
-import Loan1Png from '../../img/basic-page-img/loan1.png'
-import Loan2Png from '../../img/basic-page-img/loan2.png'
-import Loan3Png from '../../img/basic-page-img/loan3.png'
-import Loan4Png from '../../img/basic-page-img/loan4.png'
-import Loan5Png from '../../img/basic-page-img/loan5.png'
-import Loan6Png from '../../img/basic-page-img/loan6.png'
+import Loan1Png from '../../img/basic/loan1.png'
+import Loan2Png from '../../img/basic/loan2.png'
+import Loan3Png from '../../img/basic/loan3.png'
+import Loan4Png from '../../img/basic/loan4.png'
+import Loan5Png from '../../img/basic/loan5.png'
+import Loan6Png from '../../img/basic/loan6.png'
 
 //className = footer-wrapper wrapper container flex --just-space
-import IconEmailPng from '../../img/basic-page-img/icon-email.png'
-import FooterWatchPng from '../../img/basic-page-img/footer-watch.png'
-import FooterLocationPng from '../../img/basic-page-img/footer-location.png'
+import IconEmailPng from '../../img/basic/icon-email.png'
+import FooterWatchPng from '../../img/basic/footer-watch.png'
+import FooterLocationPng from '../../img/basic/footer-location.png'
 
 const BasicPage = () => {
 
@@ -131,11 +129,11 @@ const BasicPage = () => {
             </div>
             <div className="user_info hidden">
               <div className="user_settings">
-                <img src="/img/basic-page-img/person-header.png" alt="settings"/>
+                <img src="/img/basic/person-header.png" alt="settings"/>
               </div>
               <div className="user_logout">
                 <a className="button button--icon button--icon--person" href="/cabinet/logout" aria-label="Sign out">
-                <img src="/img/basic-page-img/person.png" alt="person"/>
+                <img src="/img/basic/person.png" alt="person"/>
                 <span>Выйти</span>
                 </a>
               </div>
