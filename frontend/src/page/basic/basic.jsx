@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from 'rc-slider' // custom library - rc-slider
 import { Link } from "react-router-dom";
 import 'rc-slider/assets/index.css' // custom library - styled-components
+import { IMaskInput } from 'react-imask'
+
+import '../../sass/pages/_basic.scss'
 
 // className = wrapper container site-header__wrapper
 import PresonPng from '../../img/basic/person.png'
@@ -53,16 +56,20 @@ import FooterLocationPng from '../../img/basic/footer-location.png'
 
 const BasicPage = () => {
 
-  const [value, setValue] = useState(1000)
+  const [value, setValue] = useState(1500)
   const [day, setDay] = useState(5)
+
+  useEffect(() => {
+    console.log(value)
+  })
+
+  
 
   return (
   <>
     <body>
-      <a href="#main-content" className="visually-hidden focusable">
-      Перейти к основному содержанию
-      </a>
-      <div className="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+      <a href="#main-content" className="visually-hidden focusable">Перейти к основному содержанию</a>
+      <div className="dialog-off-canvas-main-canvas data-off-canvas-main-canvas">
         <div className="site-header">
           <div className="wrapper container site-header__wrapper">
             <nav className="nav" style={{ display: 'flex' }}>
@@ -195,65 +202,68 @@ const BasicPage = () => {
                             attr-timevalindex="1"
                             attr-position="0"
                             />
-                          <div className="params-box">
-                            <div className="param">
-                              <h4>Сумма</h4>
-                              <div className="calc-value-box">
-                                <div className="calc-value-info calc-value-info-amount">
-                                  <span id="rangeValue" className="calc-summ">
-                                  {value.toLocaleString('ru-RU')+' ₽'}
-                                  </span>
+                          <form>
+                            <div className="params-box">
+                              <div className="param">
+                                <h4>Сумма</h4>
+                                <div className="calc-value-box">
+                                  <div className="calc-value-info calc-value-info-amount">
+                                    <span id="rangeValue" className="calc-summ">
+                                    {/* {value.toLocaleString('ru-RU')+' ₽'} */}
+                                    <input id="description" type="text" name="description" value={value} onChange={ (e) => setValue(e.target.value)} />
+                                    </span>
+                                  </div>
+                                  <input type="text" defaultValue="1 500" className="calc-summ num"/>
                                 </div>
-                                <input type="text" defaultValue="1 500" className="calc-summ num"/>
-                              </div>
-                              <div className="slider-range-box">
-                                <Slider
-                                  min={1000}
-                                  max={15000}
-                                  step={500}
-                                  defaultValue={1000}
-                                  onChange={setValue}
-                                  trackStyle={{ backgroundColor: 'rgb(255, 102, 43)' }}
-                                  railStyle={{backgroundColor: 'rgb(221, 221, 221)'}}
-                                />
-                              </div>
-                              <p className="range_label flex justify-content-between">
-                                <span>1 500</span>
-                                <span>15 000</span>
-                              </p>
-                            </div>
-                            <div className="param">
-                              <h4>Срок</h4>
-                              <div className="calc-value-box">
-                                <div className="calc-value-info calc-value-info-term">
-                                  <span className="calc-limit">
-                                  {day} дней
-                                  </span>
-                                </div>
-                                <input type="text" defaultValue="5" className="calc-limit num"/>
-                              </div>
-                              <div className="slider-range-box">
-                                <Slider
-                                    min={5}
-                                    max={30}
-                                    step={1}
-                                    defaultValue={5}
-                                    onChange={setDay}
+                                <div className="slider-range-box">
+                                  <Slider
+                                    min={1500}
+                                    max={15000}
+                                    step={500}
+                                    value={value}
+                                    onChange={setValue}
                                     trackStyle={{ backgroundColor: 'rgb(255, 102, 43)' }}
                                     railStyle={{backgroundColor: 'rgb(221, 221, 221)'}}
                                   />
+                                </div>
+                                <p className="range_label flex justify-content-between">
+                                  <span>1 500</span>
+                                  <span>15 000</span>
+                                </p>
                               </div>
-                              <p className="range_label flex justify-content-between">
-                                <span className="limit_min ">5 дней</span>
-                                <span className="limit_max ">30 дней</span>
-                              </p>
+                              <div className="param">
+                                <h4>Срок</h4>
+                                <div className="calc-value-box">
+                                  <div className="calc-value-info calc-value-info-term">
+                                    <span className="calc-limit">
+                                    {day} дней
+                                    </span>
+                                  </div>
+                                  <input type="text" defaultValue="5" className="calc-limit num"/>
+                                </div>
+                                <div className="slider-range-box">
+                                  <Slider
+                                      min={5}
+                                      max={30}
+                                      step={1}
+                                      defaultValue={5}
+                                      onChange={setDay}
+                                      trackStyle={{ backgroundColor: 'rgb(255, 102, 43)' }}
+                                      railStyle={{backgroundColor: 'rgb(221, 221, 221)'}}
+                                    />
+                                </div>
+                                <p className="range_label flex justify-content-between">
+                                  <span className="limit_min ">5 дней</span>
+                                  <span className="limit_max ">30 дней</span>
+                                </p>
+                              </div>
+                              <Link to="application-form">
+                                <div className="calc-btn">
+                                  <button type="button" className="btn btn-primary" name="btn_calc" id="calc_butt">Забираю</button>
+                                </div>
+                              </Link>
                             </div>
-                          </div>
-                          <Link to="application-form">
-                            <div className="calc-btn">
-                              <button type="button" className="btn btn-primary" name="btn_calc" id="calc_butt" defaultValue="1">Забираю</button>
-                            </div>
-                          </Link>
+                          </form>
                           <div className="calc-desc">
                             <div className="cd_info">
                               <p>Вы берете</p>
@@ -515,7 +525,7 @@ const BasicPage = () => {
                         <h1>Получи займ<br/>и сделай себе подарок</h1>
                       </div>
                       <div className="promo__button__wrap">
-                        {/* <button className="promo__button common-btn" className=="window.top.location='/form/reg.php'">Заполнить анкету</button> */}
+                        <button className="promo__button common-btn" className="window.top.location='/form/reg.php'">Заполнить анкету</button>
                       </div>
                     </div>
                   </div>
