@@ -275,7 +275,7 @@ const ApplicationFormPage = () => {
                           placeholderChar="_"
                           unmask={true}
                           ref={(x) => { this.inputComponent.maskValue = setPhoneNumber(x) }}
-                          onAccept={ (value, mask) => console.log(value) }
+                          onAccept={ (value) => console.log(value) }
                           {...register('phoneNumber',{
                             required: true
                           })}

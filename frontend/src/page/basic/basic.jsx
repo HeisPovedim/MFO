@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import ReactDOM from 'react-dom'
 import Slider from 'rc-slider' // custom library - rc-slider
 import { Link } from "react-router-dom";
 import 'rc-slider/assets/index.css' // custom library - styled-components
 import { IMaskInput } from 'react-imask'
+import { useRef } from 'react';
 
+import {convertObjectValues} from "../../components/convert-object-values";
 import '../../sass/pages/_basic.scss'
 
 // className = wrapper container site-header__wrapper
@@ -53,17 +56,21 @@ import Loan6Png from '../../img/basic/loan6.png'
 import IconEmailPng from '../../img/basic/icon-email.png'
 import FooterWatchPng from '../../img/basic/footer-watch.png'
 import FooterLocationPng from '../../img/basic/footer-location.png'
+import { Masked } from "imask";
 
 const BasicPage = () => {
 
+  const ref = useRef(null);
   const [value, setValue] = useState(1500)
   const [day, setDay] = useState(5)
 
   useEffect(() => {
-    console.log(value)
+    console.log("useEffect: "+value)
+    console.log("conver: "+convertObjectValues(value.toLocaleString('ru-RU'), true))
   })
 
-  
+  const [showResults, setShowResults] = React.useState(true)
+  const onSubmit = () => setShowResults(true)
 
   return (
   <>
@@ -202,27 +209,46 @@ const BasicPage = () => {
                             attr-timevalindex="1"
                             attr-position="0"
                             />
-                          <form>
                             <div className="params-box">
                               <div className="param">
                                 <h4>Сумма</h4>
                                 <div className="calc-value-box">
                                   <div className="calc-value-info calc-value-info-amount">
                                     <span id="rangeValue" className="calc-summ">
-                                    {/* {value.toLocaleString('ru-RU')+' ₽'} */}
-                                    <input id="description" type="text" name="description" value={value} onChange={ (e) => setValue(e.target.value)} />
+                                      {/* <input className="calc-summ num" id="description" type="number" 
+                                        // value={value.toString().replace(/[^\d]/g, '').replace(/\B(?=(?:\d{3})+(?!\d))/g, ' ')} 
+                                        value={value} 
+                                        min="1500"
+                                        max="15000"
+                                        onInput={(e) => setValue(e.target.value)}
+                                      /> */}
+                                      <IMaskInput
+                                        // value={convertObjectValues((Math.round(value/10)*10), true)}
+                                        value={convertObjectValues(value, true)}
+                                        mask={Number}
+                                        min={1500}
+                                        max={15000}
+                                        thousandsSeparator= ' '
+                                        lazy={false}
+                                        placeholder={value}
+                                        unmask={true}
+                                        onAccept={ (value) => setValue(value) }
+                                        
+                                        ref={ref}
+                                      />
+                                      
                                     </span>
                                   </div>
-                                  <input type="text" defaultValue="1 500" className="calc-summ num"/>
+                                  <input type="text" default Value="1 500" />
                                 </div>
-                                <div className="slider-range-box">
+                                <div className="slider-range-box" >
                                   <Slider
                                     min={1500}
                                     max={15000}
                                     step={500}
                                     value={value}
                                     onChange={setValue}
-                                    trackStyle={{ backgroundColor: 'rgb(255, 102, 43)' }}
+                                    trackStyle={{ backgroundColor: 'rgb(255, 102, 43)'}}
                                     railStyle={{backgroundColor: 'rgb(221, 221, 221)'}}
                                   />
                                 </div>
@@ -263,7 +289,6 @@ const BasicPage = () => {
                                 </div>
                               </Link>
                             </div>
-                          </form>
                           <div className="calc-desc">
                             <div className="cd_info">
                               <p>Вы берете</p>
