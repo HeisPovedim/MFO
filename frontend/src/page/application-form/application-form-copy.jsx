@@ -19,14 +19,17 @@ import FooterWatchPng from '../../img/basic/footer-watch.png'
 import FooterLocationPng from '../../img/basic/footer-location.png'
 
 
-const ApplicationFormPage = () => {
+const TestPage = () => {
 
   useEffect(() => {
     console.log(lastName)
-    console.log(firstName)
-    console.log(middleName)
+    // console.log(firstName)
+    // console.log(middleName)
   })
   const ref = useRef(null);
+
+  // const reGex = new RegExp(/[^а-яА-ЯёЁ\s]/gi, '')
+  const reGex = new RegExp(/[^A-Za-z]/ig, '')
 
   // Стейты id: SIState
   const [phoneNumber, setPhoneNumber] = useState()
@@ -244,19 +247,16 @@ const ApplicationFormPage = () => {
                     <div className="wrapper-inputs frst_stp">
                       <div className="input-box inpBxFF" id="form_last_name">
                         <label className="control-label">Фамилия</label>
-                        <input id="last_name" className="input_field rus search_in_session" type="text" placeholder="Фамилия" value={lastName}
-                          {...register('lastName', { 
-                            required: true,
-                            minLength: {
-                              value: 2,
-                              message: "*Минимум 2 символа"
-                            },
-                            maxLength: {
-                              value:30,
-                              message: "*Не больше 30 символов"
-                            },
-                            onChange: (event) => handlerLastName(event.target.value)
-                          })}
+                        <IMaskInput
+                          type='text'
+                          mask={reGex}
+                          lazy={false}
+                          placeholder="Фамилия"
+                          unmask={true}
+                          value={lastName}
+                          onAccept={ (event) => handlerLastName(event) }
+                          
+
                         />
                       <WarrningError>{errors?.lastName && <p>{errors?.lastName?.message || `*Необходимо заполнить поле "Фамилия"`}</p>}</WarrningError>
                       </div>
@@ -505,4 +505,4 @@ const ApplicationFormPage = () => {
   )
 }
 
-export {ApplicationFormPage}
+export {TestPage}

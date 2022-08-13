@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
-import ReactDOM from 'react-dom'
+import React, { useState } from "react";
 import Slider from 'rc-slider' // custom library - rc-slider
 import { Link } from "react-router-dom";
 import 'rc-slider/assets/index.css' // custom library - styled-components
 import { IMaskInput } from 'react-imask'
-import { useRef } from 'react';
 
 import {convertObjectValues} from "../../components/convert-object-values";
 import '../../sass/pages/_basic.scss'
@@ -56,21 +54,20 @@ import Loan6Png from '../../img/basic/loan6.png'
 import IconEmailPng from '../../img/basic/icon-email.png'
 import FooterWatchPng from '../../img/basic/footer-watch.png'
 import FooterLocationPng from '../../img/basic/footer-location.png'
-import { Masked } from "imask";
 
 const BasicPage = () => {
 
-  const ref = useRef(null);
-  const [value, setValue] = useState(1500)
-  const [day, setDay] = useState(5)
+  const [valueSum, setValueSum] = useState(1500)
+  const [valueDay, setValueDay] = useState(5) 
+  const current = new Date()
 
-  useEffect(() => {
-    console.log("useEffect: "+value)
-    console.log("conver: "+convertObjectValues(value.toLocaleString('ru-RU'), true))
-  })
+  function divideNumberByPieces(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  }
 
-  const [showResults, setShowResults] = React.useState(true)
-  const onSubmit = () => setShowResults(true)
+  const handlerBlurSum = () => { 
+    setValueSum(convertObjectValues((Math.round(valueSum/500)*500), true))
+  }
 
   return (
   <>
@@ -214,30 +211,21 @@ const BasicPage = () => {
                                 <h4>Сумма</h4>
                                 <div className="calc-value-box">
                                   <div className="calc-value-info calc-value-info-amount">
-                                    <span id="rangeValue" className="calc-summ">
-                                      {/* <input className="calc-summ num" id="description" type="number" 
-                                        // value={value.toString().replace(/[^\d]/g, '').replace(/\B(?=(?:\d{3})+(?!\d))/g, ' ')} 
-                                        value={value} 
-                                        min="1500"
-                                        max="15000"
-                                        onInput={(e) => setValue(e.target.value)}
-                                      /> */}
+                                    <span id="rangeValue" className="calc-summ" style={{ display: "inline-block" }}>
                                       <IMaskInput
-                                        // value={convertObjectValues((Math.round(value/10)*10), true)}
-                                        value={convertObjectValues(value, true)}
-                                        mask={Number}
-                                        min={1500}
-                                        max={15000}
-                                        thousandsSeparator= ' '
+                                        value={convertObjectValues(valueSum, true)}
+                                        mask={"a d"}
+                                        blocks={{ d: { mask: "₽" }, a:{mask: Number, thousandsSeparator: ' ', min: 1500, max: 15000} }}
                                         lazy={false}
-                                        placeholder={value}
+                                        placeholder={valueSum}
                                         unmask={true}
-                                        onAccept={ (value) => setValue(value) }
-                                        
-                                        ref={ref}
+                                        onAccept={ (value) => setValueSum(value) }
+                                        onBlur={handlerBlurSum}
+                                        onPointerLeave={handlerBlurSum}
+                                        onClick={handlerBlurSum}
                                       />
-                                      
                                     </span>
+                                    
                                   </div>
                                   <input type="text" default Value="1 500" />
                                 </div>
@@ -246,8 +234,8 @@ const BasicPage = () => {
                                     min={1500}
                                     max={15000}
                                     step={500}
-                                    value={value}
-                                    onChange={setValue}
+                                    value={valueSum}
+                                    onChange={setValueSum}
                                     trackStyle={{ backgroundColor: 'rgb(255, 102, 43)'}}
                                     railStyle={{backgroundColor: 'rgb(221, 221, 221)'}}
                                   />
@@ -262,18 +250,27 @@ const BasicPage = () => {
                                 <div className="calc-value-box">
                                   <div className="calc-value-info calc-value-info-term">
                                     <span className="calc-limit">
-                                    {day} дней
+                                      <IMaskInput
+                                        value={convertObjectValues(valueDay, true)}
+                                        mask={"a d"}
+                                        blocks={{ d: { mask: "дней" }, a:{mask: Number, min: 5, max: 30} }}
+                                        lazy={false}
+                                        placeholder={valueDay}
+                                        unmask={true}
+                                        onAccept={ (value) => setValueDay(value) }
+                                      />
                                     </span>
                                   </div>
-                                  <input type="text" defaultValue="5" className="calc-limit num"/>
+                                  <input type="text" defaultValue="5" className="calc-limit num" />
+                                  
                                 </div>
                                 <div className="slider-range-box">
                                   <Slider
                                       min={5}
                                       max={30}
                                       step={1}
-                                      defaultValue={5}
-                                      onChange={setDay}
+                                      value={valueDay}
+                                      onChange={setValueDay}
                                       trackStyle={{ backgroundColor: 'rgb(255, 102, 43)' }}
                                       railStyle={{backgroundColor: 'rgb(221, 221, 221)'}}
                                     />
@@ -292,19 +289,16 @@ const BasicPage = () => {
                           <div className="calc-desc">
                             <div className="cd_info">
                               <p>Вы берете</p>
-                              <p><span className="calc-summ">1 500 &#8381;</span></p>
+                              <p><span className="calc-summ">{ valueSum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") } &#8381;</span></p>
                             </div>
                             <div className="cd_info">
                               <p>До (включительно)</p>
-                              <p><span className="calc-day-short">14.08.2022 г.</span></p>
+                              <p><span className="calc-day-short">{new Intl.DateTimeFormat('ru', { year: 'numeric', month: '2-digit', day: '2-digit'}).format(current.setDate(current.getDate() + convertObjectValues(valueDay, false)))}г.</span></p>
                             </div>
                             <div className="cd_info">
                               <p className="payment_period">Возвращаете</p>
                               <p>
-                                <span className="calc-total">
-                                1 575
-                                &#8381;
-                                </span>
+                                <span className="calc-total">{ divideNumberByPieces(convertObjectValues( convertObjectValues(Math.trunc(valueSum / 100 * valueDay), false) + convertObjectValues(valueSum, false), true)) }&#8381;</span>
                               </p>
                             </div>
                           </div>

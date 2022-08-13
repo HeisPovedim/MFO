@@ -16272,6 +16272,7 @@ input {
 input[type="email"],
 input[type="password"],
 input[type="text"],
+input[type="tel"],
 select,
 textarea {
   width: 100%;
@@ -19591,7 +19592,7 @@ select#card_id {
   width: 14px;
 }
 #form_middle_name .control-label:after {
-  content: " (РїСЂРё РЅР°Р»РёС‡РёРё)";
+  content: " (при наличии)";
   color: #999999;
   font-size: 14px;
   font-weight: 400;
