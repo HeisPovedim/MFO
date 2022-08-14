@@ -21,10 +21,12 @@ import FooterLocationPng from '../../img/basic/footer-location.png'
 
 const ApplicationFormPage = () => {
 
+  
   useEffect(() => {
     console.log(lastName)
     console.log(firstName)
     console.log(middleName)
+
   })
   const ref = useRef(null);
 
@@ -72,7 +74,8 @@ const ApplicationFormPage = () => {
   const handlerTest = (event) => {
     
   }
-  
+
+
   return(
   <>
     <a href="#main-content" className="visually-hidden focusable"> Перейти к основному содержанию</a>
@@ -298,10 +301,10 @@ const ApplicationFormPage = () => {
                       </div>
                       <div className="input-box inpBxFF" id="form_default_mobile_phone">
                         <label className="control-label">Номер телефона</label>
-                        {/* <input id="default_mobile_phone" class="input_field phone_num search_in_session" type="tel" value="" 
+                        <input id="default_mobile_phone" class="input_field phone_num search_in_session" type="tel" value={phoneNumber} onChange={ event => setPhoneNumber(event.target.value) } 
 
-                        /> */}
-                        <IMaskInput
+                        />
+                        {/* <IMaskInput
                           type='tel'
                           mask={'+{7}(000)000-00-00'}
                           lazy={false}
@@ -312,7 +315,7 @@ const ApplicationFormPage = () => {
                           {...register('phoneNumber', {
                             required: `*Необходимо заполнить поле "Номер телефона"`
                           })}
-                        />
+                        /> */}
                         <WarrningError>{errors?.phoneNumber && <p>{errors?.phoneNumber?.message || `*Необходимо заполнить поле "Номер телефона"`}</p>}</WarrningError>
                       </div>
                       <div className="input-box inpBxFF" id="form_email">

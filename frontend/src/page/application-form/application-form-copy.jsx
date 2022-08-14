@@ -1,10 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+
+// Custom libraries 
 import styled from 'styled-components'
 import { IMaskInput } from 'react-imask'
+import InputMask from "react-input-mask";
 import { capitalizeFirstLetter } from '../../components/capitalize-first-letter'
+import NumberFormat from 'react-number-format';
 
 //className = wrapper container site-header__wrapper
 import PresonPng from '../../img/basic/person.png'
@@ -22,33 +26,40 @@ import FooterLocationPng from '../../img/basic/footer-location.png'
 const TestPage = () => {
 
   useEffect(() => {
-    console.log(lastName)
-    // console.log(firstName)
-    // console.log(middleName)
+    console.log("Last Name: "+lastName)
+    console.log("First Name: "+firstName)
+    console.log("Middle Name: "+middleName)
+    console.log("Phone Name: "+phoneNumber)
   })
   const ref = useRef(null);
 
-  // const reGex = new RegExp(/[^а-яА-ЯёЁ\s]/gi, '')
-  const reGex = new RegExp(/[^A-Za-z]/ig, '')
+  const reGex = new RegExp(/[^A-Za-z\d!@#$%^*_&*<>?,./"№;%:*'|()=+-{}/\\/]+$/i) // work
 
   // Стейты id: SIState
   const [phoneNumber, setPhoneNumber] = useState()
   const [lastName, setLastName] = useState("")
+  const [messageLastName, setMessageLastName] = useState("")
   const [firstName, setFirstName] = useState("")
   const [middleName, setMiddleName] = useState("")
+
+  
+
   const {
     register,
     formState:
     { errors, },
     handleSubmit,
     reset,
-    resetField
+    control
   } = useForm({ mode: "onBlur" })
 
   const onSubmit = (data) => {
-    console.log(ref)
-    console.log(lastName)
+    console.log("Last Name: "+lastName)
+    console.log("First Name: "+firstName)
+    console.log("Middle Name: "+middleName)
+    console.log("Phone Name: "+phoneNumber)
     console.log(data)
+    alert("Ура, все получилось!")
     reset();
   }
 
@@ -62,7 +73,13 @@ const TestPage = () => {
       text-align: center;
     }
   `
-  // Хендрепы id: CIHandler
+
+  const Input = React.memo(props => {
+    const { name, inputRef, value, maskChar, ...inputProps } = props;
+    return <input value={value} name={name} ref={inputRef} {...inputProps} />;
+  });
+
+  // Хандлеры id: CIHandler
   const handlerLastName = (event) => {
     setLastName(capitalizeFirstLetter(event.replace(/[^а-яА-ЯёЁ\s]/gi, '')))
   }
@@ -247,18 +264,21 @@ const TestPage = () => {
                     <div className="wrapper-inputs frst_stp">
                       <div className="input-box inpBxFF" id="form_last_name">
                         <label className="control-label">Фамилия</label>
-                        <IMaskInput
-                          type='text'
-                          mask={reGex}
-                          lazy={false}
-                          placeholder="Фамилия"
-                          unmask={true}
-                          value={lastName}
-                          onAccept={ (event) => handlerLastName(event) }
-                          
-
+                        <input id="last_name" className="input_field rus search_in_session" type="text" placeholder="Фамилия" value={lastName}
+                          {...register('lastName', { 
+                            required: true,
+                            minLength: {
+                              value: 2,
+                              message: "*Минимум 2 символа"
+                            },
+                            maxLength: {
+                              value:30,
+                              message: "*Не больше 30 символов"
+                            },
+                            onChange: (event) => handlerLastName(event.target.value)
+                          })}
                         />
-                      <WarrningError>{errors?.lastName && <p>{errors?.lastName?.message || `*Необходимо заполнить поле "Фамилия"`}</p>}</WarrningError>
+                      <WarrningError>{errors?.lastName && <p>{errors?.lastName?.message || `*Необходимо заполнить поле "Имя"`}</p>}</WarrningError>
                       </div>
                       <div className="input-box inpBxFF" id="form_first_name">
                         <label className="control-label">Имя</label>
@@ -298,22 +318,33 @@ const TestPage = () => {
                       </div>
                       <div className="input-box inpBxFF" id="form_default_mobile_phone">
                         <label className="control-label">Номер телефона</label>
-                        {/* <input id="default_mobile_phone" class="input_field phone_num search_in_session" type="tel" value="" 
-
-                        /> */}
-                        <IMaskInput
-                          type='tel'
-                          mask={'+{7}(000)000-00-00'}
-                          lazy={false}
-                          placeholderChar="_"
-                          unmask={true}
-                          ref={(x) => { this.inputComponent.maskValue = setPhoneNumber(x) }}
-                          onAccept={ (value) => console.log(value) }
-                          {...register('phoneNumber', {
-                            required: `*Необходимо заполнить поле "Номер телефона"`
-                          })}
+                        <Controller
+                          control={control}
+                          name="phoneNumber"
+                          onChange={ (event) => setPhoneNumber(event.target.value) }
+                          rules={{
+                            required: true,
+                            minLength : {
+                              value: 11,
+                              message: "*Заполните полностью поле телефона"
+                            }
+                          }}
+                          render={({
+                            field: { onChange, value }, 
+                            fieldState: { error } 
+                          }) => (
+                            <>
+                            <NumberFormat
+                              type="tel"
+                              format="+7 (###) ###-####" allowEmptyFormatting mask="_"
+                              removeMaskOnSubmit={true}
+                              // onChange={ (even) => onChange(setPhoneNumber(even.target.value.replace(/[+()_-]/g, '').replace(/\s/g, ''))) }
+                              onChange={ (event) => {onChange(event.target.value.replace(/[+()_-]/g, '').replace(/\s/g, '')); setPhoneNumber(event.target.value.replace(/[+()_-]/g, '').replace(/\s/g, ''))} }
+                            />
+                            <WarrningError>{errors?.phoneNumber && <p>{errors?.phoneNumber?.message || `*Необходимо заполнить поле "Номер телефона"`}</p>}</WarrningError>
+                            </>
+                          )}
                         />
-                        <WarrningError>{errors?.phoneNumber && <p>{errors?.phoneNumber?.message || `*Необходимо заполнить поле "Номер телефона"`}</p>}</WarrningError>
                       </div>
                       <div className="input-box inpBxFF" id="form_email">
                         <label className="control-label">Email адрес</label>

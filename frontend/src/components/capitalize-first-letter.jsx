@@ -1,4 +1,5 @@
 // Делает первую букву в строке заглавной
 export const capitalizeFirstLetter = (string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1)
+  let strNew = string.toLowerCase()
+  return strNew.charAt(0).toUpperCase() + strNew.slice(1)
 }
