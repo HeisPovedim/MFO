@@ -3,10 +3,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 
-// Custom libraries 
+// Custom libraries
 import styled from 'styled-components'
-import { IMaskInput } from 'react-imask'
-import InputMask from "react-input-mask";
 import { capitalizeFirstLetter } from '../../components/capitalize-first-letter'
 import NumberFormat from 'react-number-format';
 
@@ -74,11 +72,6 @@ const TestPage = () => {
     }
   `
 
-  const Input = React.memo(props => {
-    const { name, inputRef, value, maskChar, ...inputProps } = props;
-    return <input value={value} name={name} ref={inputRef} {...inputProps} />;
-  });
-
   // Хандлеры id: CIHandler
   const handlerLastName = (event) => {
     setLastName(capitalizeFirstLetter(event.replace(/[^а-яА-ЯёЁ\s]/gi, '')))
@@ -88,9 +81,6 @@ const TestPage = () => {
   }
   const handlerMiddleName = (event) => {
     setMiddleName(capitalizeFirstLetter(event.replace(/[^а-яА-ЯёЁ\s]/gi, '')))
-  }
-  const handlerTest = (event) => {
-    
   }
   
   return(
@@ -338,7 +328,6 @@ const TestPage = () => {
                               type="tel"
                               format="+7 (###) ###-####" allowEmptyFormatting mask="_"
                               removeMaskOnSubmit={true}
-                              // onChange={ (even) => onChange(setPhoneNumber(even.target.value.replace(/[+()_-]/g, '').replace(/\s/g, ''))) }
                               onChange={ (event) => {onChange(event.target.value.replace(/[+()_-]/g, '').replace(/\s/g, '')); setPhoneNumber(event.target.value.replace(/[+()_-]/g, '').replace(/\s/g, ''))} }
                             />
                             <WarrningError>{errors?.phoneNumber && <p>{errors?.phoneNumber?.message || `*Необходимо заполнить поле "Номер телефона"`}</p>}</WarrningError>

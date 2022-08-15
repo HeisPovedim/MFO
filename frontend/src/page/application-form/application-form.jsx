@@ -1,12 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+
+// custom components
+import { capitalizeFirstLetter } from '../../components/capitalize-first-letter'
+import { formatNumber } from '../../components/format-numbers.jsx'
+
+
+// custom libraries
 import styled from 'styled-components'
 import { IMaskInput } from 'react-imask'
-import { capitalizeFirstLetter } from '../../components/capitalize-first-letter'
+import NumberFormat from 'react-number-format';
 
-//className = wrapper container site-header__wrapper
+// className = wrapper container site-header__wrapper
 import PresonPng from '../../img/basic/person.png'
 import BurgerPng from '../../img/basic/burger.png'
 
@@ -17,21 +24,24 @@ import PersonHeaderPng from '../../img/basic/person-header.png'
 import IconEmailPng from '../../img/basic/icon-email.png'
 import FooterWatchPng from '../../img/basic/footer-watch.png'
 import FooterLocationPng from '../../img/basic/footer-location.png'
+import { hasFormSubmit } from '@testing-library/user-event/dist/utils'
+import { convertObjectValues } from '../../components/convert-object-values'
 
 
 const ApplicationFormPage = () => {
 
-  
   useEffect(() => {
-    console.log(lastName)
-    console.log(firstName)
-    console.log(middleName)
-
+    // console.log("Last Name: "+lastName)
+    // console.log("First Name: "+firstName)
+    // console.log("Middle Name: "+middleName)
+    console.log("Phone Name: "+phoneNumber)
   })
+  
   const ref = useRef(null);
 
-  // Стейты id: SIState
+  // СТЕЙТЫ
   const [phoneNumber, setPhoneNumber] = useState()
+  const [email, setEmail] = useState()
   const [lastName, setLastName] = useState("")
   const [firstName, setFirstName] = useState("")
   const [middleName, setMiddleName] = useState("")
@@ -41,12 +51,12 @@ const ApplicationFormPage = () => {
     { errors, },
     handleSubmit,
     reset,
-    resetField
+
+    control
   } = useForm({ mode: "onBlur" })
 
+  // КНОПКА ДЛЯ ФОРМЫ
   const onSubmit = (data) => {
-    console.log(ref)
-    console.log(lastName)
     console.log(data)
     reset();
   }
@@ -61,7 +71,8 @@ const ApplicationFormPage = () => {
       text-align: center;
     }
   `
-  // Хендрепы id: CIHandler
+
+  // Хендлеры
   const handlerLastName = (event) => {
     setLastName(capitalizeFirstLetter(event.replace(/[^а-яА-ЯёЁ\s]/gi, '')))
   }
@@ -71,10 +82,15 @@ const ApplicationFormPage = () => {
   const handlerMiddleName = (event) => {
     setMiddleName(capitalizeFirstLetter(event.replace(/[^а-яА-ЯёЁ\s]/gi, '')))
   }
-  const handlerTest = (event) => {
-    
+  const handlerPhoneNumber = (event) => {
+    const convertEvent = convertObjectValues(event, true)
+    const formatingEvent = formatNumber(convertEvent)
+    setPhoneNumber(formatingEvent)
   }
-
+  const handlerEmail = (event) => {
+    setEmail(event)
+    console.log(event)
+  }
 
   return(
   <>
@@ -301,36 +317,58 @@ const ApplicationFormPage = () => {
                       </div>
                       <div className="input-box inpBxFF" id="form_default_mobile_phone">
                         <label className="control-label">Номер телефона</label>
-                        <input id="default_mobile_phone" class="input_field phone_num search_in_session" type="tel" value={phoneNumber} onChange={ event => setPhoneNumber(event.target.value) } 
-
+                        <Controller
+                          control={control}
+                          name="phoneNumber"
+                          onChange={ (event) => setPhoneNumber(event.target.value) }
+                          rules={{
+                            required: true,
+                            minLength : {
+                              value: 11,
+                              message: "*Заполните полностью поле телефона"
+                            }
+                          }}
+                          render={({
+                            field: { onChange, onBlur, value },
+                          }) => (
+                            <>
+                            <NumberFormat
+                              type="tel"
+                              format="+7 (###) ###-####" allowEmptyFormatting mask="_"
+                              onBlur={onBlur}
+                              value={ phoneNumber }
+                              onValueChange={(values) => {
+                                const { formattedValue, value } = values;
+                                // formattedValue = $2,223
+                                // value ie, 2223
+                                handlerPhoneNumber(value.toString());
+                              }}
+                              onChange={ (event) => {onChange(event.target.value.replace(/[^0-9]/g, ''));
+                              }}
+                            />
+                            <WarrningError>{errors?.phoneNumber && <p>{errors?.phoneNumber?.message || `*Необходимо заполнить поле "Номер телефона"`}</p>}</WarrningError>
+                            </>
+                          )}
                         />
-                        {/* <IMaskInput
-                          type='tel'
-                          mask={'+{7}(000)000-00-00'}
-                          lazy={false}
-                          placeholderChar="_"
-                          unmask={true}
-                          ref={(x) => { this.inputComponent.maskValue = setPhoneNumber(x) }}
-                          onAccept={ (value) => console.log(value) }
-                          {...register('phoneNumber', {
-                            required: `*Необходимо заполнить поле "Номер телефона"`
-                          })}
-                        /> */}
-                        <WarrningError>{errors?.phoneNumber && <p>{errors?.phoneNumber?.message || `*Необходимо заполнить поле "Номер телефона"`}</p>}</WarrningError>
                       </div>
                       <div className="input-box inpBxFF" id="form_email">
                         <label className="control-label">Email адрес</label>
-                        {/* <input id="email" className="input_field search_in_session" pattern=".+@globex\.com" type="email" data-required="true" name="kontaktnaya_informaciya[email]" data-index_group="" placeholder="" defaultValue="" 
+                        <input id="email" className="input_field search_in_session" type="email" placeholder="Email адрес" value={email}
                           {...register('email',{
-                            required: false,
-                            minLength: 5,
+                            required: true,
+                            pattern: {
+                              value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                              message: "*Неправильный формат"
+                            },
+                            minLength: 1,
                             maxLength: {
                               value: 50,
                               message: "*Почта слишком большая"
-                            }
+                            },
+                            onChange: (event) => handlerEmail(event.target.value)
                           })}
-                        /> */}
-                        <WarrningError>{errors?.email && <p>{errors?.email?.message || `*Неверный формат "Email адреса"`}</p>}</WarrningError>
+                        />
+                        <WarrningError>{errors?.email && <p>{errors?.email?.message || `*Необходимо заполнить поле "Email адрес"`}</p>}</WarrningError>
                       </div>
                       <div className="input-box hide" id="form_sms_code_plugin">
                         <label className="control-label">Код из СМС</label>

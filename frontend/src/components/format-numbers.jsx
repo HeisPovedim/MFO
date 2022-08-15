@@ -1,59 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
+// RU: Используется для формы телефона, удаляет 8 и 7 при первом введение номера телефона | EN: Used for phone form, removes 8 and 7 when first entering a phone number
+import { setCharAt } from "./set-char-at"
 
-class NumberField extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { isEditing: false };
-  }
-
-  onChange(event) {
-    this.props.onChange(event.target.value);
-  }
-
-  toCurrency(number) {
-    const formatter = new Intl.NumberFormat("sv-SE", {
-      style: "decimal",
-      currency: "SEK"
-    });
-
-    return formatter.format(number);
-  }
-
-  toggleEditing() {
-    this.setState({ isEditing: !this.state.isEditing });
-  }
-
-  render() {
-    return (
-      <div>
-        <label htmlFor={this.props.name}>Income</label>
-        {this.state.isEditing ? (
-          <input
-            type="number"
-            name={this.props.name}
-            value={this.props.value}
-            onChange={this.onChange.bind(this)}
-            onBlur={this.toggleEditing.bind(this)}
-          />
-        ) : (
-          <input
-            type="text"
-            name={this.props.name}
-            value={this.toCurrency(this.props.value)}
-            onFocus={this.toggleEditing.bind(this)}
-            readOnly
-          />
-        )}
-      </div>
-    );
+export const formatNumber = (string) => {
+  if (string.charAt(0) === "7" || string.charAt(0) === "8") {
+    return setCharAt(string, 0, "")
+  } else {
+    return string
   }
 }
-
-NumberField.propTypes = {
-  name: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func
-};
-
-export default NumberField;
