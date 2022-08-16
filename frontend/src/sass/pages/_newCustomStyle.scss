@@ -1,7 +1,6 @@
 .rc-slider, .rc-slider-horizontal {
   position: absolute;
   right: 0;
-  bottom: 0;
   padding: 0;
 }
 
@@ -29,6 +28,7 @@
   width: 100%;
   height: 6px;
   border-radius: 0px 0px 100px 100px;
+  z-index: 10;
 }
 
 .slider-range-box {
@@ -47,4 +47,45 @@
 
 .calc-value-box {
   position: relative;
+}
+
+.fakeCheckbox {
+  content: "";
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 30px;
+  width: 30px;
+}
+
+.fakeCheckbox::before {
+  content: "\2713";
+  color: #ff662b;
+  display: inline-block;
+  position: absolute;
+  top: 6px;
+  left: 5px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 700;
+  height: 12px;
+  width: 12px;
+  opacity: 0;
+  transform: .2s;
+}
+.checkbox:checked + .fakeCheckbox::before {
+  opacity: 1;
+}
+.suggestions-container {
+  position: absolute;
+  width: 100%;
+}
+
+.suggestions-wrapper {
+  position: absolute;
+  z-index: 99;
+  left: 0;
 }

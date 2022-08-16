@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import Slider from 'rc-slider' // custom library - rc-slider
 import { Link } from "react-router-dom";
-import 'rc-slider/assets/index.css' // custom library - styled-components
-import { IMaskInput } from 'react-imask'
 
-import {convertObjectValues} from "../../components/convert-object-values";
+// custom libraries
+import Slider from 'rc-slider'
+import 'rc-slider/assets/index.css'
+import { IMaskInput } from 'react-imask'
+import {convertObjectValues} from "../../components/helper/convert-object-values";
 import '../../sass/pages/_basic.scss'
 
 // className = wrapper container site-header__wrapper

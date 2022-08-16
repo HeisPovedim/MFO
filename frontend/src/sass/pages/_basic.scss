@@ -16342,29 +16342,36 @@ input[type="text"]:focus {
   padding: 40px 70px;
   position: relative;
 }
-.label-checkbox:before {
-  content: "";
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 18px;
-  width: 18px;
-}
-.label-checkbox.active:after {
-  content: "\2713";
-  color: #ff662b;
-  display: inline-block;
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 700;
-  height: 14px;
-  width: 14px;
+// @ Border content
+// .label-checkbox::before {
+//   content: "";
+//   border: 1px solid #ddd;
+//   border-radius: 5px;
+//   display: inline-block;
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   height: 18px;
+//   width: 18px;
+// }
+// @ Main content
+// .label-checkbox.active::after {
+//   content: "\2713";
+//   color: #ff662b;
+//   display: inline-block;
+//   position: absolute;
+//   top: 2px;
+//   left: 2px;
+//   text-align: center;
+//   font-size: 16px;
+//   font-weight: 700;
+//   height: 14px;
+//   width: 14px;
+//   opacity: 0;
+//   transition: .1s;
+// }
+.label-checkbox::before:checked + .label-checkbox.active::after {
+  opacity: 1;
 }
 .mr_content-box h1,
 .mr_content-box h2 {
@@ -20374,14 +20381,15 @@ div#form_place_of_birth:after {
 .wrapper-checkboxes__margin-top {
   margin-top: 32px;
 }
+// @ Basic
 .frst_stp .label-checkbox {
   padding-left: 45px !important;
 }
-.frst_stp .label-checkbox:before {
+.frst_stp .label-checkbox::before {
   height: 30px;
   width: 30px;
 }
-.frst_stp .label-checkbox.active:after {
+.frst_stp .label-checkbox.active::after {
   top: 7px;
   left: 1px;
   font-size: 23px;
