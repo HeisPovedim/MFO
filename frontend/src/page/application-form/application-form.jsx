@@ -5,6 +5,7 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 
 // custom components
 import { StepOneForm } from '../../components/application-form/step-one-form'
+import { ModalDialog } from '../../components/application-form/modal-dialog'
 
 // className = wrapper container site-header__wrapper
 import PresonPng from '../../img/basic/person.png'
@@ -20,6 +21,14 @@ import FooterLocationPng from '../../img/basic/footer-location.png'
 
 
 const ApplicationFormPage = () => {
+
+  const [statusStepOneForm, setStatusStepOneForm] = useState(true)
+  const [statusModalDialog, setStatusModalDialog] = useState(false)
+  const [phoneNumber, setPhoneNumber] = useState()
+
+  const handlerstatusStepOneForm = (event) => {
+    setStatusStepOneForm(event)
+  }
 
   return(
   <>
@@ -186,39 +195,8 @@ const ApplicationFormPage = () => {
                 </ul>
               </div>
               {/* ! Component */}
-              <StepOneForm />
-              <div className="modal fade" id="checkSMSCode" tabIndex="-1">
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <div className="modal-header">
-                      <h5 className="modal-title">Подтверждение номера телефона</h5>
-                      <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div className="modal-body text-center">
-                      <div className="alert alert-danger hidden">Ошибка</div>
-                      <p>Введите код из SMS, отправленный на номер <span className="phone_num_info">+7 (999) 777-11-00</span></p>
-                      <form method="POST" className="dnt_sbmt_frm" name="check_form">
-                        <div className="input-box">
-                          <label className="control-label">Код из смс</label>
-                          <input type="text" data-required="true" name="modal[sms_code]" maxLength="5" defaultValue="" />
-                        </div>
-                        <div className="resend_box">
-                          <div className="resend_sms" data-send-page="master_reg">Отправить код повторно</div>
-                          <p className="resend_sms_title">
-                            Получить код повторно <span className="resend_timer">60</span> сек
-                          </p>
-                        </div>
-                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Изменить номер телефона</button>
-                        <div className="modal-footer">
-                          <button type="button" className="btn btn-primary" id="confirmSMSCode">Подтвердить</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              { statusStepOneForm === true ? <StepOneForm statusStepOneForm = { setStatusStepOneForm } phoneNumber = { setPhoneNumber } /> : undefined }
+              { statusStepOneForm === true ? <ModalDialog phoneNumber = { phoneNumber } modalBack = { setStatusStepOneForm } /> : undefined }
             </div>
           </div>
         </div>

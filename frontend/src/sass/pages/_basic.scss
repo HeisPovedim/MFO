@@ -5065,9 +5065,10 @@ input[type="submit"].btn-block {
     transition: none;
   }
 }
-.fade:not(.show) {
-  opacity: 0;
-}
+// @Modal Dialog Opacity
+// .fade:not(.show) {
+//   opacity: 0;
+// }
 .collapse:not(.show) {
   display: none;
 }
@@ -7550,19 +7551,20 @@ a.close.disabled {
 .modal-open {
   overflow: hidden;
 }
+// @ Model Open
 .modal-open .modal {
   overflow-x: hidden;
   overflow-y: auto;
 }
 .modal {
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
-  z-index: 1050;
-  display: none;
+  // z-index: 1050;
+  // display: none;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  // overflow: hidden;
   outline: 0;
 }
 .modal-dialog {
@@ -14543,21 +14545,6 @@ label {
     background-color: #f8d7da;
     border-color: #f5c6cb;
   }
-  .modal-open .modal {
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1050;
-    display: none;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    outline: 0;
-  }
   .modal-dialog {
     position: relative;
     width: auto;
@@ -16274,6 +16261,7 @@ input[type="password"],
 input[type="text"],
 input[type="tel"],
 select,
+.inputDadata,
 textarea {
   width: 100%;
   height: 48px;

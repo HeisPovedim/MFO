@@ -12,7 +12,7 @@
     "node-sass": "^7.0.1",
     "rc-slider": "^10.0.1",
     "react": "^18.2.0",
-    "react-dadata-suggestions": "^2.0.0",
+    "react-dadata": "^2.22.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.33.1",
     "react-imask": "^6.4.2",
@@ -21,6 +21,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.5",
+    "suggestions-jquery": "^22.6.0",
     "url": "^0.11.0",
     "url-loader": "^4.1.1",
     "web-vitals": "^2.1.4"

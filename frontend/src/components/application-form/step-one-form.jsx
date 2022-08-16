@@ -14,21 +14,29 @@ import { formatNumber } from '../../components/helper/format-numbers.jsx'
 // custom libraries
 import styled from 'styled-components'
 import NumberFormat from 'react-number-format';
-import DadataSuggestions from 'react-dadata-suggestions';
-import "react-dadata-suggestions/dist/styles.css";
+import { EmailSuggestions } from 'react-dadata';
+import 'react-dadata/dist/react-dadata.css';
 
-const StepOneForm = () => {
+
+const StepOneForm = (props) => {
+
+  // daData
+  var token = "0a6d8a91d324ad8afcbb98473979e7329d944fd6";
+
 
   useEffect(() => {
     // console.log("Last Name: "+lastName)
     // console.log("First Name: "+firstName)
     // console.log("Middle Name: "+middleName)
-    console.log("Phone Name: "+phoneNumber)
+    // console.log("Phone Name: "+phoneNumber)
+    console.log("Email: "+email)
   })
   
   const ref = useRef(null);
 
   // СТЕЙТЫ
+  const [statusForm, setStatusForm ] = useState(false)
+
   const [checked, setChecked] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState()
   const [email, setEmail] = useState()
@@ -45,12 +53,7 @@ const StepOneForm = () => {
     control
   } = useForm({ mode: "onBlur" })
 
-  // КНОПКА ДЛЯ ФОРМЫ
-  const onSubmit = (data) => {
-    console.log(data)
-    // reset();
-  }
-
+  
   const WarrningError = styled.p`
     padding-top: 5px;
     margin: 0;
@@ -61,6 +64,14 @@ const StepOneForm = () => {
       text-align: center;
     }
   `
+  // КНОПКА ДЛЯ ФОРМЫ
+  const onSubmit = (data) => {
+    setStatusForm(true)
+    props.statusStepOneForm(false)
+    props.phoneNumber(phoneNumber)
+    console.log(data)
+    // reset();
+  }
 
   // Хендлеры
   const handlerLastName = (event) => {
@@ -82,6 +93,8 @@ const StepOneForm = () => {
     console.log(event)
   }
   
+  
+
   return (
     <>
       <div
@@ -192,7 +205,6 @@ const StepOneForm = () => {
                 <Controller
                   control={control}
                   name="phoneNumber"
-                  onChange={(event) => setPhoneNumber(event.target.value)}
                   rules={{
                     required: true,
                     minLength: {
@@ -213,7 +225,7 @@ const StepOneForm = () => {
                           const { formattedValue, value } = values;
                           // formattedValue = $2,223
                           // value ie, 2223
-                          handlerPhoneNumber(value.toString());
+                          handlerPhoneNumber(formattedValue.toString());
                         }}
                         onChange={ (event) => onChange(event.target.value.replace(/[^0-9]/g, "")) }
                       />
@@ -231,63 +243,37 @@ const StepOneForm = () => {
               </div>
               <div className="input-box inpBxFF" id="form_email">
                 <label className="control-label">Email адрес</label>
-                {/* <input
-                  id="email"
-                  className="input_field search_in_session"
-                  type="email"
-                  placeholder="Email адрес"
-                  value={email}
-                  {...register("email", {
-                    required: true,
-                    pattern: {
-                      value:
-                        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                      message: "*Неправильный формат",
-                    },
-                    minLength: 1,
-                    maxLength: {
-                      value: 50,
-                      message: "*Почта слишком большая",
-                    },
-                    onChange: (event) => handlerEmail(event.target.value),
-                  })}
-                /> */}
-                {/* <DadataSuggestions
-                  token="0a6d8a91d324ad8afcbb98473979e7329d944fd6"
-                  onSelect={ (suggestion) => console.log(suggestion) }
-                  service="email"
-                /> */}
                 <Controller 
                   control={control}
                   name="email"
-                  onChange={ (event) => setEmail(event.target.value) }
                   rules={{
                     required: true,
-                    minLength: {
-                      value: 50,
-                      message: "*Почта слишком большая",
-                    },
-                    maxLength: {
-                      value: 50,
-                      message: "*Почта слишком большая",
+                    pattern: {
+                      value:/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      message: "*Неправильный формат"
                     }
                   }}
-                  render={({ field: {onChange, onBlur, value} }) =>
+                  render={({ field: {onChange, onBlur, value} }) => (
                   <>
-                    <DadataSuggestions
-                      token="0a6d8a91d324ad8afcbb98473979e7329d944fd6"
-                      onSelect={ (suggestion) => console.log(suggestion) }
-                      service="email"
+                    <EmailSuggestions 
+                      token={token}
                       count={5}
-                      onBlur={onBlur}
-                      value={email}
-                      onChange={ (event) => {
-                        onChange({ value: event });
-                        handlerEmail({ value: event })
+                      inputProps={{
+                        value: value,
+                        className: "inputDadata",
+                        onBlur: onBlur,
+                        onChange: (event) => {
+                          onChange(event.target.value)
+                          setEmail(event.target.value)
+                        },
+                        onClick: (event) => {
+                          onChange(event.target.value)
+                          setEmail(event.target.value)
+                        },
                       }}
                     />
                   </>
-                  }
+                  )}
                 />
                 <WarrningError>
                   {errors?.email && (
@@ -398,24 +384,18 @@ const StepOneForm = () => {
             <button
               type="submit"
               disabled={!checked}
-              name="btn_send_sms"
               className="btn btn-primary btn_submit_modal"
-              data-send-page="master_reg"
-              id="btn_send_sms"
-              defaultValue="kontaktnaya_informaciya"
             >
               <span>Подтвердить</span>
             </button>
           </div>
         </form>
         <div className="gosuslugi_box">
-          <a id="authByEsia" className="link_authByEsia">
-            Войти через Госуслуги
-          </a>
+          <a id="authByEsia" className="link_authByEsia">Войти через Госуслуги</a>
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
 export { StepOneForm };

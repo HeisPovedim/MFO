@@ -89,3 +89,15 @@
   z-index: 99;
   left: 0;
 }
+
+.react-dadata__input {
+  height: 48px;
+}
+
+.modal_fade_back {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  z-index: 1000;
+  background-image: url(../../img/free-icon-back-130882.png);
+}
