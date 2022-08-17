@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 
 // custom components
 import { StepOneForm } from '../../components/application-form/step-one-form'
@@ -196,7 +195,7 @@ const ApplicationFormPage = () => {
               </div>
               {/* ! Component */}
               { statusStepOneForm === true ? <StepOneForm statusStepOneForm = { setStatusStepOneForm } phoneNumber = { setPhoneNumber } /> : undefined }
-              { statusStepOneForm === true ? <ModalDialog phoneNumber = { phoneNumber } modalBack = { setStatusStepOneForm } /> : undefined }
+              { statusStepOneForm === true ? <ModalDialog phoneNumber = { phoneNumber } modalBack = { setStatusStepOneForm } /> : undefined } {/* ! Менять вот это - true | false */}
             </div>
           </div>
         </div>

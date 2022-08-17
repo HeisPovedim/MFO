@@ -96,8 +96,21 @@
 
 .modal_fade_back {
   position: absolute;
-  width: 20px;
-  height: 20px;
+  cursor: pointer;
+  top: -25px;
+  left: 30px;
+  height: max-content;
   z-index: 1000;
-  background-image: url(../../img/free-icon-back-130882.png);
+  border: none;
+  background-color: none;
+  background: none;
+}
+
+.modal_fade_back, img {
+  width: 20px;
+}
+
+.count_down {
+  all: unset;
+  width: 16px;
 }
