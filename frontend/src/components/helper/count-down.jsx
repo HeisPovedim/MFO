@@ -1,8 +1,10 @@
 
 import { useState, useEffect } from "react";
 
-const CountDown = ({ hours = 0, minutes = 0, seconds = 0, timerStatus, restartTimer }) => {
+const CountDown = ({ hours = 0, minutes = 0, seconds = 0, timerStatus }) => {
   const [[h, m, s], setTime] = useState([hours, minutes, seconds]);
+
+  const timer = s.toString().padStart(2, '0')
 
   const tick = () => {
     if (h === 0 && m === 0 && s === 0) {
@@ -24,7 +26,8 @@ const CountDown = ({ hours = 0, minutes = 0, seconds = 0, timerStatus, restartTi
   return (
     <input
       className="count_down" 
-      value={ `${s.toString().padStart(2, '0')}` } 
+      value={ timer }
+      readOnly={ !!timer }
       onChange={ s === 0 ? timerStatus(true) : undefined }
       />
   );

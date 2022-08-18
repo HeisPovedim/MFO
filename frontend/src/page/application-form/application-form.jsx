@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 // custom components
 import { StepOneForm } from '../../components/application-form/step-one-form'
+import { StepTwoForm } from '../../components/application-form/step-two-from'
 import { ModalDialog } from '../../components/application-form/modal-dialog'
 
 // className = wrapper container site-header__wrapper
@@ -22,7 +23,8 @@ import FooterLocationPng from '../../img/basic/footer-location.png'
 const ApplicationFormPage = () => {
 
   const [statusStepOneForm, setStatusStepOneForm] = useState(true)
-  const [statusModalDialog, setStatusModalDialog] = useState(false)
+  const [statusStepTwoForm, setStatusStepTwoForm] = useState(false)
+  const [statusSmsPhone, setStatusSmsPhone] = useState(false)
   const [phoneNumber, setPhoneNumber] = useState()
 
   const handlerstatusStepOneForm = (event) => {
@@ -194,8 +196,9 @@ const ApplicationFormPage = () => {
                 </ul>
               </div>
               {/* ! Component */}
-              { statusStepOneForm === true ? <StepOneForm statusStepOneForm = { setStatusStepOneForm } phoneNumber = { setPhoneNumber } /> : undefined }
-              { statusStepOneForm === true ? <ModalDialog phoneNumber = { phoneNumber } modalBack = { setStatusStepOneForm } /> : undefined } {/* ! Менять вот это - true | false */}
+              { statusStepOneForm === true ? <StepOneForm statusStepOneForm = { setStatusStepOneForm } statusSmsPhone={ setStatusSmsPhone } phoneNumber = { setPhoneNumber } /> : undefined }
+              { statusSmsPhone === true ? <ModalDialog phoneNumber = { phoneNumber } statusSmsPhone = { setStatusSmsPhone } statusStepOneForm = { setStatusStepOneForm } setStatusStepTwoForm = { setStatusStepTwoForm } /> : undefined }
+              { statusStepTwoForm === false ? <StepTwoForm statusSmsPhone = { setStatusSmsPhone } /> : undefined }
             </div>
           </div>
         </div>

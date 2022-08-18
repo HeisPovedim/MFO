@@ -1,15 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import React, { useEffect, useState } from 'react'
+import { useForm, Controller } from 'react-hook-form'
+import $ from 'jquery'
+
+import '../../components/daData/daData'
 
 // sass
 import '../../sass/pages/_newCustomStyle.scss'
 
 // helper
-import { convertObjectValues } from '../helper/convert-object-values'
 import { capitalizeFirstLetter } from '../../components/helper/capitalize-first-letter'
-import { formatNumber } from '../../components/helper/format-numbers.jsx'
-
 
 // custom libraries
 import styled from 'styled-components'
@@ -21,22 +20,13 @@ import 'react-dadata/dist/react-dadata.css';
 const StepOneForm = (props) => {
 
   // daData
-  var token = "0a6d8a91d324ad8afcbb98473979e7329d944fd6";
-
+  const token = "0a6d8a91d324ad8afcbb98473979e7329d944fd6";
 
   useEffect(() => {
-    // console.log("Last Name: "+lastName)
-    // console.log("First Name: "+firstName)
-    // console.log("Middle Name: "+middleName)
-    // console.log("Phone Name: "+phoneNumber)
-    console.log("Email: "+email)
+    // console.log(phoneNumber)
   })
-  
-  const ref = useRef(null);
 
   // СТЕЙТЫ
-  const [statusForm, setStatusForm ] = useState(false)
-
   const [checked, setChecked] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState()
   const [email, setEmail] = useState()
@@ -45,11 +35,8 @@ const StepOneForm = (props) => {
   const [middleName, setMiddleName] = useState("")
   const {
     register,
-    formState:
-    { errors, },
+    formState: { errors },
     handleSubmit,
-    reset,
-
     control
   } = useForm({ mode: "onBlur" })
 
@@ -66,11 +53,10 @@ const StepOneForm = (props) => {
   `
   // КНОПКА ДЛЯ ФОРМЫ
   const onSubmit = (data) => {
-    setStatusForm(true)
     props.statusStepOneForm(false)
+    props.statusSmsPhone(true)
     props.phoneNumber(phoneNumber)
     console.log(data)
-    // reset();
   }
 
   // Хендлеры
@@ -83,17 +69,6 @@ const StepOneForm = (props) => {
   const handlerMiddleName = (event) => {
     setMiddleName(capitalizeFirstLetter(event.replace(/[^а-яА-ЯёЁ\s]/gi, '')))
   }
-  const handlerPhoneNumber = (event) => {
-    const convertEvent = convertObjectValues(event, true)
-    const formatingEvent = formatNumber(convertEvent)
-    setPhoneNumber(formatingEvent)
-  }
-  const handlerEmail = (event) => {
-    setEmail(event)
-    console.log(event)
-  }
-  
-  
 
   return (
     <>
@@ -106,7 +81,7 @@ const StepOneForm = (props) => {
         <form
           className="content-form"
           method="post"
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={ handleSubmit(onSubmit) }
         >
           <div className="wrapper-master">
             <div className="wrapper-inputs frst_stp">
@@ -116,6 +91,7 @@ const StepOneForm = (props) => {
                   id="last_name"
                   className="input_field rus search_in_session"
                   type="text"
+                  maxLength={31}
                   placeholder="Фамилия"
                   value={lastName}
                   {...register("lastName", {
@@ -146,6 +122,7 @@ const StepOneForm = (props) => {
                   id="first_name"
                   className="input_field rus"
                   type="text"
+                  maxLength={31}
                   placeholder="Имя"
                   value={firstName}
                   {...register("firstName", {
@@ -176,6 +153,7 @@ const StepOneForm = (props) => {
                   id="middle_name"
                   className="input_field rus"
                   type="text"
+                  maxLength={31}
                   placeholder="Отчество"
                   value={middleName}
                   {...register("middleName", {
@@ -212,7 +190,7 @@ const StepOneForm = (props) => {
                       message: "*Заполните полностью поле телефона",
                     },
                   }}
-                  render={({ field: { onChange, onBlur, value } }) => (
+                  render={({ field: { onChange, onBlur } }) => (
                     <>
                       <NumberFormat
                         type="tel"
@@ -225,7 +203,7 @@ const StepOneForm = (props) => {
                           const { formattedValue, value } = values;
                           // formattedValue = $2,223
                           // value ie, 2223
-                          handlerPhoneNumber(formattedValue.toString());
+                          setPhoneNumber(formattedValue.toString());
                         }}
                         onChange={ (event) => onChange(event.target.value.replace(/[^0-9]/g, "")) }
                       />
@@ -258,18 +236,17 @@ const StepOneForm = (props) => {
                     <EmailSuggestions 
                       token={token}
                       count={5}
+                      onChange={ (event) =>{
+                        setEmail(event.value)
+                        onChange(event.value)
+                      }}
                       inputProps={{
-                        value: value,
                         className: "inputDadata",
                         onBlur: onBlur,
                         onChange: (event) => {
+                          setEmail(event.value)
                           onChange(event.target.value)
-                          setEmail(event.target.value)
-                        },
-                        onClick: (event) => {
-                          onChange(event.target.value)
-                          setEmail(event.target.value)
-                        },
+                        }
                       }}
                     />
                   </>
@@ -355,7 +332,7 @@ const StepOneForm = (props) => {
                 className='checkbox'
                 defaultValue="1"
                 checked={checked}
-                onChange={e => setChecked(e.target.checked)}
+                onChange={ (e) => setChecked(e.target.checked) }
               />
               <span className='fakeCheckbox'></span>
                 Я даю свое{" "}
