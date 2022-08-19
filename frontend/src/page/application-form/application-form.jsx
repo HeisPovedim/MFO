@@ -1,20 +1,21 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+// REACT
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-// custom components
+// COMPONENTS
 import { StepOneForm } from '../../components/application-form/step-one-form'
 import { StepTwoForm } from '../../components/application-form/step-two-from'
 import { ModalDialog } from '../../components/application-form/modal-dialog'
 
-// className = wrapper container site-header__wrapper
+// IMG | className = wrapper container site-header__wrapper
 import PresonPng from '../../img/basic/person.png'
 import BurgerPng from '../../img/basic/burger.png'
 
-// className = btn_person_settings
+// IMG | className = btn_person_settings
 import PersonHeaderPng from '../../img/basic/person-header.png'
 
-// className = footer-wrapper wrapper container flex --just-space
+// IMG | className = footer-wrapper wrapper container flex --just-space
 import IconEmailPng from '../../img/basic/icon-email.png'
 import FooterWatchPng from '../../img/basic/footer-watch.png'
 import FooterLocationPng from '../../img/basic/footer-location.png'
@@ -22,14 +23,19 @@ import FooterLocationPng from '../../img/basic/footer-location.png'
 
 const ApplicationFormPage = () => {
 
+
+  // СТЕЙТЫ | STATES
   const [statusStepOneForm, setStatusStepOneForm] = useState(true)
   const [statusStepTwoForm, setStatusStepTwoForm] = useState(false)
   const [statusSmsPhone, setStatusSmsPhone] = useState(false)
   const [phoneNumber, setPhoneNumber] = useState()
 
+
+  // ХЕНДЛЕРЫ | HANDLERS
   const handlerstatusStepOneForm = (event) => {
     setStatusStepOneForm(event)
   }
+
 
   return(
   <>

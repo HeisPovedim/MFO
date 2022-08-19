@@ -1,34 +1,46 @@
+// REACT
 import React, { useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
-import $ from 'jquery'
 
-import '../../components/daData/daData'
-
-// sass
+// SASS
 import '../../sass/pages/_newCustomStyle.scss'
 
-// helper
-import { capitalizeFirstLetter } from '../../components/helper/capitalize-first-letter'
+// HELPER
+  // functions
+  import { capitalizeFirstLetter } from '../helper/functions/capitalize-first-letter'
+  // component
+  import { WarrningError } from '../helper/component/warrning-error'
 
-// custom libraries
-import styled from 'styled-components'
-import NumberFormat from 'react-number-format';
-import { EmailSuggestions } from 'react-dadata';
-import 'react-dadata/dist/react-dadata.css';
+// CUSTOM LIBRARIES
+import NumberFormat from 'react-number-format'
+import { EmailSuggestions } from 'react-dadata'
+import 'react-dadata/dist/react-dadata.css'
+
+// OTHER
+import { TOKEN } from '../data/dadata-token'
+import { PhoneNumber } from 'libphonenumber-js'
 
 
 const StepOneForm = (props) => {
 
-  // daData
-  const token = "0a6d8a91d324ad8afcbb98473979e7329d944fd6";
 
   useEffect(() => {
-    // console.log(phoneNumber)
+    // LOCALSTORAGE
+    localStorage.setItem("usePhone", phoneNumber)
+    localStorage.setItem("userEmail", email)
+    localStorage.setItem("useLastName", lastName)
+    localStorage.setItem("useFirstName", firstName)
+    localStorage.setItem("useMiddleName", middleName)
   })
 
-  // СТЕЙТЫ
+
+  // СТЕЙТЫ | STATES
   const [checked, setChecked] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState()
+  const [phoneNumber, setPhoneNumber] = useState(() => {
+    const saved = localStorage.getItem("usePhone")
+    const initialValue = saved
+    return initialValue || ""
+  })
   const [email, setEmail] = useState()
   const [lastName, setLastName] = useState("")
   const [firstName, setFirstName] = useState("")
@@ -40,18 +52,12 @@ const StepOneForm = (props) => {
     control
   } = useForm({ mode: "onBlur" })
 
+
   
-  const WarrningError = styled.p`
-    padding-top: 5px;
-    margin: 0;
-    >p{
-      color: red;
-      font-size: 13px;
-      font-weight: 600;
-      text-align: center;
-    }
-  `
-  // КНОПКА ДЛЯ ФОРМЫ
+
+  
+
+  // КНОПКИ | BUTTONS
   const onSubmit = (data) => {
     props.statusStepOneForm(false)
     props.statusSmsPhone(true)
@@ -59,7 +65,8 @@ const StepOneForm = (props) => {
     console.log(data)
   }
 
-  // Хендлеры
+
+  // ХЕНДЛЕРЫ | HANDLERS
   const handlerLastName = (event) => {
     setLastName(capitalizeFirstLetter(event.replace(/[^а-яА-ЯёЁ\s]/gi, '')))
   }
@@ -69,6 +76,7 @@ const StepOneForm = (props) => {
   const handlerMiddleName = (event) => {
     setMiddleName(capitalizeFirstLetter(event.replace(/[^а-яА-ЯёЁ\s]/gi, '')))
   }
+
 
   return (
     <>
@@ -207,14 +215,7 @@ const StepOneForm = (props) => {
                         }}
                         onChange={ (event) => onChange(event.target.value.replace(/[^0-9]/g, "")) }
                       />
-                      <WarrningError>
-                        {errors?.phoneNumber && (
-                          <p>
-                            {errors?.phoneNumber?.message ||
-                              `*Необходимо заполнить поле "Номер телефона"`}
-                          </p>
-                        )}
-                      </WarrningError>
+                      <WarrningError>{errors?.phoneNumber && (<p>{errors?.phoneNumber?.message || `*Необходимо заполнить поле "Номер телефона"`}</p>)}</WarrningError>
                     </>
                   )}
                 />
@@ -234,7 +235,7 @@ const StepOneForm = (props) => {
                   render={({ field: {onChange, onBlur, value} }) => (
                   <>
                     <EmailSuggestions 
-                      token={token}
+                      token={TOKEN}
                       count={5}
                       onChange={ (event) =>{
                         setEmail(event.value)

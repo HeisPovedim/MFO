@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 import { IMaskInput } from 'react-imask'
-import {convertObjectValues} from "../../components/helper/convert-object-values";
+import {convertObjectValues} from "../../components/helper/functions/convert-object-values";
 import '../../sass/pages/_basic.scss'
 
 // className = wrapper container site-header__wrapper
@@ -216,7 +216,7 @@ const BasicPage = () => {
                                       <IMaskInput
                                         value={convertObjectValues(valueSum, true)}
                                         mask={"a d"}
-                                        blocks={{ d: { mask: "₽" }, a:{mask: Number, thousandsSeparator: ' ', min: 1500, max: 15000} }}
+                                        blocks={{ d: { mask: "₽" }, a: { mask: Number, thousandsSeparator: ' ', min: 1500, max: 15000 } }}
                                         lazy={false}
                                         placeholder={valueSum}
                                         unmask={true}

@@ -1,56 +1,71 @@
-import React, { useState, useEffect } from 'react';
+// REACT
+import React, { useState, useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
-import $ from 'jquery'
-import 'suggestions-jquery'
 
-// helpers
-import { capitalizeFirstLetter } from '../../components/helper/capitalize-first-letter.jsx'
+// HELPER
+  // functions
+  import { capitalizeFirstLetter } from '../helper/functions/capitalize-first-letter.jsx'
 
-// custom libraries
+// CUSTOM LIBRARIES
 import styled from 'styled-components'
 import NumberFormat from 'react-number-format'
 import ReactDadataBox from 'react-dadata-box'
+import { IMaskInput } from 'react-imask'
+import $ from 'jquery'
+import 'suggestions-jquery'
+
+// OTHER
+import { TOKEN } from '../data/dadata-token.jsx'
+
 
 const StepTwoForm = (props) => {
-
+  
+  // ПЕРЕНДЕР | PRERENDER
   useEffect (() => {
-    console.log(dataSuggestion)
-    // console.log(dataSuggestion.data.code)
-    // console.log(dataSuggestion.value)
-    // $('#code').suggestions({
-    //   token: "0a6d8a91d324ad8afcbb98473979e7329d944fd6",
-    //   type: 'fms_unit',
-    //   formatResult: function (value, currentValue, suggestion) {
-    //       suggestion.value = suggestion.data.code;
-    //       return suggestion.data.code + ' — ' + suggestion.data.name;
-    //   },
-    //   onSelect: function (suggestion) {
-    //       $('#place_of_issue').val(suggestion.data.name);
-    //   }
-    // })
+    function formatResult(value, currentValue, suggestion) {
+      suggestion.value = suggestion.data.code;
+      return suggestion.data.code + " — " + suggestion.data.name;
+    }
+    function showSuggestion(suggestion) {
+      $("#place_of_issue").val(suggestion.data.name);
+    }
+    function clearSuggestion() {
+      $("#place_of_issue").val("");
+    }
+    $("#code_division").suggestions({
+      TOKEN: TOKEN,
+      type: "fms_unit",
+      formatResult: formatResult,
+      onSelect: showSuggestion,
+      onSelectNothing: clearSuggestion
+    })
   })
 
+  
   // ХУКИ | HOOKS
   const { register, formState: { errors }, handleSubmit, control } = useForm({ mode: "onBlur" })
 
   const onSubmit = () => {}
 
-  // Переменные паспортных данных
+  // СТЕЙТЫ | STATES
   const [passportSeries, setPassportSeries] = useState(Number)
   const [passportNumber, setPassportNumber] = useState(Number)
   const [dateOfBirth, setDateOfBirth] = useState(Number)
   const [passportIssueDate, setPassportIssueDate] = useState(Number)
   const [ouCode, setOUCode] = useState()
-  const [placeOfBirth, setPlaceOfBirth] = useState(Number)
+  const [placeOfBirth, setPlaceOfBirth] = useState("")
   const [dataSuggestion, setDataSuggestion] = useState()
   const [placeOfIssue, setPlaceOfIssue] = useState("")
+  const [gender, setGender] = useState ("Мужской")
+  const [clicked, setClicked] = useState(true);
+  const [snils, setSnils] = useState(true);
 
-  // Хендлеры
-  const handlerPlaceOfBirth = (event) => {
-    setPlaceOfBirth(capitalizeFirstLetter(event.replace(/[^а-яА-ЯёЁ\s]/gi, '')))
+  // ХЕНДЛЕРЫ | HANDLERS
+  const handlerPlaceOfBirth = (value) => {
+    setPlaceOfBirth(capitalizeFirstLetter(value.replace(/[^аa-яАzA-ЯёЁZ\s]/gi, '')))
   }
-  const handelStepTwoFormBack = () => {
-    props.statusSmsPhone(true)
+  const handlerOUCode = (event) => {
+    setOUCode(event.target.value.replace(/[^0-9]/g, ''))
   }
   const handlerDataSuggestion = (suggestion) => {
     console.log(suggestion)
@@ -58,8 +73,17 @@ const StepTwoForm = (props) => {
     setPlaceOfIssue(suggestion.value)
   }
 
-  // Текст ошибки
-  const WarrningError = styled.p`
+  const handlerClickedMan = () => {
+    setClicked(true)
+    setGender("Мужской")
+  }
+  const handlerClickedWoman = () => {
+    setClicked(false)
+    setGender("Женский")
+  }
+
+      // ТЕКС ОШИБКИ | TEXT ERROR
+      const WarrningError = styled.p`
     padding-top: 5px;
     margin: 0;
     >p{
@@ -69,6 +93,8 @@ const StepTwoForm = (props) => {
       text-align: center;
     }
   `
+
+  
 
   return (
     <>
@@ -111,14 +137,7 @@ const StepTwoForm = (props) => {
                           onChange(value)
                         }}
                       />
-                      <WarrningError>
-                        {errors?.passportSeries && (
-                          <p>
-                            {errors?.passportSeries?.message ||
-                              `*Необходимо заполнить поле "Серия паспорта"`}
-                          </p>
-                        )}
-                      </WarrningError>
+                      <WarrningError>{ errors?.passportSeries && (<p>{ errors?.passportSeries?.message || `*Необходимо заполнить поле "Серия паспорта"` }</p>) }</WarrningError>
                     </>
                   )}
                 />
@@ -150,19 +169,11 @@ const StepTwoForm = (props) => {
                           onChange(value)
                         }}
                       />
-                      <WarrningError>
-                        {errors?.passportNumber && (
-                          <p>
-                            {errors?.passportNumber?.message ||
-                              `*Необходимо заполнить поле "Номер паспорта"`}
-                          </p>
-                        )}
-                      </WarrningError>
+                      <WarrningError>{ errors?.passportNumber && (<p>{ errors?.passportNumber?.message || `*Необходимо заполнить поле "Номер паспорта"` }</p>) }</WarrningError>
                     </>
                   )}
                 />
               </div>
-              {/* data-picker="" */}
               <div className="input-box inpBxFF" id="form_date_of_birth">
                 <label className="control-label">Дата рождения</label>
                 <Controller
@@ -191,14 +202,7 @@ const StepTwoForm = (props) => {
                           onChange(value)
                         }}
                       />
-                      <WarrningError>
-                        {errors?.dateOfBirth && (
-                          <p>
-                            {errors?.dateOfBirth?.message ||
-                              `*Необходимо заполнить поле "Номер паспорта"`}
-                          </p>
-                        )}
-                      </WarrningError>
+                      <WarrningError>{ errors?.dateOfBirth && (<p>{ errors?.dateOfBirth?.message || `*Необходимо заполнить поле "Номер паспорта"` }</p>) }</WarrningError>
                     </>
                   )}
                 />
@@ -231,20 +235,36 @@ const StepTwoForm = (props) => {
                           onChange(value)
                         }}
                       />
-                      <WarrningError>
-                        {errors?.passportIssueDate && (
-                          <p>
-                            {errors?.passportIssueDate?.message ||
-                              `*Необходимо заполнить поле "Дата выдачи паспорта"`}
-                          </p>
-                        )}
-                      </WarrningError>
+                      <WarrningError>{ errors?.passportIssueDate && (<p>{ errors?.passportIssueDate?.message || `*Необходимо заполнить поле "Дата выдачи паспорта"` }</p>)}</WarrningError>
                     </>
                   )}
                 />
               </div>
               <div className="input-box inpBxFF" id="form_code_division">
+                {/* @ Код подразделения */}
                 <label className="control-label">Код подразделения</label>
+                <Controller
+                  control={control}
+                  name="ouCode"
+                  rules={{
+                    required: true,
+                    minLength: {
+                      value: 6,
+                      message: `*Минимум 6 цифры`,
+                    },
+                  }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <>
+                      <IMaskInput type="text" id="code_division" class="input_field m_i_d_s suggestions-input"
+                        mask="000-000" maskChar="_" lazy={false} unmask={true}
+                        onBlur={ onBlur }
+                        onAccept={ (value, mask) => {onChange(value)} }
+                        value={value}
+                      />
+                      <WarrningError>{ errors?.ouCode && (<p>{ errors?.ouCode?.message ||`*Необходимо заполнить поле "Код подразделения"`}</p>) }</WarrningError>
+                    </>
+                  )}
+                  />
                 {/* <Controller
                   control={control}
                   name="ouCode"
@@ -282,33 +302,54 @@ const StepTwoForm = (props) => {
                     </>
                   )}
                 /> */}
-                <ReactDadataBox
-                  token="0a6d8a91d324ad8afcbb98473979e7329d944fd6"
-                  type='fms_unit'
-                  onChange={suggestion => handlerDataSuggestion(suggestion)}
-                  customInput = {( {onChange} ) => (
-                    <NumberFormat
-                      format="###-###"
-                      allowEmptyFormatting
-                      mask="_"
-                      // className={className}
-                      onValueChange={(values) => {
-                          const { formattedValue, value } = values;
-                          // formattedValue = $2,223
-                          // value ie, 2223
-                            setDataSuggestion(value)
-                            console.log(value)
+                {/* <Controller
+                control={control}
+                  name="ouCode"
+                  rules={{
+                    required: true,
+                    minLength: {
+                      value: 6,
+                      message: `*Минимум 6 цифры`,
+                    },
+                  }}
+                  render={({ field: { onChange, onBlur } }) => (
+                    <>
+                      <ReactDadataBox
+                        TOKEN="0a6d8a91d324ad8afcbb98473979e7329d944fd6"
+                        type='fms_unit'
+                        onChange={ (suggestion) => {
+                          handlerDataSuggestion(suggestion)
+                          onChange(ouCode)
                         }}
-                      onChange={ (event) => {
-                        onChange(event)
-                        setOUCode(event.target.value)
-                      }}
-                      value={ouCode}
-                    />
+                        onBlur={ onBlur }
+                        customInput = {( {onChange, className} ) => (
+                          <NumberFormat
+                            format="###-###"
+                            allowEmptyFormatting  
+                            mask="_"
+                            className={className}
+                            onValueChange={(values) => {
+                              const { formattedValue, value } = values;
+                              // formattedValue = $2,223
+                              // value ie, 2223
+                                setDataSuggestion(value)
+                                console.log(value)
+                            }}
+                            onChange={ (event) => {
+                              onChange(event)
+                              setOUCode(event.target.value)
+                            }}
+                            value={ouCode}
+                          />
+                        )}
+                      />
+                      <WarrningError>{ errors?.placeOfBirth && (<p>{ errors?.placeOfBirth?.message ||`*Необходимо заполнить поле "Место рождения"`}</p>) }</WarrningError>
+                    </>
                   )}
-                />
+                /> */}
               </div>
               <div className="input-box inpBxFF" id="form_place_of_birth">
+                {/* @ Место рождения */}
                 <label className="control-label">Место рождения</label>
                 <input
                   id="place_of_birth"
@@ -325,11 +366,10 @@ const StepTwoForm = (props) => {
                     onChange: (event) => setPlaceOfBirth(event.target.value)
                   })}
                 />
-                <div id="error_place_of_birth" className="help-block hidden">
-                  Необходимо заполнить поле "Место рождения"
-                </div>
+                <WarrningError>{ errors?.placeOfBirth && (<p>{ errors?.placeOfBirth?.message ||`*Необходимо заполнить поле "Место рождения"`}</p>) }</WarrningError>
               </div>
               <div className="input-box inpBxFull" id="form_place_of_issue">
+                {/* Паспорт выдан */}
                 <label className="control-label">Паспорт выдан</label>
                 <input
                   id="place_of_issue"
@@ -347,22 +387,23 @@ const StepTwoForm = (props) => {
                 </div>
               </div>
               <div className="input-box inpBxFull" id="form_gender">
+                {/* @ Пол */}
                 <label className="control-label">Пол</label>
                 <div className="input_box_radio_list">
-                  <label className="control-label label-radio active">
+                  <label className={ clicked === true ? "control-label label-radio active" : "control-label label-radio" }>
                     <input
                       className=""
                       type="radio"
                       data-id="gender"
                       data-required="true"
                       name="pasportnye_dannye[gender]"
-                       // checked="checked"
+                      checked="checked"
                       data-index_group=""
-                      // value="1"
+                      onClick={ handlerClickedMan }
                     />
                     Мужской
                   </label>
-                  <label className="control-label label-radio">
+                  <label className={ clicked === false ? "control-label label-radio active" : "control-label label-radio" }>
                     <input
                       className=""
                       type="radio"
@@ -370,34 +411,45 @@ const StepTwoForm = (props) => {
                       data-required="true"
                       name="pasportnye_dannye[gender]"
                       data-index_group=""
-                      // value="2"
+                      onClick={ handlerClickedWoman }
                     />
                     Женский
                   </label>
                 </div>
-                <div id="error_gender" className="help-block hidden">
-                  Необходимо заполнить поле "Пол"
-                </div>
               </div>
               <div className="input-box inpBxFF" id="form_snils">
+                {/* @ СНИЛС */}
                 <label className="control-label">СНИЛС</label>
-                <input
-                  id="snils"
-                  className="input_field"
-                  type="text"
-                  mask="999-999-999 99"
-                  data-autoclear-mask="true"
-                  data-required="true"
-                  name="pasportnye_dannye[snils]"
-                  data-index_group=""
-                  placeholder=""
-                  // value="32132132112"
+                <Controller
+                  control={control}
+                  name="snils"
+                  rules={{
+                    required: true,
+                    minLength: {
+                      value: 11,
+                      message: `*Минимум 11 цифры`,
+                    },
+                  }}
+                  render={({ field: { onChange, onBlur } }) => (
+                    <>
+                      <NumberFormat
+                        format="###-###-### ##"
+                        allowEmptyFormatting
+                        mask="_"
+                        onBlur={onBlur}
+                        onValueChange={(values) => {
+                          const { formattedValue, value } = values;
+                          // formattedValue = $2,223
+                          // value ie, 2223
+                          setSnils(value);
+                          onChange(value)
+                        }}
+                      />
+                      <WarrningError>{ errors?.snils && (<p>{ errors?.snils?.message || `*Необходимо заполнить поле "СНИЛС"` }</p>) }</WarrningError>
+                    </>
+                  )}
                 />
-                <div id="error_snils" className="help-block hidden">
-                  Необходимо заполнить поле "СНИЛС"
-                </div>
               </div>
-
               <div className="input-box inpBxFull" id="form_consent_snils">
                 <label className="control-label label-checkbox active">
                   <input

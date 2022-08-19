@@ -1,44 +1,45 @@
-import React, { useEffect, useState } from "react";
+// REACT
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-// helper
-import { CountDown } from "../helper/count-down";
+// HELPER
+  // functions
+  import { CountDown } from "../helper/functions/count-down";
+  // component
+  import { WarrningError } from '../helper/component/warrning-error'
 
-// custom libraries
-import styled from 'styled-components'
-
-// import img
+// IMG
 import backPng from "../../img/free-icon-back-130882.png"
+
 
 const ModalDialog = (props) => {
 
-  const { register, formState: { errors }, handleSubmit, control } = useForm({ mode: "onBlur" })
 
+  // USEFORM
+  const { register, formState: { errors }, handleSubmit } = useForm({ mode: "onBlur" })
+
+
+  // СТЕЙТЫ | STATES
   const [statusTimer, setStatusTimer] = useState(false)
 
-  const WarrningError = styled.p`
-  padding-top: 5px;
-  margin: 0;
-  >p{
-    color: red;
-    font-size: 13px;
-    font-weight: 600;
-    text-align: center;
+
+  // КНОПКИ | BUTTONS
+  const onSubmit = (data) => {
+    props.statusSmsPhone(false)
+    props.setStatusStepTwoForm(true)
   }
-`
-// КНОПКА ДЛЯ ФОРМЫ
-const onSubmit = (data) => {
-  props.statusSmsPhone(false)
-  props.setStatusStepTwoForm(true)
-}
+
+
+  // ХЕНДЛЕРЫ | HANDLERS
   const handlerRestartTimer = () => {
     setStatusTimer(false)
   }
-
   const handlerModalBack = () => {
     props.statusStepOneForm(true)
     props.statusSmsPhone(false)
   }
+
+
   return (
     <>
       <div className="modal fade" id="checkSMSCode" tabIndex="-1">
@@ -80,7 +81,7 @@ const onSubmit = (data) => {
                 </div>
                 <div className="resend_box">
                   { statusTimer === true ? (<div className="resend_sms" data-send-page="master_reg" onClick={ handlerRestartTimer } >Отправить код повторно</div> ) : undefined }
-                  { statusTimer === false ? <p className="resend_sms_title">Получить код повторно <span className="resend_timer"> <CountDown seconds={5} timerStatus={setStatusTimer} /> </span> сек</p> : undefined}
+                  { statusTimer === false ? <p className="resend_sms_title">Получить код повторно <span className="resend_timer"> <CountDown seconds={60} timerStatus={setStatusTimer} /> </span> сек</p> : undefined}
                 </div>
                 <button type="button" className="btn btn-secondary" onClick={ handlerModalBack } >Изменить номер телефона</button>
                 <div className="modal-footer">
@@ -94,5 +95,4 @@ const onSubmit = (data) => {
     </>
   )
 }
-
 export { ModalDialog }

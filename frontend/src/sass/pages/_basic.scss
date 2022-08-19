@@ -16260,6 +16260,7 @@ input[type="email"],
 input[type="password"],
 input[type="text"],
 input[type="tel"],
+input[type="number"],
 select,
 .inputDadata,
 textarea {
@@ -20034,11 +20035,11 @@ p.ext-small {
 .event-iphone-img {
   display: none;
 }
-div#form_place_of_birth:after {
-  content: "Р—Р°РїРѕР»РЅРёС‚Рµ РїРѕР»Рµ С‚РѕС‡РЅРѕ РєР°Рє РІ РїР°СЃРїРѕСЂС‚Рµ";
+#form_place_of_birth::after {
+  content: "Заполните поле точно как в паспорте";
   font-size: 13px;
-  padding-left: 4px;
   color: #fb6f39;
+  padding-left: 6%;
 }
 .b-page__content {
   min-height: 75px;
