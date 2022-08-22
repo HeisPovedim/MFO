@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // REACT
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 // COMPONENTS
 import { StepOneForm } from '../../components/application-form/step-one-form'
-import { StepTwoForm } from '../../components/application-form/step-two-from'
+import { StepTwoForm } from '../../components/application-form/step-two-form'
+import { StepThreeForm } from '../../components/application-form/step-three-form/step-three-form'
 import { ModalDialog } from '../../components/application-form/modal-dialog'
 
 // IMG | className = wrapper container site-header__wrapper
@@ -23,10 +24,10 @@ import FooterLocationPng from '../../img/basic/footer-location.png'
 
 const ApplicationFormPage = () => {
 
-
   // СТЕЙТЫ | STATES
   const [statusStepOneForm, setStatusStepOneForm] = useState(true)
   const [statusStepTwoForm, setStatusStepTwoForm] = useState(false)
+  const [statusStepThreeForm, setStatusStepThreeForm] = useState(false)
   const [statusSmsPhone, setStatusSmsPhone] = useState(false)
   const [phoneNumber, setPhoneNumber] = useState()
 
@@ -172,15 +173,16 @@ const ApplicationFormPage = () => {
                 </div>
               </div>
             </div>
+            {/* @ Registration Step */}
             <div className="right-block">
               <div className="registration-steps">
                 <ul className="reg-steps-list">
                   <li>
-                    <a className="active">Контактная информация</a>
+                    <a className={ statusStepOneForm === true || statusSmsPhone === true ? "active" : undefined } >Контактная информация</a>
                     <span className="reg-step_sp">вероятность одобрения</span>
                   </li>
                   <li>
-                    <a>Паспортные данные</a>
+                    <a className={ statusStepTwoForm === true ? "active" : undefined } >Паспортные данные</a>
                     <span className="reg-step_sp">вероятность одобрения</span>
                   </li>
                   <li>
@@ -204,7 +206,8 @@ const ApplicationFormPage = () => {
               {/* ! Component */}
               { statusStepOneForm === true ? <StepOneForm statusStepOneForm = { setStatusStepOneForm } statusSmsPhone={ setStatusSmsPhone } phoneNumber = { setPhoneNumber } /> : undefined }
               { statusSmsPhone === true ? <ModalDialog phoneNumber = { phoneNumber } statusSmsPhone = { setStatusSmsPhone } statusStepOneForm = { setStatusStepOneForm } setStatusStepTwoForm = { setStatusStepTwoForm } /> : undefined }
-              { statusStepTwoForm === false ? <StepTwoForm statusSmsPhone = { setStatusSmsPhone } /> : undefined }
+              { statusStepTwoForm === true ? <StepTwoForm statusSmsPhone = { setStatusSmsPhone } statusStepTwoForm = { setStatusStepTwoForm } statusStepThreeForm = { setStatusStepThreeForm } /> : undefined }
+              { statusStepThreeForm === false ? <StepThreeForm /> : undefined }
             </div>
           </div>
         </div>

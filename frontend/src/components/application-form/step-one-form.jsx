@@ -9,7 +9,10 @@ import '../../sass/pages/_newCustomStyle.scss'
   // functions
   import { capitalizeFirstLetter } from '../helper/functions/capitalize-first-letter'
   // component
+  import { TestNumber } from '../test-number'
   import { WarrningError } from '../helper/component/warrning-error'
+  // custom hooks
+  import { useLocalStorage } from '../custom-hooks/use-local-storage'
 
 // CUSTOM LIBRARIES
 import NumberFormat from 'react-number-format'
@@ -18,44 +21,45 @@ import 'react-dadata/dist/react-dadata.css'
 
 // OTHER
 import { TOKEN } from '../data/dadata-token'
-import { PhoneNumber } from 'libphonenumber-js'
 
 
 const StepOneForm = (props) => {
 
-
+  // UseEffect
   useEffect(() => {
     // LOCALSTORAGE
-    localStorage.setItem("usePhone", phoneNumber)
+    localStorage.setItem("userPhone", phoneNumber )
     localStorage.setItem("userEmail", email)
-    localStorage.setItem("useLastName", lastName)
-    localStorage.setItem("useFirstName", firstName)
-    localStorage.setItem("useMiddleName", middleName)
+    localStorage.setItem("userLastName", lastName)
+    localStorage.setItem("userFirstName", firstName)
+    localStorage.setItem("userMiddleName", middleName)
+    // console.log(phoneNumber)
   })
 
 
   // СТЕЙТЫ | STATES
   const [checked, setChecked] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState(() => {
-    const saved = localStorage.getItem("usePhone")
-    const initialValue = saved
-    return initialValue || ""
-  })
-  const [email, setEmail] = useState()
-  const [lastName, setLastName] = useState("")
-  const [firstName, setFirstName] = useState("")
-  const [middleName, setMiddleName] = useState("")
+  const [phoneNumber, setPhoneNumber] = useLocalStorage("userPhone", "")
+  const [email, setEmail] = useLocalStorage("userEmail", "")
+  const [lastName, setLastName] = useLocalStorage("userLastName", "")
+  const [firstName, setFirstName] = useLocalStorage("userFirstName", "")
+  const [middleName, setMiddleName] = useLocalStorage("userMiddleName", "")
   const {
     register,
     formState: { errors },
     handleSubmit,
     control
-  } = useForm({ mode: "onBlur" })
+  } = useForm({
+    mode: "all",
+    defaultValues: {
+      // phoneNumber: localStorage.getItem("userPhone"),
+      lastName: localStorage.getItem("userLastName"),
+      firstName: localStorage.getItem("userFirstName"),
+      middleName: localStorage.getItem("userMiddleName"),
+      email: localStorage.getItem("userEmail")
+    }
+})
 
-
-  
-
-  
 
   // КНОПКИ | BUTTONS
   const onSubmit = (data) => {
@@ -164,7 +168,7 @@ const StepOneForm = (props) => {
                   maxLength={31}
                   placeholder="Отчество"
                   value={middleName}
-                  {...register("middleName", {
+                  {...register ("middleName", {
                     required: false,
                     minLength: {
                       value: 2,
@@ -219,8 +223,10 @@ const StepOneForm = (props) => {
                     </>
                   )}
                 />
+                {/* <TestNumber name = "phoneNumber" value = { setPhoneNumber } /> */}
               </div>
               <div className="input-box inpBxFF" id="form_email">
+                {/* @ Email Адрес */}
                 <label className="control-label">Email адрес</label>
                 <Controller 
                   control={control}
@@ -234,18 +240,21 @@ const StepOneForm = (props) => {
                   }}
                   render={({ field: {onChange, onBlur, value} }) => (
                   <>
-                    <EmailSuggestions 
+                    <EmailSuggestions
+                      hintText="Email Адрес"
                       token={TOKEN}
                       count={5}
-                      onChange={ (event) =>{
+                      onChange={ (event) => {
                         setEmail(event.value)
                         onChange(event.value)
                       }}
+                      defaultQuery={ value }
                       inputProps={{
                         className: "inputDadata",
+                        placeholder:"Email Адрес",
                         onBlur: onBlur,
                         onChange: (event) => {
-                          setEmail(event.value)
+                          setEmail(event.target.value)
                           onChange(event.target.value)
                         }
                       }}
@@ -327,7 +336,7 @@ const StepOneForm = (props) => {
           />
           <div className="wrapper-checkboxes wrapper-checkboxes__margin-top">
           {/* @ Check Box */}
-            <label className="control-label label-checkbox active">
+            <label className={ checked === true ? "control-label label-checkbox active" : "control-label label-checkbox" }>
               <input
                 type="checkbox"
                 className='checkbox'
@@ -335,7 +344,6 @@ const StepOneForm = (props) => {
                 checked={checked}
                 onChange={ (e) => setChecked(e.target.checked) }
               />
-              <span className='fakeCheckbox'></span>
                 Я даю свое{" "}
               <a href="sites/default/files/2022-04/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%81%D0%B8%D0%B5_%D0%BD%D0%B0_%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83_%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D1%85_%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85_%D0%B8_%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D1%8F_%D0%BA%D1%80%D0%B5%D0%B4%D0%B8%D1%82%D0%BD%D0%BE%D0%B3%D0%BE.pdf" target="_blank">
                 согласие на обработку персональных данных, на получение из БКИ кредитных отчетов 
@@ -375,5 +383,4 @@ const StepOneForm = (props) => {
     </>
   )
 }
-
-export { StepOneForm };
+export { StepOneForm }

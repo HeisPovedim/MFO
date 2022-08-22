@@ -5,16 +5,17 @@ import { useForm, Controller } from 'react-hook-form'
 // HELPER
   // functions
   import { capitalizeFirstLetter } from '../helper/functions/capitalize-first-letter.jsx'
+  // component
+  import { WarrningError } from '../helper/component/warrning-error.jsx'
 
 // CUSTOM LIBRARIES
-import styled from 'styled-components'
 import NumberFormat from 'react-number-format'
 import ReactDadataBox from 'react-dadata-box'
 import { IMaskInput } from 'react-imask'
 import $ from 'jquery'
 import 'suggestions-jquery'
 
-// OTHER
+
 import { TOKEN } from '../data/dadata-token.jsx'
 
 
@@ -43,22 +44,30 @@ const StepTwoForm = (props) => {
 
   
   // ХУКИ | HOOKS
-  const { register, formState: { errors }, handleSubmit, control } = useForm({ mode: "onBlur" })
+  const { register, formState: { errors }, handleSubmit, control } = useForm({ mode: "all" })
 
-  const onSubmit = () => {}
-
+  
   // СТЕЙТЫ | STATES
-  const [passportSeries, setPassportSeries] = useState(Number)
-  const [passportNumber, setPassportNumber] = useState(Number)
-  const [dateOfBirth, setDateOfBirth] = useState(Number)
-  const [passportIssueDate, setPassportIssueDate] = useState(Number)
-  const [ouCode, setOUCode] = useState()
-  const [placeOfBirth, setPlaceOfBirth] = useState("")
-  const [dataSuggestion, setDataSuggestion] = useState()
-  const [placeOfIssue, setPlaceOfIssue] = useState("")
-  const [gender, setGender] = useState ("Мужской")
-  const [clicked, setClicked] = useState(true);
-  const [snils, setSnils] = useState(true);
+  const [passportSeries, setPassportSeries] = useState(Number) // поле - "Серия паспорта"
+  const [passportNumber, setPassportNumber] = useState(Number) // поле - "Номер паспорта"
+  const [dateOfBirth, setDateOfBirth] = useState(Number) // поле - "Дата рождения"
+  const [passportIssueDate, setPassportIssueDate] = useState(Number) // поле - "Дата выдачи паспорта"
+  const [ouCode, setOUCode] = useState() // поле - "Код подразделения"
+  const [placeOfBirth, setPlaceOfBirth] = useState("") // поле - "Место рождения"
+  const [placeOfIssue, setPlaceOfIssue] = useState("") // поле - "Паспорт выдан"
+  const [gender, setGender] = useState ("Мужской") // пременная гендера
+  const [clicked, setClicked] = useState(true); // кнопка - "Мужской && Женский"
+  const [snils, setSnils] = useState(true); // поле - "СНИЛС"
+  const [accord, setAccord] = useState(false); // кнопка - "Заполняя сведения о СНИЛС"
+  const [residentialAddress, setResidentialAddress] = useState(true); // кнопка - "Адрес проживания совпадает с адресом регистрации"
+
+
+  // КНОПКИ | BUTTONS
+  const onSubmit = (data) => {
+    props.statusStepTwoForm(false)
+    props.statusStepThreeForm(true)
+  }
+
 
   // ХЕНДЛЕРЫ | HANDLERS
   const handlerPlaceOfBirth = (value) => {
@@ -72,7 +81,6 @@ const StepTwoForm = (props) => {
     setOUCode(suggestion.data.code)
     setPlaceOfIssue(suggestion.value)
   }
-
   const handlerClickedMan = () => {
     setClicked(true)
     setGender("Мужской")
@@ -81,20 +89,21 @@ const StepTwoForm = (props) => {
     setClicked(false)
     setGender("Женский")
   }
-
-      // ТЕКС ОШИБКИ | TEXT ERROR
-      const WarrningError = styled.p`
-    padding-top: 5px;
-    margin: 0;
-    >p{
-      color: red;
-      font-size: 13px;
-      font-weight: 600;
-      text-align: center;
+  const handlerAccord = () => {
+    if ( accord === false ) {
+      setAccord(true)
+    } else {
+      setAccord(false)
     }
-  `
+  }
+  const handlerResidentialAddress = () => {
+    if ( residentialAddress === false ) {
+      setResidentialAddress(true)
+    } else {
+      setResidentialAddress(false)
+    }
+  }
 
-  
 
   return (
     <>
@@ -104,8 +113,10 @@ const StepTwoForm = (props) => {
         data-step_index="2"
       >
         <h2>Паспортные данные</h2>
-        <form className="content-form" method="post"
-        onSubmit = { handleSubmit(onSubmit) }
+        <form
+          className="content-form" 
+          method="post"
+          onSubmit = { handleSubmit(onSubmit) }
         >
           <div className="alert alert-danger hidden"></div>
           <div className="wrapper-master">
@@ -369,7 +380,7 @@ const StepTwoForm = (props) => {
                 <WarrningError>{ errors?.placeOfBirth && (<p>{ errors?.placeOfBirth?.message ||`*Необходимо заполнить поле "Место рождения"`}</p>) }</WarrningError>
               </div>
               <div className="input-box inpBxFull" id="form_place_of_issue">
-                {/* Паспорт выдан */}
+                {/* @ Паспорт выдан */}
                 <label className="control-label">Паспорт выдан</label>
                 <input
                   id="place_of_issue"
@@ -451,22 +462,21 @@ const StepTwoForm = (props) => {
                 />
               </div>
               <div className="input-box inpBxFull" id="form_consent_snils">
-                <label className="control-label label-checkbox active">
+                <label className={ accord === true ? "control-label label-checkbox active" : "control-label label-checkbox"}>
                   <input
                     id="consent_snils"
                     type="checkbox"
                     data-required="true"
                     data-is_checkbox="true"
                     name="consent_snils"
+                    onClick={ handlerAccord }
                      // checked="checked"
                   />
                   Заполняя сведения о СНИЛС, выражаю свое согласие на
                   направление в электронном виде сведений обо мне в кредитную
                   организацию для прохождения упрощенной идентификации
                 </label>
-                <div id="error_consent_snils" className="help-block hidden">
-                  Необходимо проставить галочку
-                </div>
+                  <WarrningError>{ accord === false ? (<p>{ `*Необходимо согласиться с условиями"` }</p>) : undefined }</WarrningError>
               </div>
               <div id="address_reg_id">
                 <h3 className="m_plugin_title">Адрес регистрации</h3>
@@ -853,7 +863,7 @@ const StepTwoForm = (props) => {
                         data-val_is_show=""
                       />
                     </div>
-                    <label className="control-label label-checkbox active">
+                    <label className={ residentialAddress === true ? "control-label label-checkbox active" : "control-label label-checkbox"}>
                       <input
                         id="address_act_id_address_match"
                         className=""
@@ -862,7 +872,7 @@ const StepTwoForm = (props) => {
                         data-key_plugin="address_act_id"
                         name="pasportnye_dannye[address_act_id][address_match]"
                         data-event_field="true"
-                         // checked="checked"
+                        onClick={ handlerResidentialAddress }
                         data-index_group=""
                       />
                       Адрес проживания совпадает с адресом регистрации
@@ -901,7 +911,7 @@ const StepTwoForm = (props) => {
                     </div>
                   </div>
                   <div
-                    className="input-box inpBxFull hidden"
+                    className={ residentialAddress === false ? "input-box inpBxFull" : "input-box inpBxFull hidden" }
                     id="form_address_act_id_address"
                   >
                     <label className="control-label">
@@ -1052,7 +1062,7 @@ const StepTwoForm = (props) => {
                     </div>
                   </div>
                   <div
-                    className="input-box inpBxThirty hidden"
+                    className={ residentialAddress === false ? "input-box inpBxThirty" : "input-box inpBxThirty hidden"}
                     id="form_address_act_id_house_number"
                   >
                     <label className="control-label">Номер дома</label>
@@ -1130,7 +1140,7 @@ const StepTwoForm = (props) => {
                     </div>
                   </div>
                   <div
-                    className="input-box inpBxMRA hidden"
+                    className={ residentialAddress === false ? "input-box inpBxMRA" : "input-box inpBxMRA hidden" }
                     id="form_address_act_id_apartment"
                   >
                     <label className="control-label">Квартира</label>
@@ -1212,24 +1222,15 @@ const StepTwoForm = (props) => {
           <input
             type="hidden"
             name="action[check_date_of_issue_passport_action]"
-            // value="1"
           />
-
           <div className="btn-box">
-            <button
-              type="submit"
-              name="btn_submit_step_save"
-              className="btn btn-primary"
-              id="btn_submit_step_save"
-              // value="pasportnye_dannye"
-            >
+            <button type="submit" name="btn_submit_step_save" className="btn btn-primary" id="btn_submit_step_save">
               <span>Продолжить</span>
             </button>
           </div>
         </form>
       </div>
     </>
-  );
-};
-
-export { StepTwoForm };
+  )
+}
+export { StepTwoForm }

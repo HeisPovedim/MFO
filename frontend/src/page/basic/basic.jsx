@@ -1,23 +1,28 @@
-import React, { useState } from "react";
+// REACT
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-// custom libraries
+// HELPER
+  // functions
+  import { divideNumberByPieces } from "../../components/helper/functions/divide-number-by-pieces"
+
+// CUSTOM LIBRARIES
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 import { IMaskInput } from 'react-imask'
 import {convertObjectValues} from "../../components/helper/functions/convert-object-values";
 import '../../sass/pages/_basic.scss'
 
-// className = wrapper container site-header__wrapper
+// IMG | className = wrapper container site-header__wrapper
 import PresonPng from '../../img/basic/person.png'
 import BurgerPng from '../../img/basic/burger.png'
 
-// className = carts_wrapper flex --just-center
+// IMG | className = carts_wrapper flex --just-center
 import ViasPng from '../../img/basic/visa.png'
 import MasterCardPng from '../../img/basic/mastercard.png'
 import MirPng from '../../img/basic/mir.png'
 
-// className = blocks wrapper flex --just-center
+// IMG | className = blocks wrapper flex --just-center
 import OneBlock from '../../img/basic/1.png'
 import TicketPng from '../../img/basic/ticket.png'
 import TwoBlock from '../../img/basic/2.png'
@@ -25,25 +30,25 @@ import WatchPng from '../../img/basic/watch.png'
 import ThreeBlock from '../../img/basic/3.png'
 import MobilePng from '../../img/basic/mobile.png'
 
-// className = info__imgs
+// IMG | className = info__imgs
 import CapPng from '../../img/basic/cap.png'
 import TvPng from '../../img/basic/tv.png'
 import MedicPng from '../../img/basic/medic.png'
 import CoinPng from '../../img/basic/coin.png'
 import TrevelPng from '../../img/basic/trevel.png'
 
-// className = __tariff
+// IMG | className = __tariff
 import TariffIconPng from '../../img/basic/tariff-icon.png'
 import TariffCoinPng from '../../img/basic/tariif-coin.png'
 import Tariff24Png from '../../img/basic/tariff-24.png'
 
-// className = grid 
+// IMG | className = grid 
 import N200Png from '../../img/default/files/2022-02/n200.jpg'
 import MFOPng from '../../img/default/files/2021-12/MFO.jpg'
 import CentroPng from '../../img/default/files/2021-10/4.png'
 import LoanPng from '../../img/default/files/2021-10/3.png'
 
-// className = apply-loan__body
+// IMG | className = apply-loan__body
 import Loan1Png from '../../img/basic/loan1.png'
 import Loan2Png from '../../img/basic/loan2.png'
 import Loan3Png from '../../img/basic/loan3.png'
@@ -51,20 +56,24 @@ import Loan4Png from '../../img/basic/loan4.png'
 import Loan5Png from '../../img/basic/loan5.png'
 import Loan6Png from '../../img/basic/loan6.png'
 
-//className = footer-wrapper wrapper container flex --just-space
+// IMG | className = footer-wrapper wrapper container flex --just-space
 import IconEmailPng from '../../img/basic/icon-email.png'
 import FooterWatchPng from '../../img/basic/footer-watch.png'
 import FooterLocationPng from '../../img/basic/footer-location.png'
 
 const BasicPage = () => {
 
+  // UseEffect
+  useEffect(() => {
+    localStorage.clear()
+  })
+
+
+  // СТЕЙТЫ | STATES
   const [valueSum, setValueSum] = useState(1500)
   const [valueDay, setValueDay] = useState(5) 
   const current = new Date()
 
-  function divideNumberByPieces(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-  }
 
   const handlerBlurSum = () => { 
     setValueSum(convertObjectValues((Math.round(valueSum/500)*500), true))
@@ -218,7 +227,6 @@ const BasicPage = () => {
                                         mask={"a d"}
                                         blocks={{ d: { mask: "₽" }, a: { mask: Number, thousandsSeparator: ' ', min: 1500, max: 15000 } }}
                                         lazy={false}
-                                        placeholder={valueSum}
                                         unmask={true}
                                         onAccept={ (value) => setValueSum(value) }
                                         onBlur={handlerBlurSum}
@@ -256,7 +264,6 @@ const BasicPage = () => {
                                         mask={"a d"}
                                         blocks={{ d: { mask: "дней" }, a:{mask: Number, min: 5, max: 30} }}
                                         lazy={false}
-                                        placeholder={valueDay}
                                         unmask={true}
                                         onAccept={ (value) => setValueDay(value) }
                                       />
