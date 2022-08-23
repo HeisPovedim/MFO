@@ -1,10 +1,14 @@
+// REACT
 import { Routes, Route } from 'react-router-dom'
 
-import './App.scss';
+// SCSS
+import './App.scss'
 
-import { BasicPage } from './page/basic/basic'
-import { ApplicationFormPage } from './page/application-form/application-form'
-import { ErrorPage } from './page/errorPage/errorPage'
+// IMPORT PAGE
+import { BasicPage } from './pages/basic/basic'
+import { ApplicationFormPage } from './pages/application-form/application-form'
+import { ErrorPage } from './pages/errorPage/errorPage'
+
 
 const App = () => {
   return (
@@ -18,5 +22,4 @@ const App = () => {
     </>
   )
 }
-
 export default App

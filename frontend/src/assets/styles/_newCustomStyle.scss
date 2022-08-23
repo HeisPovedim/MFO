@@ -1,0 +1,113 @@
+.rc-slider, .rc-slider-horizontal {
+  position: absolute;
+  right: 0;
+  padding: 0;
+}
+
+.rc-slider-handle, .rc-slider-handle:hover, .rc-slider-handle:focus-visible, .rc-slider-handle:active, .rc-slider-handle:focus {
+  background: #ff662b !important;
+  border: 3px solid white !important;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.50);
+  box-shadow: 0 0 5px rgba(0,0,0, 0.5) !important;
+  cursor: pointer;
+  height: 14px;
+  width: 14px;
+  margin-top: -5px;
+  z-index: 10;
+}
+
+.rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
+  border: 3px solid white;
+  background: #ff662b !important;
+  -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.50);
+  box-shadow: 0 0 5px rgba(0,0,0, 0.5);
+}
+
+.rc-slider-rail, .rc-slider-track {
+  width: 100%;
+  height: 6px;
+  border-radius: 0px 0px 100px 100px;
+  z-index: 10;
+}
+
+.slider-range-box {
+  position: relative;
+}
+
+.btn-primary {
+  background-color: #ff662b;
+  border-color: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  width: 280px;
+  height: 55px;
+}
+
+.calc-value-box {
+  position: relative;
+}
+
+.suggestions-container {
+  position: absolute;
+  width: 100%;
+}
+
+.suggestions-wrapper {
+  position: absolute;
+  z-index: 99;
+  left: 0;
+  width: 100%;
+}
+
+.react-dadata__input {
+  height: 48px;
+}
+
+.modal_fade_back {
+  position: absolute;
+  cursor: pointer;
+  top: -25px;
+  left: 30px;
+  height: max-content;
+  z-index: 1000;
+  border: none;
+  background-color: none;
+  background: none;
+}
+
+.modal_fade_back img {
+  width: 20px;
+}
+
+.count_down {
+  all: unset;
+  width: 16px;
+}
+
+.input-box__sms {
+  width: 100%;
+  height: 48px;
+  display: block;
+  font-size: 16px;
+  color: #000;
+  line-height: 40px;
+  outline: 0;
+  margin: 0;
+  position: relative;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+  transition: 0.2s;
+  padding: 0 5px 0 20px !important;
+}
+
+input[type='number'] {
+  -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
