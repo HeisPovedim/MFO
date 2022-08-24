@@ -69,8 +69,8 @@ const BasicPage = () => {
 
 
   // СТЕЙТЫ | STATES
-  const [valueSum, setValueSum] = useState(1500)
-  const [valueDay, setValueDay] = useState(5) 
+  const [valueSum, setValueSum] = useState(10000)
+  const [valueDay, setValueDay] = useState(21)
   const current = new Date()
 
 

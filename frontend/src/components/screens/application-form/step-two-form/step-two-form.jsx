@@ -14,7 +14,7 @@ import { IMaskInput } from 'react-imask'
 import $ from 'jquery'
 import 'suggestions-jquery'
 
-import { PlaceOfIssueScript, AddressScript } from '../../../../config/DaData/script'
+import { PlaceOfIssueScript, LegalAddress, ActualAddress } from '../../../../config/DaData/script'
 
 import { TOKEN } from '../../../../config/api/dadata-token'
 
@@ -23,10 +23,14 @@ const StepTwoForm = (props) => {
   
   // ПЕРЕНДЕР | PRERENDER
   useEffect (() => {
-    // <DaData setPlaceOfIssue={setPlaceOfIssue} />
-    PlaceOfIssueScript(setPlaceOfIssue)
-    AddressScript(setAddressRegistration)
+    PlaceOfIssueScript(setPlaceOfIssue, setOUCode)
+    LegalAddress(setAddressRegistration, setHouseRegistration)
+    ActualAddress(setAddressActual, setHouseActual)
+  }, [])
+
+  useEffect (() => {
     console.log(addressRegistration)
+    console.log(houseRegistration)
   })
 
   
@@ -45,9 +49,14 @@ const StepTwoForm = (props) => {
   const [gender, setGender] = useState ("Мужской") // пременная гендера
   const [clicked, setClicked] = useState(true); // кнопка - "Мужской && Женский"
   const [snils, setSnils] = useState(true); // поле - "СНИЛС"
-  const [addressRegistration, setAddressRegistration] = useState(""); // поле - "СНИЛС"
-  const [accord, setAccord] = useState(false); // кнопка - "Заполняя сведения о СНИЛС"
+  const [accord, setAccord] = useState(false); // кнопка - "Сведения о СНИЛС"
+  const [addressRegistration, setAddressRegistration] = useState(""); // поле - "Адрес регистрации"
+  const [houseRegistration, setHouseRegistration] = useState(""); // поле - "Номер дома"
+  const [apartmentRegistration, setApartmentRegistration] = useState(""); // поле - "Квартира"
   const [residentialAddress, setResidentialAddress] = useState(true); // кнопка - "Адрес проживания совпадает с адресом регистрации"
+  const [addressActual, setAddressActual] = useState(""); // поле - "Адрес регистрации"
+  const [houseActual, setHouseActual] = useState(""); // поле - "Номер дома"
+  const [apartmentActual, setApartmentActual] = useState(""); // поле - "Квартира"
 
 
   // КНОПКИ | BUTTONS
@@ -78,6 +87,7 @@ const StepTwoForm = (props) => {
     setClicked(false)
     setGender("Женский")
   }
+  // Кнопка - "Сведения о СНИЛС"
   const handlerAccord = () => {
     if ( accord === false ) {
       setAccord(true)
@@ -93,6 +103,13 @@ const StepTwoForm = (props) => {
     }
   }
 
+  const handlerResidentialAddressActive = () => {
+    if ( residentialAddress === false ) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   return (
     <>
@@ -258,7 +275,7 @@ const StepTwoForm = (props) => {
                       <IMaskInput type="text" id="code_division" class="input_field m_i_d_s suggestions-input"
                         mask="000-000" maskChar="_" lazy={false} unmask={true}
                         onBlur={ onBlur }
-                        onAccept={ (value, mask) => {onChange(value)} }
+                        onAccept={ (value, mask) => onChange(value) }
                         value={value}
                       />
                       <WarrningError>{ errors?.ouCode && (<p>{ errors?.ouCode?.message ||`*Необходимо заполнить поле "Код подразделения"`}</p>) }</WarrningError>
@@ -382,7 +399,6 @@ const StepTwoForm = (props) => {
                     {...register("consent_snils", {
                     required: true,
                   })}
-                     // checked="checked"
                   />
                   Заполняя сведения о СНИЛС, выражаю свое согласие на
                   направление в электронном виде сведений обо мне в кредитную
@@ -394,13 +410,9 @@ const StepTwoForm = (props) => {
                   {/* @ Адрес регистрации */}
                 <h3 className="m_plugin_title">Адрес регистрации</h3>
                 <div className="wrapper-inputs">
-                  <div
-                    className="input-box hide"
-                    id="form_address_reg_id_postal_code"
-                  >
+                  <div className="input-box hide" id="form_address_reg_id_postal_code">
                     <label className="control-label">Почтовый индекс</label>
-                    <input
-                      id="address_reg_id_postal_code"
+                    <input id="address_reg_id_postal_code"
                       className="input_field suggestions-input"
                       type="hidden"
                       data-dadata="legal_zip"
@@ -410,18 +422,14 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_reg_id][postal_code]"
                       data-index_group=""
                       placeholder=""
+                      value=""
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
                       spellCheck="false"
                       style={{ boxSizing: "border-box" }}
                     />
-                    <div
-                      id="error_address_reg_id_postal_code"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Почтовый индекс"
-                    </div>
+                    <div id="error_address_reg_id_postal_code" className="help-block hidden">Необходимо заполнить поле "Почтовый индекс"</div>
                   </div>
                   <div
                     className="input-box inpBxFull"
@@ -440,29 +448,29 @@ const StepTwoForm = (props) => {
                       name="address"
                       data-index_group=""
                       placeholder="Адрес регистрации (Город / Населённый пункт / Улица)"
+                      value={addressRegistration}
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
                       spellCheck="false"
                       style={{ boxSizing: "border-box" }}
+                      {...register ("addressRegistration", {
+                        required: true,
+                        validate: (string) => {
+                          if (/^[^A-Za-z]+$/ig.test(string)) return true
+                            return "*Допустим ввод только русских символов"
+                        },
+                        onChange: (event) => setAddressRegistration(event.target.value)
+                      })}
                     />
                     <div className="suggestions-wrapper">
-                      <div
-                        className="suggestions-suggestions"
-                        style={{ display: "none" }}
-                      ></div>
+                      <div className="suggestions-suggestions" style={{ display: "none" }}></div>
                     </div>
-                    <div
-                      id="error_address_reg_id_address"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Адрес"
-                    </div>
+                    <WarrningError>{ errors?.addressRegistration && (<p>{ errors?.addressRegistration?.message ||`*Необходимо заполнить поле "Адрес регистрации"`}</p>) }</WarrningError>
                   </div>
                   <div className="input-box hide" id="form_address_reg_id_region">
                     <label className="control-label">Регион</label>
-                    <input
-                      id="address_reg_id_region"
+                    <input id="address_reg_id_region"
                       className="input_field rus_num suggestions-input"
                       type="hidden"
                       data-dadata="legal_region"
@@ -472,24 +480,18 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_reg_id][region]"
                       data-index_group=""
                       placeholder=""
-                      // value="Свердловская обл"
+                      value=""
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
                       spellCheck="false"
                       style={{ boxSizing: "border-box" }}
                     />
-                    <div
-                      id="error_address_reg_id_region"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Регион"
-                    </div>
+                    <div id="error_address_reg_id_region" className="help-block hidden">Необходимо заполнить поле "Регион"</div>
                   </div>
                   <div className="input-box hide" id="form_address_reg_id_district">
                     <label className="control-label">Район</label>
-                    <input
-                      id="address_reg_id_district"
+                    <input id="address_reg_id_district"
                       className="input_field rus_num suggestions-input"
                       type="hidden"
                       data-dadata="legal_district"
@@ -499,24 +501,18 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_reg_id][district]"
                       data-index_group=""
                       placeholder=""
-                      // value=""
+                      value=""
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
                       spellCheck="false"
                       style={{ boxSizing: "border-box" }}
                     />
-                    <div
-                      id="error_address_reg_id_district"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Район"
-                    </div>
+                    <div id="error_address_reg_id_district" className="help-block hidden">Необходимо заполнить поле "Район"</div>
                   </div>
                   <div className="input-box hide" id="form_address_reg_id_city">
                     <label className="control-label">Город</label>
-                    <input
-                      id="address_reg_id_city"
+                    <input id="address_reg_id_city"
                       className="input_field rus_num suggestions-input"
                       type="hidden"
                       data-dadata="legal_city"
@@ -526,24 +522,18 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_reg_id][city]"
                       data-index_group=""
                       placeholder=""
-                      // value="г Екатеринбург"
+                      value=""
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
                       spellCheck="false"
                       style={{ boxSizing: "border-box" }}
                     />
-                    <div
-                      id="error_address_reg_id_city"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Город"
-                    </div>
+                    <div id="error_address_reg_id_city" className="help-block hidden">Необходимо заполнить поле "Город"</div>
                   </div>
                   <div className="input-box hide" id="form_address_reg_id_street">
                     <label className="control-label">Улица</label>
-                    <input
-                      id="address_reg_id_street"
+                    <input id="address_reg_id_street"
                       className="input_field rus_num suggestions-input"
                       type="hidden"
                       data-dadata="legal_street"
@@ -553,24 +543,16 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_reg_id][street]"
                       data-index_group=""
                       placeholder=""
-                      // value="ул Щербакова"
+                      value=""
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
                       spellCheck="false"
                       style={{ boxSizing: "border-box" }}
                     />
-                    <div
-                      id="error_address_reg_id_street"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Улица"
-                    </div>
+                    <div id="error_address_reg_id_street" className="help-block hidden">Необходимо заполнить поле "Улица"</div>
                   </div>
-                  <div
-                    className="input-box inpBxThirty"
-                    id="form_address_reg_id_house_number"
-                  >
+                  <div className="input-box inpBxThirty" id="form_address_reg_id_house_number">
                     <label className="control-label">Номер дома</label>
                     <input
                       id="address_reg_id_house_number"
@@ -582,34 +564,29 @@ const StepTwoForm = (props) => {
                       data-key_plugin="address_reg_id"
                       name="pasportnye_dannye[address_reg_id][house_number]"
                       data-index_group=""
-                      placeholder=""
-                      // value="д 77 к 4 "
+                      placeholder="Номер дома"
+                      value={houseRegistration}
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
                       spellCheck="false"
                       style={{ boxSizing: "border-box" }}
+                      {...register ("houseRegistration", {
+                        required: true,
+                        onChange: (event) => setHouseRegistration(event.target.value)
+                      })}
                     />
                     <div className="suggestions-wrapper">
-                      <div
-                        className="suggestions-suggestions"
-                        style={{ display: "none" }}
-                      ></div>
+                      <div className="suggestions-suggestions" style={{ display: "none" }}></div>
                     </div>
-                    <div
-                      id="error_address_reg_id_house_number"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Номер дома"
-                    </div>
+                    <WarrningError>{ errors?.houseRegistration && (<p>{ errors?.houseRegistration?.message ||`*Необходимо заполнить поле "Номер дома"`}</p>) }</WarrningError>
                   </div>
                   <div
                     className="input-box hide inpBxThirteen"
                     id="form_address_reg_id_block"
                   >
                     <label className="control-label">Корпус</label>
-                    <input
-                      id="address_reg_id_block"
+                    <input id="address_reg_id_block"
                       className="input_field"
                       type="hidden"
                       maxLength="20"
@@ -618,19 +595,13 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_reg_id][block]"
                       data-index_group=""
                       placeholder=""
-                      // value=""
+                      value=""
                     />
-                    <div
-                      id="error_address_reg_id_block"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Корпус"
-                    </div>
+                    <div id="error_address_reg_id_block" className="help-block hidden">Необходимо заполнить поле "Корпус"</div>
                   </div>
                   <div className="input-box hide" id="form_address_reg_id_building">
                     <label className="control-label">Строение</label>
-                    <input
-                      id="address_reg_id_building"
+                    <input id="address_reg_id_building"
                       className="input_field"
                       type="hidden"
                       maxLength="20"
@@ -639,87 +610,54 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_reg_id][building]"
                       data-index_group=""
                       placeholder=""
-                      // value=""
+                      value=""
                     />
-                    <div
-                      id="error_address_reg_id_building"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Строение"
-                    </div>
+                    <div id="error_address_reg_id_building" className="help-block hidden">Необходимо заполнить поле "Строение"</div>
                   </div>
                   <div
                     className="input-box inpBxMRA"
                     id="form_address_reg_id_apartment"
                   >
                     <label className="control-label">Квартира</label>
-                    <input
-                      id="address_reg_id_apartment"
-                      className="input_field"
-                      type="text"
+                    <input id="address_reg_id_apartment" className="input_field" type="text"
                       maxLength="40"
                       data-required="false"
                       data-key_plugin="address_reg_id"
                       name="pasportnye_dannye[address_reg_id][apartment]"
                       data-index_group=""
-                      placeholder=""
-                      // value="683"
+                      placeholder="Квартира"
+                      value={apartmentRegistration}
+                      {...register ("apartmentRegistration", {
+                        required: true,
+                        onChange: (event) => setApartmentRegistration(event.target.value)
+                      })}
                     />
-                    <div
-                      id="error_address_reg_id_apartment"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Квартира"
-                    </div>
+                    <WarrningError>{ errors?.apartmentRegistration && (<p>{ errors?.apartmentRegistration?.message ||`*Необходимо заполнить поле "Квартира"`}</p>) }</WarrningError>
                   </div>
-                  <div
-                    className="input-box hide"
-                    id="form_address_reg_id_address_other"
-                  >
-                    <label className="control-label">
-                      Дополнительные значения адреса
-                    </label>
-                    <input
-                      id="address_reg_id_address_other"
-                      className="input_field"
-                      type="hidden"
+                  <div className="input-box hide" id="form_address_reg_id_address_other">
+                    <label className="control-label">Дополнительные значения адреса</label>
+                    <input id="address_reg_id_address_other" className="input_field" type="hidden"
                       data-required="false"
                       data-key_plugin="address_reg_id"
                       name="pasportnye_dannye[address_reg_id][address_other]"
                       data-index_group=""
                       placeholder=""
-                      // value=""
+                      value=""
                     />
-                    <div
-                      id="error_address_reg_id_address_other"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Дополнительные значения адреса"
-                    </div>
+                    <div id="error_address_reg_id_address_other" className="help-block hidden">Необходимо заполнить поле "Дополнительные значения адреса"</div>
                   </div>
-                  <div
-                    className="input-box hide"
-                    id="form_address_reg_id_loc_city_id"
-                  >
-                    <label className="control-label">
-                      Идентификатор адреса в общедоступном справочнике
-                    </label>
-                    <input
-                      id="address_reg_id_loc_city_id"
-                      className="input_field"
-                      type="hidden"
+                  <div className="input-box hide" id="form_address_reg_id_loc_city_id">
+                    <label className="control-label">Идентификатор адреса в общедоступном справочнике</label>
+                    <input id="address_reg_id_loc_city_id" className="input_field" type="hidden"
                       maxLength="6"
                       data-required="true"
                       data-key_plugin="address_reg_id"
                       name="pasportnye_dannye[address_reg_id][loc_city_id]"
                       data-index_group=""
                       placeholder=""
-                      // value=""
+                      value=""
                     />
-                    <div
-                      id="error_address_reg_id_loc_city_id"
-                      className="help-block hidden"
-                    >
+                    <div id="error_address_reg_id_loc_city_id" className="help-block hidden">
                       Необходимо заполнить поле "Идентификатор адреса в
                       общедоступном справочнике"
                     </div>
@@ -729,48 +667,45 @@ const StepTwoForm = (props) => {
               <div id="address_act_id">
                 <h3 className="m_plugin_title">Адрес проживания</h3>
                 <div className="wrapper-inputs">
-                  <div
-                    className="input-box inpBxFull"
-                    id="form_address_act_id_address_match"
-                  >
+                  <div className="input-box inpBxFull" id="form_address_act_id_address_match">
                     <div className="list_fields hidden">
                       <input
                         type="hidden"
-                        // value="postal_code"
+                        value="postal_code"
                         data-val_is_show=""
                       />
                       <input type="hidden" data-val_is_show="" />
                       <input
                         type="hidden"
-                        // value="district"
+                        value="district"
                         data-val_is_show=""
                       />
                       <input type="hidden" data-val_is_show="" />
                       <input type="hidden" data-val_is_show="" />
                       <input
                         type="hidden"
-                        // value="house_number"
+                        value="house_number"
                         data-val_is_show=""
                       />
                       <input type="hidden" data-val_is_show="" />
                       <input
                         type="hidden"
-                        // value="building"
+                        value="building"
                         data-val_is_show=""
                       />
                       <input
                         type="hidden"
-                        // value="apartment"
+                        value="apartment"
                         data-val_is_show=""
                       />
                       <input
                         type="hidden"
-                        // value="address_other"
+                        value="address_other"
                         data-val_is_show=""
                       />
                       <input
                         type="hidden"
-                        // value="address"
+                        value="address"
                         data-val_is_show=""
                       />
                     </div>
@@ -788,21 +723,14 @@ const StepTwoForm = (props) => {
                       />
                       Адрес проживания совпадает с адресом регистрации
                     </label>
-                    <div
-                      id="error_address_act_id_address_match"
-                      className="help-block hidden"
-                    >
+                    <div id="error_address_act_id_address_match" className="help-block hidden">
                       Необходимо заполнить поле "Адрес проживания совпадает с
                       адресом регистрации"
                     </div>
                   </div>
-                  <div
-                    className="input-box hide hidden"
-                    id="form_address_act_id_postal_code"
-                  >
+                  <div className="input-box hide hidden" id="form_address_act_id_postal_code">
                     <label className="control-label">Почтовый индекс</label>
-                    <input
-                      id="address_act_id_postal_code"
+                    <input id="address_act_id_postal_code"
                       className="input_field"
                       type="hidden"
                       data-dadata="actual_zip"
@@ -812,22 +740,12 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_act_id][postal_code]"
                       data-index_group=""
                       placeholder=""
-                      // value="620076"
+                      value=""
                     />
-                    <div
-                      id="error_address_act_id_postal_code"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Почтовый индекс"
-                    </div>
+                    <div id="error_address_act_id_postal_code" className="help-block hidden">Необходимо заполнить поле "Почтовый индекс"</div>
                   </div>
-                  <div
-                    className={ residentialAddress === false ? "input-box inpBxFull" : "input-box inpBxFull hidden" }
-                    id="form_address_act_id_address"
-                  >
-                    <label className="control-label">
-                      Адрес проживания (Город / Населённый пункт / Улица)
-                    </label>
+                  <div className={ residentialAddress === false ? "input-box inpBxFull" : "input-box inpBxFull hidden" } id="form_address_act_id_address">
+                    <label className="control-label">Адрес проживания (Город / Населённый пункт / Улица)</label>
                     <input
                       id="address_act_id_address"
                       className="input_field suggestions-input"
@@ -837,28 +755,30 @@ const StepTwoForm = (props) => {
                       data-key_plugin="address_act_id"
                       name="address"
                       data-index_group=""
-                      placeholder=""
-                      // value="Свердловская обл, г Екатеринбург, ул Щербакова"
+                      placeholder="Адрес проживания (Город / Населённый пункт / Улица)"
+                      value={addressActual}
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
                       spellCheck="false"
                       style={{ boxSizing: "border-box" }}
+                      {...register ("addressActual", {
+                        required: handlerResidentialAddressActive(),
+                        // validate: (string) => {
+                        //   if (/^[^A-Za-z]+$/ig.test(string)) return true
+                        //     return "*Допустим ввод только русских символов"
+                        // },
+                        onChange: (event) => setAddressActual(event.target.value)
+                      })}
                     />
-                    <div
-                      id="error_address_act_id_address"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Адрес"
-                    </div>
+                    <WarrningError>{ errors?.addressActual && (<p>{ errors?.addressActual?.message ||`*Необходимо заполнить поле "Адрес регистрации"`}</p>) }</WarrningError>
                   </div>
                   <div
                     className="input-box hide hidden"
                     id="form_address_act_id_region"
                   >
                     <label className="control-label">Регион</label>
-                    <input
-                      id="address_act_id_region"
+                    <input id="address_act_id_region"
                       className="input_field rus_num suggestions-input"
                       type="hidden"
                       data-dadata="actual_region"
@@ -868,27 +788,18 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_act_id][region]"
                       data-index_group=""
                       placeholder=""
-                      // value="Свердловская обл"
+                      value=""
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
                       spellCheck="false"
                       style={{ boxSizing: "border-box" }}
                     />
-                    <div
-                      id="error_address_act_id_region"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Регион"
-                    </div>
+                    <div id="error_address_act_id_region" className="help-block hidden">Необходимо заполнить поле "Регион"</div>
                   </div>
-                  <div
-                    className="input-box hide hidden"
-                    id="form_address_act_id_district"
-                  >
+                  <div className="input-box hide hidden" id="form_address_act_id_district">
                     <label className="control-label">Район</label>
-                    <input
-                      id="address_act_id_district"
+                    <input id="address_act_id_district"
                       className="input_field rus_num suggestions-input"
                       type="hidden"
                       data-dadata="actual_district"
@@ -898,27 +809,21 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_act_id][district]"
                       data-index_group=""
                       placeholder=""
-                      // value=""
+                      value=""
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
                       spellCheck="false"
                       style={{ boxSizing: "border-box" }}
                     />
-                    <div
-                      id="error_address_act_id_district"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Район"
-                    </div>
+                    <div id="error_address_act_id_district" className="help-block hidden">Необходимо заполнить поле "Район"</div>
                   </div>
                   <div
                     className="input-box hide hidden"
                     id="form_address_act_id_city"
                   >
                     <label className="control-label">Город</label>
-                    <input
-                      id="address_act_id_city"
+                    <input id="address_act_id_city"
                       className="input_field rus_num suggestions-input"
                       type="hidden"
                       data-dadata="actual_city"
@@ -928,27 +833,18 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_act_id][city]"
                       data-index_group=""
                       placeholder=""
-                      // value="г Екатеринбург"
+                      value=""
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
                       spellCheck="false"
                       style={{ boxSizing: "border-box" }}
                     />
-                    <div
-                      id="error_address_act_id_city"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Город"
-                    </div>
+                    <div id="error_address_act_id_city" className="help-block hidden">Необходимо заполнить поле "Город"</div>
                   </div>
-                  <div
-                    className="input-box hide hidden"
-                    id="form_address_act_id_street"
-                  >
+                  <div className="input-box hide hidden" id="form_address_act_id_street">
                     <label className="control-label">Улица</label>
-                    <input
-                      id="address_act_id_street"
+                    <input id="address_act_id_street"
                       className="input_field rus_num suggestions-input"
                       type="hidden"
                       data-dadata="actual_street"
@@ -958,24 +854,16 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_act_id][street]"
                       data-index_group=""
                       placeholder=""
-                      // value="ул Щербакова"
+                      value=""
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
                       spellCheck="false"
                       style={{ boxSizing: "border-box" }}
                     />
-                    <div
-                      id="error_address_act_id_street"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Улица"
-                    </div>
+                    <div id="error_address_act_id_street" className="help-block hidden">Необходимо заполнить поле "Улица"</div>
                   </div>
-                  <div
-                    className={ residentialAddress === false ? "input-box inpBxThirty" : "input-box inpBxThirty hidden"}
-                    id="form_address_act_id_house_number"
-                  >
+                  <div className={ residentialAddress === false ? "input-box inpBxThirty" : "input-box inpBxThirty hidden"} id="form_address_act_id_house_number">
                     <label className="control-label">Номер дома</label>
                     <input
                       id="address_act_id_house_number"
@@ -987,28 +875,23 @@ const StepTwoForm = (props) => {
                       data-key_plugin="address_act_id"
                       name="pasportnye_dannye[address_act_id][house_number]"
                       data-index_group=""
-                      placeholder=""
-                      // value="д 77 к 4 "
+                      placeholder="Номер дома"
+                      value={houseActual}
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
                       spellCheck="false"
                       style={{ boxSizing: "border-box" }}
+                      {...register ("houseActual", {
+                        required: handlerResidentialAddressActive(),
+                        onChange: (event) => setHouseActual(event.target.value)
+                      })}
                     />
-                    <div
-                      id="error_address_act_id_house_number"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Номер дома"
-                    </div>
+                    <WarrningError>{ errors?.houseActual && (<p>{ errors?.houseActual?.message ||`*Необходимо заполнить поле "Номер дома"`}</p>) }</WarrningError>
                   </div>
-                  <div
-                    className="input-box hide inpBxThirteen hidden"
-                    id="form_address_act_id_block"
-                  >
+                  <div className="input-box hide inpBxThirteen hidden" id="form_address_act_id_block">
                     <label className="control-label">Корпус</label>
-                    <input
-                      id="address_act_id_block"
+                    <input id="address_act_id_block"
                       className="input_field"
                       type="hidden"
                       maxLength="20"
@@ -1017,22 +900,13 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_act_id][block]"
                       data-index_group=""
                       placeholder=""
-                      // value=""
+                      value=""
                     />
-                    <div
-                      id="error_address_act_id_block"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Корпус"
-                    </div>
+                    <div id="error_address_act_id_block" className="help-block hidden">Необходимо заполнить поле "Корпус"</div>
                   </div>
-                  <div
-                    className="input-box hide hidden"
-                    id="form_address_act_id_building"
-                  >
+                  <div className="input-box hide hidden" id="form_address_act_id_building">
                     <label className="control-label">Строение</label>
-                    <input
-                      id="address_act_id_building"
+                    <input id="address_act_id_building"
                       className="input_field"
                       type="hidden"
                       maxLength="20"
@@ -1041,19 +915,11 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_act_id][building]"
                       data-index_group=""
                       placeholder=""
-                      // value=""
+                      value=""
                     />
-                    <div
-                      id="error_address_act_id_building"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Строение"
-                    </div>
+                    <div id="error_address_act_id_building" className="help-block hidden">Необходимо заполнить поле "Строение"</div>
                   </div>
-                  <div
-                    className={ residentialAddress === false ? "input-box inpBxMRA" : "input-box inpBxMRA hidden" }
-                    id="form_address_act_id_apartment"
-                  >
+                  <div className={ residentialAddress === false ? "input-box inpBxMRA" : "input-box inpBxMRA hidden" } id="form_address_act_id_apartment">
                     <label className="control-label">Квартира</label>
                     <input
                       id="address_act_id_apartment"
@@ -1064,25 +930,18 @@ const StepTwoForm = (props) => {
                       data-key_plugin="address_act_id"
                       name="pasportnye_dannye[address_act_id][apartment]"
                       data-index_group=""
-                      placeholder=""
-                      // value="683"
+                      placeholder="Квартира"
+                      value={apartmentActual}
+                      {...register ("apartmentActual", {
+                        required: handlerResidentialAddressActive(),
+                        onChange: (event) => setApartmentActual(event.target.value)
+                      })}
                     />
-                    <div
-                      id="error_address_act_id_apartment"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Квартира"
-                    </div>
+                    <WarrningError>{ errors?.apartmentActual && (<p>{ errors?.apartmentActual?.message ||`*Необходимо заполнить поле "Квартира"`}</p>) }</WarrningError>
                   </div>
-                  <div
-                    className="input-box hide hidden"
-                    id="form_address_act_id_address_other"
-                  >
-                    <label className="control-label">
-                      Дополнительные значения адреса
-                    </label>
-                    <input
-                      id="address_act_id_address_other"
+                  <div className="input-box hide hidden" id="form_address_act_id_address_other">
+                    <label className="control-label">Дополнительные значения адреса</label>
+                    <input id="address_act_id_address_other"
                       className="input_field"
                       type="hidden"
                       data-required="false"
@@ -1090,24 +949,13 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_act_id][address_other]"
                       data-index_group=""
                       placeholder=""
-                      // value=""
+                      value=""
                     />
-                    <div
-                      id="error_address_act_id_address_other"
-                      className="help-block hidden"
-                    >
-                      Необходимо заполнить поле "Дополнительные значения адреса"
-                    </div>
+                    <div id="error_address_act_id_address_other" className="help-block hidden">Необходимо заполнить поле "Дополнительные значения адреса"</div>
                   </div>
-                  <div
-                    className="input-box hide"
-                    id="form_address_act_id_loc_city_id"
-                  >
-                    <label className="control-label">
-                      Идентификатор адреса в общедоступном справочнике
-                    </label>
-                    <input
-                      id="address_act_id_loc_city_id"
+                  <div className="input-box hide" id="form_address_act_id_loc_city_id">
+                    <label className="control-label">Идентификатор адреса в общедоступном справочнике</label>
+                    <input id="address_act_id_loc_city_id"
                       className="input_field"
                       type="hidden"
                       maxLength="6"
@@ -1116,12 +964,9 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_act_id][loc_city_id]"
                       data-index_group=""
                       placeholder=""
-                      // value=""
+                      value=""
                     />
-                    <div
-                      id="error_address_act_id_loc_city_id"
-                      className="help-block hidden"
-                    >
+                    <div id="error_address_act_id_loc_city_id" className="help-block hidden">
                       Необходимо заполнить поле "Идентификатор адреса в
                       общедоступном справочнике"
                     </div>
@@ -1130,10 +975,7 @@ const StepTwoForm = (props) => {
               </div>
             </div>
           </div>
-          <input
-            type="hidden"
-            name="action[check_date_of_issue_passport_action]"
-          />
+          <input type="hidden" name="action[check_date_of_issue_passport_action]" />
           <div className="btn-box">
             <button type="submit" name="btn_submit_step_save" className="btn btn-primary" id="btn_submit_step_save">
               <span>Продолжить</span>

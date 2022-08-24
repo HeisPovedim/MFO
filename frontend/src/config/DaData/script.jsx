@@ -3,7 +3,7 @@ import 'suggestions-jquery'
 
 import { TOKEN } from '../api/dadata-token';
 
-export const PlaceOfIssueScript = (setPlaceOfIssue) => {
+export const PlaceOfIssueScript = (setPlaceOfIssue, setOUCode) => {
   function formatResult(value, currentValue, suggestion) {
     suggestion.value = suggestion.data.code;
     return suggestion.data.code + " — " + suggestion.data.name;
@@ -11,6 +11,7 @@ export const PlaceOfIssueScript = (setPlaceOfIssue) => {
   function showSuggestion(suggestion) {
     $("#place_of_issue").val(suggestion.data.name);
     setPlaceOfIssue(suggestion.data.name);
+    setOUCode(suggestion.data.code)
   }
   function clearSuggestion() {
     $("#place_of_issue").val("");
@@ -24,78 +25,131 @@ export const PlaceOfIssueScript = (setPlaceOfIssue) => {
   })
 }
 
-export const AddressScript = (setResidentialAddress) => {
-  
-  $("#address_reg_id_address").suggestions({
+export const LegalAddress = (setResidentialAddress, setHouseRegistration) => {
+
+  let $address = $("#address_reg_id_address")
+  let $house = $("#address_reg_id_house_number")
+
+  $address.suggestions({
     token: TOKEN,
     type: 'ADDRESS',
-    hint: false,
     bounds: "region-district-city-street",
     onSelect: setLegalAddressToFields,
   })
 
-  $("#address_reg_id_house_number").suggestions({
+  $house.suggestions({
     token: TOKEN,
     type: 'ADDRESS',
     hint: false,
+    noSuggestionsHint: false,
     bounds: "house",
-    constraints: $("#address_reg_id_address"),
-    onSelect: function(suggestion) {
-      var legal_zip = $('input[data-dadata="legal_zip"]')
-      var legal_house = $('input[data-dadata="legal_building"]')
-      console.log(suggestion.data)
-        legal_zip.val(suggestion.data.postal_code)
-        legal_house.val(suggestion.data.house)
-    }
+    constraints: $address,
+    onSelect: setPostalCodeLegal
   });
 
-  // $legal_house.suggestions({
-  //   token: api_key,
-  //   type: 'ADDRESS',
-  //   hint: false,
-  //   noSuggestionsHint: false,
-  //   bounds: "house",
-  //   constraints: $legal_address,
-  //   onSelect: setPostalCodeLegal
-  // });
-  // function setPostalCodeLegal(suggestion) {
-  // var legal_zip = $('input[data-dadata="legal_zip"]');
-  // if (typeof legal_zip.val() !== 'undefined') {
-  //     legal_zip.val(suggestion.data.postal_code);
-  //     if (isRequired(legal_zip)) {
-  //         checkField(legal_zip)
-  //     }
-  // }
-  // }
+  function setPostalCodeLegal(suggestion) {
+    var legal_zip = $('input[data-dadata="legal_zip"]');
+    var legal_house = $('input[data-dadata="legal_building"]')
+    legal_zip.val(suggestion.data.postal_code)
+    legal_house.val(suggestion.data.house)
+    setHouseRegistration(suggestion.data.house)
+  }
 
-function setLegalAddressToFields(suggestion) {
-    console.log(suggestion.data.value)
-    setResidentialAddress(suggestion.value)
-    $('input[data-dadata="legal_zip"]').val('');
-    $('input[data-dadata="legal_region"]').val('');
-    $('input[data-dadata="legal_district"]').val('');
-    $('input[data-dadata="legal_city"]').val('');
-    $('input[data-dadata="legal_street"]').val('');
-    $('input[data-dadata="legal_building"]').val('');
+  function setLegalAddressToFields(suggestion) {
+      console.log(suggestion)
+      setResidentialAddress(suggestion.value)
+      $('input[data-dadata="legal_zip"]').val('');
+      $('input[data-dadata="legal_region"]').val('');
+      $('input[data-dadata="legal_district"]').val('');
+      $('input[data-dadata="legal_city"]').val('');
+      $('input[data-dadata="legal_street"]').val('');
+      $('input[data-dadata="legal_building"]').val('');
+      if (suggestion.data.postal_code !== null) {
+          $('input[data-dadata="legal_zip"]').val(suggestion.data.postal_code);
+      }
+      if (suggestion.data.region_with_type !== null) {
+          $('input[data-dadata="legal_region"]').val(suggestion.data.region_with_type);
+      }
+      if (suggestion.data.area_with_type !== null) {
+          $('input[data-dadata="legal_district"]').val(suggestion.data.area_with_type);
+      }
+      if (suggestion.data.city_with_type !== null) {
+          $('input[data-dadata="legal_city"]').val(suggestion.data.city_with_type);
+      } else if (suggestion.data.settlement_with_type !== null) {
+          $('input[data-dadata="legal_city"]').val(suggestion.data.settlement_with_type);
+      }
+      if (suggestion.data.street_with_type !== null) {
+          $('input[data-dadata="legal_street"]').val(suggestion.data.street_with_type);
+          console.log(suggestion.data.street_with_type)
+      } else if (suggestion.data.settlement_with_type !== null) {
+          $('input[data-dadata="legal_street"]').val(suggestion.data.settlement_with_type);
+      }
+      if (suggestion.data.house !== null) {
+        $('input[data-dadata="actual_building"]').val(suggestion.data.house);
+    }
+  }
+}
+
+
+export const ActualAddress = (setAddressActual, setHouseActual) => {
+  
+  let $address = $("#address_act_id_address")
+  let $house = $("#address_act_id_house_number")
+
+  $address.suggestions({
+    token: TOKEN,
+    type: 'ADDRESS',
+    bounds: "region-district-city-street",
+    onSelect: setActualAddressToFields,
+  })
+
+  $house.suggestions({
+    token: TOKEN,
+    type: 'ADDRESS',
+    hint: false,
+    noSuggestionsHint: false,
+    bounds: "house",
+    constraints: $address,
+    onSelect: setPostalCodeLegal
+  });
+
+  function setPostalCodeLegal(suggestion) {
+    var actual_zip = $('input[data-dadata="actual_zip"]');
+    var actual_house = $('input[data-dadata="actual_building"]')
+    actual_zip.val(suggestion.data.postal_code)
+    actual_house.val(suggestion.data.house)
+    setHouseActual(suggestion.data.house)
+  }
+  
+  function setActualAddressToFields(suggestion) {
+    setAddressActual(suggestion.value)
+    $('input[data-dadata="actual_zip"]').val('');
+    $('input[data-dadata="actual_region"]').val('');
+    $('input[data-dadata="actual_district"]').val('');
+    $('input[data-dadata="actual_city"]').val('');
+    $('input[data-dadata="actual_street"]').val('');
+    $('input[data-dadata="actual_building"]').val('');
     if (suggestion.data.postal_code !== null) {
-        $('input[data-dadata="legal_zip"]').val(suggestion.data.postal_code);
+        $('input[data-dadata="actual_zip"]').val(suggestion.data.postal_code);
     }
     if (suggestion.data.region_with_type !== null) {
-        $('input[data-dadata="legal_region"]').val(suggestion.data.region_with_type);
+        $('input[data-dadata="actual_region"]').val(suggestion.data.region_with_type);
     }
     if (suggestion.data.area_with_type !== null) {
-        $('input[data-dadata="legal_district"]').val(suggestion.data.area_with_type);
+        $('input[data-dadata="actual_district"]').val(suggestion.data.area_with_type);
     }
     if (suggestion.data.city_with_type !== null) {
-        $('input[data-dadata="legal_city"]').val(suggestion.data.city_with_type);
+        $('input[data-dadata="actual_city"]').val(suggestion.data.city_with_type);
     } else if (suggestion.data.settlement_with_type !== null) {
-        $('input[data-dadata="legal_city"]').val(suggestion.data.settlement_with_type);
+        $('input[data-dadata="actual_city"]').val(suggestion.data.settlement_with_type);
     }
     if (suggestion.data.street_with_type !== null) {
-        $('input[data-dadata="legal_street"]').val(suggestion.data.street_with_type);
-        
+        $('input[data-dadata="actual_street"]').val(suggestion.data.street_with_type);
     } else if (suggestion.data.settlement_with_type !== null) {
-        $('input[data-dadata="legal_street"]').val(suggestion.data.settlement_with_type);
+        $('input[data-dadata="actual_street"]').val(suggestion.data.settlement_with_type);
     }
+    if (suggestion.data.house !== null) {
+        $('input[data-dadata="actual_building"]').val(suggestion.data.house);
+    }
+  }
 }
-} 

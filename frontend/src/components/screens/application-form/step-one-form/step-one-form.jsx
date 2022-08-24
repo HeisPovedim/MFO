@@ -4,6 +4,7 @@ import { useForm, Controller } from 'react-hook-form'
 
 // FUNCTIONS
 import { capitalizeFirstLetter } from '../../../../helpers/capitalize-first-letter'
+import { RegRusAndEng } from '../../../../helpers/regular-expressions'
 
 // COMPONENTS
 import { PhoneField } from '../../../shared/fields/phone-field'
@@ -30,7 +31,7 @@ const StepOneForm = (props) => {
     localStorage.setItem("userLastName", lastName)
     localStorage.setItem("userFirstName", firstName)
     localStorage.setItem("userMiddleName", middleName)
-    console.log("Step: "+phoneNumber)
+    // console.log("Step: "+phoneNumber)
   })
 
 
@@ -71,13 +72,13 @@ const StepOneForm = (props) => {
 
   // ХЕНДЛЕРЫ | HANDLERS
   const handlerLastName = (event) => {
-    setLastName(capitalizeFirstLetter(event.replace(/[^а-яА-ЯёЁ\s]/gi, '')))
+    setLastName(capitalizeFirstLetter(event.replace(RegRusAndEng, '')))
   }
   const handlerFirstName = (event) => {
-    setFirstName(capitalizeFirstLetter(event.replace(/[^а-яА-ЯёЁ\s]/gi, '')))
+    setFirstName(capitalizeFirstLetter(event.replace(RegRusAndEng, '')))
   }
   const handlerMiddleName = (event) => {
-    setMiddleName(capitalizeFirstLetter(event.replace(/[^а-яА-ЯёЁ\s]/gi, '')))
+    setMiddleName(capitalizeFirstLetter(event.replace(RegRusAndEng, '')))
   }
 
 
@@ -115,6 +116,10 @@ const StepOneForm = (props) => {
                       value: 30,
                       message: "*Не больше 30 символов",
                     },
+                    validate: (string) => {
+                      if (/^[^A-Za-z]+$/ig.test(string)) return true
+                        return "*Допустим ввод только русских символов"
+                    },
                     onChange: (event) => handlerLastName(event.target.value),
                   })}
                 />
@@ -146,6 +151,10 @@ const StepOneForm = (props) => {
                       value: 30,
                       message: "*Не больше 30 символов",
                     },
+                    validate: (string) => {
+                      if (/^[^A-Za-z]+$/ig.test(string)) return true
+                        return "*Допустим ввод только русских символов"
+                    },
                     onChange: (event) => handlerFirstName(event.target.value),
                   })}
                 />
@@ -176,6 +185,10 @@ const StepOneForm = (props) => {
                     maxLength: {
                       value: 30,
                       message: "Не больше 30 символов",
+                    },
+                    validate: (string) => {
+                      if (/^[^A-Za-z]+$/ig.test(string)) return true
+                        return "*Допустим ввод только русских символов"
                     },
                     onChange: (event) => handlerMiddleName(event.target.value),
                   })}
