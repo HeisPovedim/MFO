@@ -186,9 +186,9 @@ const StepOneForm = (props) => {
                       value: 30,
                       message: "Не больше 30 символов",
                     },
-                    validate: (string) => {
-                      if (/^[^A-Za-z]+$/ig.test(string)) return true
-                        return "*Допустим ввод только русских символов"
+                    pattern: {
+                      value: /^[^A-Za-z]+$/ig,
+                      message: "*Допустим ввод только русских символов"
                     },
                     onChange: (event) => handlerMiddleName(event.target.value),
                   })}

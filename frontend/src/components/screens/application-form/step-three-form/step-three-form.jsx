@@ -42,7 +42,6 @@ const StepThreeForm = (props) => {
 
   // USEFORM
   const {
-    register,
     formState: { errors },
     handleSubmit,
     control
@@ -213,7 +212,13 @@ const StepThreeForm = (props) => {
                   <Controller
                     control={control}
                     name="income"
-                    rules={{ required: true }}
+                    rules={{ 
+                      required: true,
+                      min: {
+                        value: 1000,
+                        message: "Минимальный доход в месяц - 1000"
+                      }
+                    }}
                     render={({ field: { onChange, onBlur } }) => (
                       <>
                         <Salart value={setIncome} onChange={onChange} onBlur={onBlur} />

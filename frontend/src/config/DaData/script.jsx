@@ -1,20 +1,26 @@
 import $ from 'jquery'
+import { useForm } from 'react-hook-form';
 import 'suggestions-jquery'
 
 import { TOKEN } from '../api/dadata-token';
 
-export const PlaceOfIssueScript = (setPlaceOfIssue, setOUCode) => {
+export const PlaceOfIssueScript = (placeOfIssue, OUCode, statusSelec) => {
+
   function formatResult(value, currentValue, suggestion) {
     suggestion.value = suggestion.data.code;
     return suggestion.data.code + " — " + suggestion.data.name;
   }
   function showSuggestion(suggestion) {
-    $("#place_of_issue").val(suggestion.data.name);
-    setPlaceOfIssue(suggestion.data.name);
-    setOUCode(suggestion.data.code)
+    $("#place_of_issue").val(suggestion.data.name)
+    $("#code_division").val(suggestion.data.code)
+    placeOfIssue(suggestion.data.name)
+    OUCode(suggestion.data.code)
+    statusSelec(false)
   }
   function clearSuggestion() {
     $("#place_of_issue").val("");
+    placeOfIssue("")
+    statusSelec(true)
   }
   $("#code_division").suggestions({
     token: TOKEN,
@@ -130,26 +136,26 @@ export const ActualAddress = (setAddressActual, setHouseActual) => {
     $('input[data-dadata="actual_street"]').val('');
     $('input[data-dadata="actual_building"]').val('');
     if (suggestion.data.postal_code !== null) {
-        $('input[data-dadata="actual_zip"]').val(suggestion.data.postal_code);
+      $('input[data-dadata="actual_zip"]').val(suggestion.data.postal_code);
     }
     if (suggestion.data.region_with_type !== null) {
-        $('input[data-dadata="actual_region"]').val(suggestion.data.region_with_type);
+      $('input[data-dadata="actual_region"]').val(suggestion.data.region_with_type);
     }
     if (suggestion.data.area_with_type !== null) {
-        $('input[data-dadata="actual_district"]').val(suggestion.data.area_with_type);
+      $('input[data-dadata="actual_district"]').val(suggestion.data.area_with_type);
     }
     if (suggestion.data.city_with_type !== null) {
-        $('input[data-dadata="actual_city"]').val(suggestion.data.city_with_type);
+      $('input[data-dadata="actual_city"]').val(suggestion.data.city_with_type);
     } else if (suggestion.data.settlement_with_type !== null) {
-        $('input[data-dadata="actual_city"]').val(suggestion.data.settlement_with_type);
+      $('input[data-dadata="actual_city"]').val(suggestion.data.settlement_with_type);
     }
     if (suggestion.data.street_with_type !== null) {
-        $('input[data-dadata="actual_street"]').val(suggestion.data.street_with_type);
+      $('input[data-dadata="actual_street"]').val(suggestion.data.street_with_type);
     } else if (suggestion.data.settlement_with_type !== null) {
-        $('input[data-dadata="actual_street"]').val(suggestion.data.settlement_with_type);
+      $('input[data-dadata="actual_street"]').val(suggestion.data.settlement_with_type);
     }
     if (suggestion.data.house !== null) {
-        $('input[data-dadata="actual_building"]').val(suggestion.data.house);
+      $('input[data-dadata="actual_building"]').val(suggestion.data.house);
     }
   }
 }

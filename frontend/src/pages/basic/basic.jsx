@@ -296,7 +296,7 @@ const BasicPage = () => {
                           <div className="calc-desc">
                             <div className="cd_info">
                               <p>Вы берете</p>
-                              <p><span className="calc-summ">{ valueSum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") } &#8381;</span></p>
+                              <p><span className="calc-summ">{ divideNumberByPieces(valueSum.toString()) } &#8381;</span></p>
                             </div>
                             <div className="cd_info">
                               <p>До (включительно)</p>

@@ -3,41 +3,19 @@ import React, { useState, useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 
 // SHARED
-  // functions
-  import { capitalizeFirstLetter } from '../../../../helpers/capitalize-first-letter'
   // components
   import { WarrningError } from '../../../shared/verify/warrning-error'
 
 // CUSTOM LIBRARIES
 import NumberFormat from 'react-number-format'
 import { IMaskInput } from 'react-imask'
-import $ from 'jquery'
-import 'suggestions-jquery'
 
 import { PlaceOfIssueScript, LegalAddress, ActualAddress } from '../../../../config/DaData/script'
 
-import { TOKEN } from '../../../../config/api/dadata-token'
-
 
 const StepTwoForm = (props) => {
-  
-  // ПЕРЕНДЕР | PRERENDER
-  useEffect (() => {
-    PlaceOfIssueScript(setPlaceOfIssue, setOUCode)
-    LegalAddress(setAddressRegistration, setHouseRegistration)
-    ActualAddress(setAddressActual, setHouseActual)
-  }, [])
 
-  useEffect (() => {
-    console.log(addressRegistration)
-    console.log(houseRegistration)
-  })
 
-  
-  // ХУКИ | HOOKS
-  const { register, formState: { errors }, handleSubmit, control } = useForm({ mode: "all" })
-
-  
   // СТЕЙТЫ | STATES
   const [passportSeries, setPassportSeries] = useState(Number) // поле - "Серия паспорта"
   const [passportNumber, setPassportNumber] = useState(Number) // поле - "Номер паспорта"
@@ -57,6 +35,35 @@ const StepTwoForm = (props) => {
   const [addressActual, setAddressActual] = useState(""); // поле - "Адрес регистрации"
   const [houseActual, setHouseActual] = useState(""); // поле - "Номер дома"
   const [apartmentActual, setApartmentActual] = useState(""); // поле - "Квартира"
+  const [statusSelec, setStatusSelec] = useState(""); // поле - "Квартира"
+
+
+  // ХУКИ | HOOKS
+  const
+  { register,
+    formState: { errors },
+    handleSubmit,
+    control,
+    watch,
+    setValue,
+    resetField
+  } = useForm({ mode: "all" })
+
+
+  
+  useEffect (() => {
+    PlaceOfIssueScript(setPlaceOfIssue, setOUCode, setStatusSelec)
+    resetField("placeOfIssue", placeOfIssue)
+    setValue("placeOfIssue", placeOfIssue)
+    resetField("ouCode", ouCode)
+    setValue("ouCode", ouCode)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [placeOfIssue, resetField, setValue])
+
+  useEffect(() => {
+    LegalAddress(setAddressRegistration, setHouseRegistration)
+    ActualAddress(setAddressActual, setHouseActual)
+  }, [])
 
 
   // КНОПКИ | BUTTONS
@@ -68,16 +75,8 @@ const StepTwoForm = (props) => {
 
 
   // ХЕНДЛЕРЫ | HANDLERS
-  const handlerPlaceOfBirth = (value) => {
-    setPlaceOfBirth(capitalizeFirstLetter(value.replace(/[^аa-яАzA-ЯёЁZ\s]/gi, '')))
-  }
-  const handlerOUCode = (event) => {
-    setOUCode(event.target.value.replace(/[^0-9]/g, ''))
-  }
-  const handlerDataSuggestion = (suggestion) => {
-    console.log(suggestion)
-    setOUCode(suggestion.data.code)
-    setPlaceOfIssue(suggestion.value)
+  const handlerOUCode = (value) => {
+    setOUCode(value)
   }
   const handlerClickedMan = () => {
     setClicked(true)
@@ -102,7 +101,6 @@ const StepTwoForm = (props) => {
       setResidentialAddress(false)
     }
   }
-
   const handlerResidentialAddressActive = () => {
     if ( residentialAddress === false ) {
       return true
@@ -274,14 +272,21 @@ const StepTwoForm = (props) => {
                     <>
                       <IMaskInput type="text" id="code_division" class="input_field m_i_d_s suggestions-input"
                         mask="000-000" maskChar="_" lazy={false} unmask={true}
-                        onBlur={ onBlur }
-                        onAccept={ (value, mask) => onChange(value) }
-                        value={value}
+                        onBlur={onBlur}
+                        onAccept={ (value) => {
+                          onChange(value)
+                          handlerOUCode(value)
+                        }}
                       />
                       <WarrningError>{ errors?.ouCode && (<p>{ errors?.ouCode?.message ||`*Необходимо заполнить поле "Код подразделения"`}</p>) }</WarrningError>
                     </>
                   )}
                 />
+                { statusSelec === true ? <span style={{
+                fontSize: "13px",
+                color: "#fb6f39",
+                paddingLeft: "10%"
+              }}>Выберите значение из подсказки</span> : undefined }
               </div>
               <div className="input-box inpBxFF" id="form_place_of_birth">
                 {/* @ Место рождения */}
@@ -298,7 +303,11 @@ const StepTwoForm = (props) => {
                   placeholder=""
                   {...register("placeOfBirth", {
                     required: true,
-                    onChange: (event) => setPlaceOfBirth(event.target.value)
+                    pattern: {
+                      value: /^[^A-Za-z]+$/ig,
+                      message: "*Допустим ввод только русских символов"
+                    },
+                    onChange: (event) => setPlaceOfBirth(event.target.value.replace(/[^а-яА-ЯёЁ(),.-\s]/g, ""))
                   })}
                 />
                 <WarrningError>{ errors?.placeOfBirth && (<p>{ errors?.placeOfBirth?.message ||`*Необходимо заполнить поле "Место рождения"`}</p>) }</WarrningError>
@@ -764,10 +773,6 @@ const StepTwoForm = (props) => {
                       style={{ boxSizing: "border-box" }}
                       {...register ("addressActual", {
                         required: handlerResidentialAddressActive(),
-                        // validate: (string) => {
-                        //   if (/^[^A-Za-z]+$/ig.test(string)) return true
-                        //     return "*Допустим ввод только русских символов"
-                        // },
                         onChange: (event) => setAddressActual(event.target.value)
                       })}
                     />
