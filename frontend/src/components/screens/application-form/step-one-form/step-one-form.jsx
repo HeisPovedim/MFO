@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 
-// FUNCTIONS
+// HELPERS
 import { capitalizeFirstLetter } from '../../../../helpers/capitalize-first-letter'
-import { RegRusAndEng } from '../../../../helpers/regular-expressions'
+import { RegForInitials } from '../../../../helpers/regular-expressions'
 
 // COMPONENTS
 import { PhoneField } from '../../../shared/fields/phone-field'
@@ -72,13 +72,13 @@ const StepOneForm = (props) => {
 
   // ХЕНДЛЕРЫ | HANDLERS
   const handlerLastName = (event) => {
-    setLastName(capitalizeFirstLetter(event.replace(RegRusAndEng, '')))
+    setLastName(capitalizeFirstLetter(event.replace(RegForInitials, '')))
   }
   const handlerFirstName = (event) => {
-    setFirstName(capitalizeFirstLetter(event.replace(RegRusAndEng, '')))
+    setFirstName(capitalizeFirstLetter(event.replace(RegForInitials, '')))
   }
   const handlerMiddleName = (event) => {
-    setMiddleName(capitalizeFirstLetter(event.replace(RegRusAndEng, '')))
+    setMiddleName(capitalizeFirstLetter(event.replace(RegForInitials, '')))
   }
 
 
@@ -116,9 +116,9 @@ const StepOneForm = (props) => {
                       value: 30,
                       message: "*Не больше 30 символов",
                     },
-                    validate: (string) => {
-                      if (/^[^A-Za-z]+$/ig.test(string)) return true
-                        return "*Допустим ввод только русских символов"
+                    pattern: {
+                      value: /^[^A-Za-z]+$/ig,
+                      message: "*Допустим ввод только русских символов"
                     },
                     onChange: (event) => handlerLastName(event.target.value),
                   })}
@@ -151,9 +151,9 @@ const StepOneForm = (props) => {
                       value: 30,
                       message: "*Не больше 30 символов",
                     },
-                    validate: (string) => {
-                      if (/^[^A-Za-z]+$/ig.test(string)) return true
-                        return "*Допустим ввод только русских символов"
+                    pattern: {
+                      value: /^[^A-Za-z]+$/ig,
+                      message: "*Допустим ввод только русских символов"
                     },
                     onChange: (event) => handlerFirstName(event.target.value),
                   })}
