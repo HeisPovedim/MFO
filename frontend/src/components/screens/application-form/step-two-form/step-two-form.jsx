@@ -26,7 +26,7 @@ const StepTwoForm = (props) => {
   const [ouCode, setOUCode] = useState() // поле - "Код подразделения"
   const [placeOfBirth, setPlaceOfBirth] = useState("") // поле - "Место рождения"
   const [placeOfIssue, setPlaceOfIssue] = useState("") // поле - "Паспорт выдан"
-  const [gender, setGender] = useState ("Мужской") // пременная гендера
+  const [gender, setGender] = useState ("") // пременная гендера
   const [clicked, setClicked] = useState(undefined); // кнопка - "Мужской && Женский"
   const [snils, setSnils] = useState(true); // поле - "СНИЛС"
   const [accord, setAccord] = useState(false); // кнопка - "Сведения о СНИЛС"
@@ -70,10 +70,9 @@ const StepTwoForm = (props) => {
 
   // КНОПКИ | BUTTONS
   const onSubmit = (data) => {
-    console.log(data)
     props.statusStepTwoForm(false)
     props.statusStepThreeForm(true)
-    return false
+    console.log(data)
   }
 
 
@@ -91,10 +90,10 @@ const StepTwoForm = (props) => {
   }
   // Кнопка - "Сведения о СНИЛС"
   const handlerAccord = () => {
-    if ( accord === false ) {
-      setAccord(true)
-    } else {
+    if ( accord === true ) {
       setAccord(false)
+    } else {
+      setAccord(true)
     }
   }
   const handlerResidentialAddress = () => {
@@ -123,8 +122,7 @@ const StepTwoForm = (props) => {
         <form
           className="content-form" 
           method="post"
-          // onSubmit = { clicked !== undefined ? handleSubmit(onSubmit) : "Заполните форму" }
-          onSubmit = {handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <div className="alert alert-danger hidden"></div>
           <div className="wrapper-master">
@@ -149,7 +147,7 @@ const StepTwoForm = (props) => {
                         mask="_"
                         onBlur={onBlur}
                         onValueChange={(values) => {
-                          const { formattedValue, value } = values;
+                          const { value } = values;
                           // formattedValue = $2,223
                           // value ie, 2223
                           setPassportSeries(value);
@@ -181,7 +179,7 @@ const StepTwoForm = (props) => {
                         mask="_"
                         onBlur={onBlur}
                         onValueChange={(values) => {
-                          const { formattedValue, value } = values;
+                          const { value } = values;
                           // formattedValue = $2,223
                           // value ie, 2223
                           setPassportNumber(value);
@@ -214,7 +212,7 @@ const StepTwoForm = (props) => {
                         mask="_"
                         onBlur={onBlur}
                         onValueChange={(values) => {
-                          const { formattedValue, value } = values;
+                          const { value } = values;
                           // formattedValue = $2,223
                           // value ie, 2223
                           setDateOfBirth(value);
@@ -247,7 +245,7 @@ const StepTwoForm = (props) => {
                         mask="_"
                         onBlur={onBlur}
                         onValueChange={(values) => {
-                          const { formattedValue, value } = values;
+                          const { value } = values;
                           // formattedValue = $2,223
                           // value ie, 2223
                           setPassportIssueDate(value);
@@ -260,7 +258,6 @@ const StepTwoForm = (props) => {
                 />
               </div>
               <div className="input-box inpBxFF" id="form_code_division">
-                {/* @ Код подразделения */}
                 <label className="control-label">Код подразделения</label>
                 <Controller
                   control={control}
@@ -272,7 +269,7 @@ const StepTwoForm = (props) => {
                       message: `*Минимум 6 цифры`,
                     },
                   }}
-                  render={({ field: { onChange, onBlur, value } }) => (
+                  render={({ field: { onChange, onBlur } }) => (
                     <>
                       <IMaskInput type="text" id="code_division" class="input_field m_i_d_s suggestions-input"
                         mask="000-000" maskChar="_" lazy={false} unmask={true}
@@ -286,11 +283,14 @@ const StepTwoForm = (props) => {
                     </>
                   )}
                 />
-                { statusSelec === true ? <span style={{
-                fontSize: "13px",
-                color: "#fb6f39",
-                paddingLeft: "10%"
-              }}>Выберите значение из подсказки</span> : undefined }
+                { statusSelec === true ? 
+                <span
+                  style={{
+                    fontSize: "13px",
+                    color: "#fb6f39",
+                    paddingLeft: "10%"
+                  }}>Выберите значение из подсказки
+                </span> : undefined }
               </div>
               <div className="input-box inpBxFF" id="form_place_of_birth">
                 {/* @ Место рождения */}
@@ -337,18 +337,17 @@ const StepTwoForm = (props) => {
                 <WarrningError>{ errors?.placeOfIssue && (<p>{ errors?.placeOfIssue?.message ||`*Необходимо заполнить поле "Паспорт выдан"`}</p>) }</WarrningError>
               </div>
               <div className="input-box inpBxFull" id="form_gender">
-                {/* @ Пол */}
                 <label className="control-label">Пол</label>
                 <div className="input_box_radio_list">
-                  <label className={ clicked === true ? "control-label label-radio active" : "control-label label-radio" }>
-                    <Controller
-                      control={control}
-                      name="genderMan"
-                      rules={{
-                        required: true,
-                      }}
-                      render={({ field: { onChange, onBlur } }) => (
-                      <>
+                <Controller
+                  control={control}
+                  name="gender"
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field: { onChange } }) => (
+                    <>
+                      <label className={ clicked === true ? "control-label label-radio active" : "control-label label-radio" }>
                         <input
                           className=""
                           type="radio"
@@ -357,30 +356,37 @@ const StepTwoForm = (props) => {
                           name="pasportnye_dannye[gender]"
                           checked="checked"
                           data-index_group=""
-                          onClick={ handlerClickedMan }
-                        />
-                      </>
-                      )}
-                    />
-                    Мужской
-                  </label>
-                  <label className={ clicked === false ? "control-label label-radio active" : "control-label label-radio" }>
-                    <input
-                      className=""
-                      type="radio"
-                      data-id="gender"
-                      data-required="true"
-                      name="pasportnye_dannye[gender]"
-                      data-index_group=""
-                      onClick={ handlerClickedWoman }
-                    />
-                    Женский
-                  </label>
+                          value="Мужчина"
+                          onClick={ () => {
+                            handlerClickedMan()
+                            onChange("Мужской")
+                          }}
+                        />Мужской
+                      </label>
+                      <label className={ clicked === false ? "control-label label-radio active" : "control-label label-radio" }>
+                        <input
+                          className=""
+                          type="radio"
+                          data-id="gender"
+                          data-required="true"
+                          name="pasportnye_dannye[gender]"
+                          data-index_group=""
+                          value="Женщина"
+                          onClick={ () => {
+                            handlerClickedWoman()
+                            onChange("Женский")
+                          }}
+                        />Женский
+                      </label>
+                    </>
+                  )}
+                />
                 </div>
-                  { clicked === undefined ? <WarrningError><p style={{paddingTop: "10px"}} >*Необходимо выбрать гендор</p></WarrningError> : undefined }
+                  <WarrningError>{ errors?.gender && (<p>{ errors?.gender?.message ||`*Необходимо выбрать гендор`}</p>) }</WarrningError>
+                  {/* { clicked === undefined ? <WarrningError><p style={{paddingTop: "10px"}} >*Необходимо выбрать гендор</p></WarrningError> : undefined } */}
+                  
               </div>
               <div className="input-box inpBxFF" id="form_snils">
-                {/* @ СНИЛС */}
                 <label className="control-label">СНИЛС</label>
                 <Controller
                   control={control}
@@ -400,7 +406,7 @@ const StepTwoForm = (props) => {
                         mask="_"
                         onBlur={onBlur}
                         onValueChange={(values) => {
-                          const { formattedValue, value } = values;
+                          const { value } = values;
                           // formattedValue = $2,223
                           // value ie, 2223
                           setSnils(value);
@@ -429,7 +435,7 @@ const StepTwoForm = (props) => {
                   направление в электронном виде сведений обо мне в кредитную
                   организацию для прохождения упрощенной идентификации
                 </label>
-                  <WarrningError>{ errors?.consent_snils && (<p>{ errors?.consent_snils?.message || `*Необходимо заполнить поле "СНИЛС"` }</p>) }</WarrningError>
+                  <WarrningError>{ errors?.consent_snils && (<p>{ errors?.consent_snils?.message || `*Необходимо согласиться с условиями` }</p>) }</WarrningError>
               </div>
               <div id="address_reg_id">
                   {/* @ Адрес регистрации */}
