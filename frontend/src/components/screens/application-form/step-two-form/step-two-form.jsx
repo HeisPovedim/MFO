@@ -4,6 +4,7 @@ import { useForm, Controller } from 'react-hook-form'
 
 // SHARED
 import { WarrningError } from '../../../shared/verify/warrning-error'
+import { FirstSetUp, SecondSetUp } from './lib/input-number-format'
 
 // HELPERS
 import { RegForAddress, RegForHouseNumber, RegForApartmentNumber } from '../../../../helpers/regular-expressions'
@@ -12,32 +13,44 @@ import { RegForAddress, RegForHouseNumber, RegForApartmentNumber } from '../../.
 import NumberFormat from 'react-number-format'
 import { IMaskInput } from 'react-imask'
 
-import { PlaceOfIssueScript, LegalAddress, ActualAddress } from '../../../../config/DaData/script'
-
+import { placeOfIssueScript, legalAddressScript, actualAddressScript } from '../../../../config/DaData/script'
+import $ from 'jquery'
+import 'suggestions-jquery'
 
 const StepTwoForm = (props) => {
 
 
   // СТЕЙТЫ | STATES
-  const [passportSeries, setPassportSeries] = useState(Number) // поле - "Серия паспорта"
-  const [passportNumber, setPassportNumber] = useState(Number) // поле - "Номер паспорта"
-  const [dateOfBirth, setDateOfBirth] = useState(Number) // поле - "Дата рождения"
-  const [passportIssueDate, setPassportIssueDate] = useState(Number) // поле - "Дата выдачи паспорта"
-  const [ouCode, setOUCode] = useState() // поле - "Код подразделения"
-  const [placeOfBirth, setPlaceOfBirth] = useState("") // поле - "Место рождения"
-  const [placeOfIssue, setPlaceOfIssue] = useState("") // поле - "Паспорт выдан"
-  const [gender, setGender] = useState ("") // пременная гендера
-  const [clicked, setClicked] = useState(undefined); // кнопка - "Мужской && Женский"
-  const [snils, setSnils] = useState(true); // поле - "СНИЛС"
-  const [accord, setAccord] = useState(false); // кнопка - "Сведения о СНИЛС"
-  const [addressRegistration, setAddressRegistration] = useState(""); // поле - "Адрес регистрации"
-  const [houseRegistration, setHouseRegistration] = useState(""); // поле - "Номер дома"
-  const [apartmentRegistration, setApartmentRegistration] = useState(""); // поле - "Квартира"
-  const [residentialAddress, setResidentialAddress] = useState(true); // кнопка - "Адрес проживания совпадает с адресом регистрации"
-  const [addressActual, setAddressActual] = useState(""); // поле - "Адрес регистрации"
-  const [houseActual, setHouseActual] = useState(""); // поле - "Номер дома"
-  const [apartmentActual, setApartmentActual] = useState(""); // поле - "Квартира"
-  const [statusSelec, setStatusSelec] = useState(""); // поле - "Квартира"
+  const [passport, setPassport] = useState({
+    series: "", // серия паспорта
+    number: "", // номер паспорта
+    dateOfBirth: "", // дата рождения
+    passportIssueDate: "", // дата выдачи паспорта
+    ouCode: "", // код подразделения
+    placeOfBirth: "", // место рождения
+    placeOfIssue: "" // паспорт выдан
+  })
+  const [otherData, setOtherData] = useState({
+    gender: "", // гендер
+    snils: "" // снилс
+  })
+  const [legalAddress, setLegalAddress] = useState({
+    address: "", // адресс регистрации
+    house: "", // номер дом
+    apartment: "" // квартира
+  })
+  const [actualAddress, setActualAddress] = useState({
+    address: "", // адресс
+    house: "", // дом
+    apartment: "" // квартира
+  })
+  const [functionalStates, setFunctionalStates] = useState({
+    clickedGender: Boolean, // кнопка выбора гендора
+    consentToDataProcessing: false, // согласие на обработку персональных данных
+    additionalFields: true, // дополнительные поля для адреса проживания
+    unselectedFieldWarning: Boolean // предупреждение о невыбранном значение в подсказках
+  })
+  // const [statusSelec, setStatusSelec] = useState("") // предупреждение
 
 
   // ХУКИ | HOOKS
@@ -51,20 +64,50 @@ const StepTwoForm = (props) => {
     resetField
   } = useForm({ mode: "all" })
 
+  // СКРИПТЫ | SCRIPTS
 
-  
+  // скрипт - placeOfIssueScript
   useEffect (() => {
-    PlaceOfIssueScript(setPlaceOfIssue, setOUCode, setStatusSelec)
-    resetField("placeOfIssue", placeOfIssue)
-    setValue("placeOfIssue", placeOfIssue)
-    resetField("ouCode", ouCode)
-    setValue("ouCode", ouCode)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [placeOfIssue, resetField, setValue])
-
+    placeOfIssueScript(
+      (value) => setPassport(passport => {
+        return {...passport, placeOfIssue: value}
+      }),
+      (value) => setPassport(passport => {
+        return {...passport, ouCode: value.replace(/[^0-9]/g, '')}
+      }),
+      (value) => setFunctionalStates(functionalStates => {
+        return {...functionalStates, unselectedFieldWarning: value}
+      }),
+    )
+  }, [])
   useEffect(() => {
-    LegalAddress(setAddressRegistration, setHouseRegistration)
-    ActualAddress(setAddressActual, setHouseActual)
+    resetField("placeOfIssue", passport.placeOfIssue)
+    setValue("placeOfIssue", passport.placeOfIssue)
+  }, [passport.placeOfIssue, resetField, setValue])
+
+  // legalAddressScript
+  useEffect(() => {
+    legalAddressScript(
+      (value) => setLegalAddress((legalAddress) => {
+        return {...legalAddress, address: value}
+      }),
+      (value) => setLegalAddress((legalAddress) => {
+        return {...legalAddress, house: value}
+      })
+    )
+  }, [])
+
+  // actualAddressScript
+  useEffect(() => {
+    // ActualAddress(setAddressActual, setHouseActual)
+    actualAddressScript(
+      (value) => setActualAddress((actualAddress) => {
+        return {...actualAddress, address: value}
+      }),
+      (value) => setActualAddress((actualAddress) => {
+        return {...actualAddress, house: value}
+      })
+    )
   }, [])
 
 
@@ -76,35 +119,37 @@ const StepTwoForm = (props) => {
   }
 
 
-  // ХЕНДЛЕРЫ | HANDLERS
-  const handlerOUCode = (value) => {
-    setOUCode(value)
-  }
+  // ОБРАБОТЧИКИ | HANDLERS
+
+  // выбор мужского гендора
   const handlerClickedMan = () => {
-    setClicked(true)
-    setGender("Мужской")
+    setFunctionalStates({...functionalStates, clickedGender: true})
+    setOtherData({...otherData, gender: "Мужской"})
   }
+
+  // выбор женского гендора
   const handlerClickedWoman = () => {
-    setClicked(false)
-    setGender("Женский")
+    setFunctionalStates({...functionalStates, clickedGender: false})
+    setOtherData({...otherData, gender: "Женский"})
   }
-  // Кнопка - "Сведения о СНИЛС"
+
+  // согласие на сведение
   const handlerAccord = () => {
-    if ( accord === true ) {
-      setAccord(false)
+    if ( functionalStates.consentToDataProcessing === true ) {
+      setFunctionalStates({...functionalStates, consentToDataProcessing: false})
     } else {
-      setAccord(true)
+      setFunctionalStates({...functionalStates, consentToDataProcessing: true})
     }
   }
   const handlerResidentialAddress = () => {
-    if ( residentialAddress === false ) {
-      setResidentialAddress(true)
+    if ( functionalStates.additionalFields === false ) {
+      setFunctionalStates({...functionalStates, additionalFields: true})
     } else {
-      setResidentialAddress(false)
+      setFunctionalStates({...functionalStates, additionalFields: false})
     }
   }
   const handlerResidentialAddressActive = () => {
-    if ( residentialAddress === false ) {
+    if ( functionalStates.additionalFields === false ) {
       return true
     } else {
       return false
@@ -141,19 +186,7 @@ const StepTwoForm = (props) => {
                   }}
                   render={({ field: { onChange, onBlur } }) => (
                     <>
-                      <NumberFormat
-                        format="####"
-                        allowEmptyFormatting
-                        mask="_"
-                        onBlur={onBlur}
-                        onValueChange={(values) => {
-                          const { value } = values;
-                          // formattedValue = $2,223
-                          // value ie, 2223
-                          setPassportSeries(value);
-                          onChange(value)
-                        }}
-                      />
+                      <FirstSetUp format="####" setValue={value => setPassport({...passport, series: value })} onChange={onChange} onBlur={onBlur} />
                       <WarrningError>{ errors?.passportSeries && (<p>{ errors?.passportSeries?.message || `*Необходимо заполнить поле "Серия паспорта"` }</p>) }</WarrningError>
                     </>
                   )}
@@ -173,19 +206,7 @@ const StepTwoForm = (props) => {
                   }}
                   render={({ field: { onChange, onBlur } }) => (
                     <>
-                      <NumberFormat
-                        format="######"
-                        allowEmptyFormatting
-                        mask="_"
-                        onBlur={onBlur}
-                        onValueChange={(values) => {
-                          const { value } = values;
-                          // formattedValue = $2,223
-                          // value ie, 2223
-                          setPassportNumber(value);
-                          onChange(value)
-                        }}
-                      />
+                      <FirstSetUp format="######" setValue={value => setPassport({...passport, number: value })} onChange={onChange} onBlur={onBlur} />
                       <WarrningError>{ errors?.passportNumber && (<p>{ errors?.passportNumber?.message || `*Необходимо заполнить поле "Номер паспорта"` }</p>) }</WarrningError>
                     </>
                   )}
@@ -205,20 +226,7 @@ const StepTwoForm = (props) => {
                   }}
                   render={({ field: { onChange, onBlur } }) => (
                     <>
-                      <NumberFormat
-                        format="##.##.####"
-                        data-picker=""
-                        allowEmptyFormatting
-                        mask="_"
-                        onBlur={onBlur}
-                        onValueChange={(values) => {
-                          const { value } = values;
-                          // formattedValue = $2,223
-                          // value ie, 2223
-                          setDateOfBirth(value);
-                          onChange(value)
-                        }}
-                      />
+                      <FirstSetUp format="##.##.####" setValue={value => setPassport({...passport, dateOfBirth: value })} onChange={onChange} onBlur={onBlur} />
                       <WarrningError>{ errors?.dateOfBirth && (<p>{ errors?.dateOfBirth?.message || `*Необходимо заполнить поле "Номер паспорта"` }</p>) }</WarrningError>
                     </>
                   )}
@@ -238,20 +246,7 @@ const StepTwoForm = (props) => {
                   }}
                   render={({ field: { onChange, onBlur } }) => (
                     <>
-                      <NumberFormat
-                        format="##.##.####"
-                        data-picker=""
-                        allowEmptyFormatting
-                        mask="_"
-                        onBlur={onBlur}
-                        onValueChange={(values) => {
-                          const { value } = values;
-                          // formattedValue = $2,223
-                          // value ie, 2223
-                          setPassportIssueDate(value);
-                          onChange(value)
-                        }}
-                      />
+                      <FirstSetUp format="##.##.####" setValue={value => setPassport({...passport, passportIssueDate: value })} onChange={onChange} onBlur={onBlur} />
                       <WarrningError>{ errors?.passportIssueDate && (<p>{ errors?.passportIssueDate?.message || `*Необходимо заполнить поле "Дата выдачи паспорта"` }</p>)}</WarrningError>
                     </>
                   )}
@@ -271,19 +266,14 @@ const StepTwoForm = (props) => {
                   }}
                   render={({ field: { onChange, onBlur } }) => (
                     <>
-                      <IMaskInput type="text" id="code_division" class="input_field m_i_d_s suggestions-input"
-                        mask="000-000" maskChar="_" lazy={false} unmask={true}
-                        onBlur={onBlur}
-                        onAccept={ (value) => {
-                          onChange(value)
-                          handlerOUCode(value)
-                        }}
+                      <SecondSetUp type="text" id="code_division" className="input_field m_i_d_s suggestions-input" format="000-000"
+                        val={passport.ouCode} setValue={(value) => setPassport({...passport, ouCode: value })} onChange={onChange} onBlur={onBlur}
                       />
                       <WarrningError>{ errors?.ouCode && (<p>{ errors?.ouCode?.message ||`*Необходимо заполнить поле "Код подразделения"`}</p>) }</WarrningError>
                     </>
                   )}
                 />
-                { statusSelec === true ? 
+                { functionalStates.unselectedFieldWarning === true ? 
                 <span
                   style={{
                     fontSize: "13px",
@@ -299,19 +289,19 @@ const StepTwoForm = (props) => {
                   id="place_of_birth"
                   className="input_field rus_num"
                   type="text"
-                  value={ placeOfBirth }
-                  maxLength="255"
+                  maxLength={255}
                   data-required="true"
                   name="pasportnye_dannye[place_of_birth]"
                   data-index_group=""
                   placeholder=""
+                  value={passport.placeOfBirth}
                   {...register("placeOfBirth", {
                     required: true,
                     pattern: {
                       value: /^[^A-Za-z]+$/ig,
                       message: "*Допустим ввод только русских символов"
                     },
-                    onChange: (event) => setPlaceOfBirth(event.target.value.replace(RegForAddress, ""))
+                    onChange: (event) => setPassport({...passport, placeOfBirth: event.target.value.replace(RegForAddress, "")})
                   })}
                 />
                 <WarrningError>{ errors?.placeOfBirth && (<p>{ errors?.placeOfBirth?.message ||`*Необходимо заполнить поле "Место рождения"`}</p>) }</WarrningError>
@@ -323,15 +313,15 @@ const StepTwoForm = (props) => {
                   id="place_of_issue"
                   className="input_field rus_num"
                   type="text"
-                  maxLength="255"
+                  maxLength={255}
                   data-required="true"
                   name="pasportnye_dannye[place_of_issue]"
                   data-index_group=""
                   placeholder="Паспорт выдан"
-                  value={placeOfIssue}
+                  value={passport.placeOfIssue}
                   {...register("placeOfIssue", {
                     required: true,
-                    onChange: (event) => setPlaceOfIssue(event.target.value)
+                    onChange: (event) => setPassport({...passport, placeOfIssue: event.target.value})
                   })}
                 />
                 <WarrningError>{ errors?.placeOfIssue && (<p>{ errors?.placeOfIssue?.message ||`*Необходимо заполнить поле "Паспорт выдан"`}</p>) }</WarrningError>
@@ -347,7 +337,7 @@ const StepTwoForm = (props) => {
                   }}
                   render={({ field: { onChange } }) => (
                     <>
-                      <label className={ clicked === true ? "control-label label-radio active" : "control-label label-radio" }>
+                      <label className={ functionalStates.clickedGender === true ? "control-label label-radio active" : "control-label label-radio" }>
                         <input
                           className=""
                           type="radio"
@@ -363,7 +353,7 @@ const StepTwoForm = (props) => {
                           }}
                         />Мужской
                       </label>
-                      <label className={ clicked === false ? "control-label label-radio active" : "control-label label-radio" }>
+                      <label className={ functionalStates.clickedGender === false ? "control-label label-radio active" : "control-label label-radio" }>
                         <input
                           className=""
                           type="radio"
@@ -383,7 +373,6 @@ const StepTwoForm = (props) => {
                 />
                 </div>
                   <WarrningError>{ errors?.gender && (<p>{ errors?.gender?.message ||`*Необходимо выбрать гендор`}</p>) }</WarrningError>
-                  {/* { clicked === undefined ? <WarrningError><p style={{paddingTop: "10px"}} >*Необходимо выбрать гендор</p></WarrningError> : undefined } */}
                   
               </div>
               <div className="input-box inpBxFF" id="form_snils">
@@ -409,7 +398,8 @@ const StepTwoForm = (props) => {
                           const { value } = values;
                           // formattedValue = $2,223
                           // value ie, 2223
-                          setSnils(value);
+                          // setSnils(value)
+                          setOtherData({...otherData, snils: value})
                           onChange(value)
                         }}
                       />
@@ -419,7 +409,7 @@ const StepTwoForm = (props) => {
                 />
               </div>
               <div className="input-box inpBxFull" id="form_consent_snils">
-                <label className={ accord === true ? "control-label label-checkbox active" : "control-label label-checkbox"}>
+                <label className={ functionalStates.consentToDataProcessing === true ? "control-label label-checkbox active" : "control-label label-checkbox"}>
                   <input
                     id="consent_snils"
                     type="checkbox"
@@ -479,7 +469,7 @@ const StepTwoForm = (props) => {
                       name="address"
                       data-index_group=""
                       placeholder="Адрес регистрации (Город / Населённый пункт / Улица)"
-                      value={addressRegistration}
+                      value={legalAddress.address}
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
@@ -496,7 +486,7 @@ const StepTwoForm = (props) => {
                           value: /^[^A-Za-z]+$/ig,
                           message: "*Допустим ввод только русских символов"
                         },
-                        onChange: (event) => setAddressRegistration(event.target.value.replace(RegForAddress, ""))
+                        onChange: (event) => setLegalAddress({ ...legalAddress, address: event.target.value.replace(RegForAddress, "")})
                       })}
                     />
                     <div className="suggestions-wrapper">
@@ -600,7 +590,7 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_reg_id][house_number]"
                       data-index_group=""
                       placeholder="Номер дома"
-                      value={houseRegistration}
+                      value={legalAddress.house}
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
@@ -613,7 +603,7 @@ const StepTwoForm = (props) => {
                           value: 10,
                           message: "*Не больше 10 символов",
                         },
-                        onChange: (event) => setHouseRegistration(event.target.value.replace(RegForHouseNumber, ""))
+                        onChange: (event) => setLegalAddress({ ...legalAddress, house: event.target.value.replace(RegForHouseNumber, "")})
                       })}
                     />
                     <div className="suggestions-wrapper">
@@ -665,7 +655,7 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_reg_id][apartment]"
                       data-index_group=""
                       placeholder="Квартира"
-                      value={apartmentRegistration}
+                      value={legalAddress.apartment}
                       maxLength={11}
                       {...register ("apartmentRegistration", {
                         required: true,
@@ -673,7 +663,7 @@ const StepTwoForm = (props) => {
                           value: 10,
                           message: "*Не больше 10 символов",
                         },
-                        onChange: (event) => setApartmentRegistration(event.target.value.replace(RegForApartmentNumber, ""))
+                        onChange: (event) => setLegalAddress({ ...legalAddress, apartment: event.target.value.replace(RegForApartmentNumber, "")})
                       })}
                     />
                     <WarrningError>{ errors?.apartmentRegistration && (<p>{ errors?.apartmentRegistration?.message ||`*Необходимо заполнить поле "Квартира"`}</p>) }</WarrningError>
@@ -753,7 +743,7 @@ const StepTwoForm = (props) => {
                         data-val_is_show=""
                       />
                     </div>
-                    <label className={ residentialAddress === true ? "control-label label-checkbox active" : "control-label label-checkbox"}>
+                    <label className={ functionalStates.additionalFields === true ? "control-label label-checkbox active" : "control-label label-checkbox"}>
                       <input
                         id="address_act_id_address_match"
                         className=""
@@ -788,7 +778,7 @@ const StepTwoForm = (props) => {
                     />
                     <div id="error_address_act_id_postal_code" className="help-block hidden">Необходимо заполнить поле "Почтовый индекс"</div>
                   </div>
-                  <div className={ residentialAddress === false ? "input-box inpBxFull" : "input-box inpBxFull hidden" } id="form_address_act_id_address">
+                  <div className={ functionalStates.additionalFields === false ? "input-box inpBxFull" : "input-box inpBxFull hidden" } id="form_address_act_id_address">
                     <label className="control-label">Адрес проживания (Город / Населённый пункт / Улица)</label>
                     <input
                       id="address_act_id_address"
@@ -800,7 +790,7 @@ const StepTwoForm = (props) => {
                       name="address"
                       data-index_group=""
                       placeholder="Адрес проживания (Город / Населённый пункт / Улица)"
-                      value={addressActual}
+                      value={actualAddress.address}
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
@@ -817,7 +807,7 @@ const StepTwoForm = (props) => {
                           value: /^[^A-Za-z]+$/ig,
                           message: "*Допустим ввод только русских символов"
                         },
-                        onChange: (event) => setAddressActual(event.target.value.replace(RegForAddress, ""))
+                        onChange: (event) => setActualAddress({...actualAddress, address: event.target.value.replace(RegForAddress, "")})
                       })}
                     />
                     <WarrningError>{ errors?.addressActual && (<p>{ errors?.addressActual?.message ||`*Необходимо заполнить поле "Адрес регистрации"`}</p>) }</WarrningError>
@@ -912,7 +902,7 @@ const StepTwoForm = (props) => {
                     />
                     <div id="error_address_act_id_street" className="help-block hidden">Необходимо заполнить поле "Улица"</div>
                   </div>
-                  <div className={ residentialAddress === false ? "input-box inpBxThirty" : "input-box inpBxThirty hidden"} id="form_address_act_id_house_number">
+                  <div className={ functionalStates.additionalFields === false ? "input-box inpBxThirty" : "input-box inpBxThirty hidden"} id="form_address_act_id_house_number">
                     <label className="control-label">Номер дома</label>
                     <input
                       id="address_act_id_house_number"
@@ -924,7 +914,7 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_act_id][house_number]"
                       data-index_group=""
                       placeholder="Номер дома"
-                      value={houseActual}
+                      value={actualAddress.house}
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
@@ -937,7 +927,7 @@ const StepTwoForm = (props) => {
                           value: 10,
                           message: "*Не больше 10 символов",
                         },
-                        onChange: (event) => setHouseActual(event.target.value.replace(RegForHouseNumber, ""))
+                        onChange: (event) => setActualAddress({...actualAddress, house: event.target.value.replace(RegForHouseNumber, "")})
                       })}
                     />
                     <WarrningError>{ errors?.houseActual && (<p>{ errors?.houseActual?.message ||`*Необходимо заполнить поле "Номер дома"`}</p>) }</WarrningError>
@@ -972,7 +962,7 @@ const StepTwoForm = (props) => {
                     />
                     <div id="error_address_act_id_building" className="help-block hidden">Необходимо заполнить поле "Строение"</div>
                   </div>
-                  <div className={ residentialAddress === false ? "input-box inpBxMRA" : "input-box inpBxMRA hidden" } id="form_address_act_id_apartment">
+                  <div className={ functionalStates.additionalFields === false ? "input-box inpBxMRA" : "input-box inpBxMRA hidden" } id="form_address_act_id_apartment">
                     <label className="control-label">Квартира</label>
                     <input
                       id="address_act_id_apartment"
@@ -983,7 +973,7 @@ const StepTwoForm = (props) => {
                       name="pasportnye_dannye[address_act_id][apartment]"
                       data-index_group=""
                       placeholder="Квартира"
-                      value={apartmentActual}
+                      value={actualAddress.apartment}
                       maxLength={11}
                       {...register ("apartmentActual", {
                         required: handlerResidentialAddressActive(),
@@ -991,7 +981,7 @@ const StepTwoForm = (props) => {
                           value: 10,
                           message: "*Не больше 10 символов",
                         },
-                        onChange: (event) => setApartmentActual(event.target.value.replace(RegForApartmentNumber, ""))
+                        onChange: (event) => setActualAddress({...actualAddress, apartment: event.target.value.replace(RegForApartmentNumber, "")})
                       })}
                     />
                     <WarrningError>{ errors?.apartmentActual && (<p>{ errors?.apartmentActual?.message ||`*Необходимо заполнить поле "Квартира"`}</p>) }</WarrningError>

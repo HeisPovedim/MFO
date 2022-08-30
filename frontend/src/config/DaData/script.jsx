@@ -1,24 +1,20 @@
 import $ from 'jquery'
-import { useForm } from 'react-hook-form';
 import 'suggestions-jquery'
 
 import { TOKEN } from '../api/dadata-token';
 
-export const PlaceOfIssueScript = (placeOfIssue, OUCode, statusSelec) => {
+export const placeOfIssueScript = (placeOfIssue, OUCode, statusSelec) => {
 
   function formatResult(value, currentValue, suggestion) {
     suggestion.value = suggestion.data.code;
     return suggestion.data.code + " — " + suggestion.data.name;
   }
   function showSuggestion(suggestion) {
-    $("#place_of_issue").val(suggestion.data.name)
-    $("#code_division").val(suggestion.data.code)
     placeOfIssue(suggestion.data.name)
     OUCode(suggestion.data.code)
     statusSelec(false)
   }
   function clearSuggestion() {
-    $("#place_of_issue").val("");
     placeOfIssue("")
     statusSelec(true)
   }
@@ -31,7 +27,7 @@ export const PlaceOfIssueScript = (placeOfIssue, OUCode, statusSelec) => {
   })
 }
 
-export const LegalAddress = (setResidentialAddress, setHouseRegistration) => {
+export const legalAddressScript = (setResidentialAddress, setHouseRegistration) => {
 
   let $address = $("#address_reg_id_address")
   let $house = $("#address_reg_id_house_number")
@@ -97,7 +93,7 @@ export const LegalAddress = (setResidentialAddress, setHouseRegistration) => {
 }
 
 
-export const ActualAddress = (setAddressActual, setHouseActual) => {
+export const actualAddressScript = (setAddressActual, setHouseActual) => {
   
   let $address = $("#address_act_id_address")
   let $house = $("#address_act_id_house_number")
