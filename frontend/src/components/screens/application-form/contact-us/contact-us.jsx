@@ -60,14 +60,14 @@ export const ContactUs = ({onChangeContactUs, onChangePhoneNumberVerification}) 
 })
 
 
-  // ^⁡⁣⁣⁡⁣⁡⁣⁣КНОПКИ | BUTTONS
+  // ^ ⁡⁣⁣⁡⁣⁡⁣⁣КНОПКИ | BUTTONS
   const onSubmit = (data) => {
     onChangeContactUs(false)
     onChangePhoneNumberVerification(true)
   }
 
 
-  // ^ХЕНДЛЕРЫ | HANDLERS
+  // ^ ХЕНДЛЕРЫ | HANDLERS
   const handlerLastName = (event) => {
     setLastName(capitalizeFirstLetter(event.replace(RegForInitials, '')))
   }
@@ -214,7 +214,7 @@ export const ContactUs = ({onChangeContactUs, onChangePhoneNumberVerification}) 
                   render={({ field: { onChange, onBlur } }) => (
                     <>
                       <PhoneField
-                        phone={phoneNumber.replace(/[^0-9]/g, "").replace('7', '')}
+                        phone={phoneNumber.replace(/[^0-9]/g, "").replace("7", "")}
                         setPhone={setPhoneNumber}
                         onChange={onChange}
                         onBlur={onBlur}
@@ -223,10 +223,8 @@ export const ContactUs = ({onChangeContactUs, onChangePhoneNumberVerification}) 
                     </>
                   )}
                 />
-                {/* <TestNumber name = "phoneNumber" value = { setPhoneNumber } /> */}
               </div>
               <div className="input-box inpBxFF" id="form_email">
-                {/* @ Email Адрес */}
                 <label className="control-label">Email адрес</label>
                 <Controller 
                   control={control}

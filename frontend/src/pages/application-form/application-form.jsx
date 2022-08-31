@@ -24,15 +24,15 @@ import FooterLocationPng from '../../assets/img/basic/footer-location.png'
 
 const ApplicationFormPage = () => {
 
-  // ^СТЕЙТЫ | STATES
+  // ^: СТЕЙТЫ | STATES
   const [questionnaireSteps, setQuestionnaireSteps] = useState({
     contactUs: true, // контактная информация - 1-я форма
     phoneNumberVerification: false, // подтверждение номера телефона - код из смс
     passportDetails: false, // паспортные данные - 2-я форма
-    employmentAndIncome: true, // занятость и доходы - 3-я форма
+    employmentAndIncome: false, // занятость и доходы - 3-я форма
   })
 
-  // ?ФУНКЦИЯ ОБНОВЛЕНИЯ СОСТОЯНИЯ
+  // ?: ФУНКЦИЯ ОБНОВЛЕНИЯ СОСТОЯНИЯ
   const funcStateSwitching = useCallback((type, value) => {
     if(type === 'contactUs') setQuestionnaireSteps(prev => {
       return {...prev, contactUs: value}
@@ -184,7 +184,6 @@ const ApplicationFormPage = () => {
                 </div>
               </div>
             </div>
-            {/* @ Registration Step */}
             <div className="right-block">
               <div className="registration-steps">
                 <ul className="reg-steps-list">

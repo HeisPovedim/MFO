@@ -5,7 +5,7 @@ import { useForm, Controller } from 'react-hook-form'
 // #COMPONENTS
 import { SelectComponent } from './lib/select'
 import { FamilyOptions, ScopeOptions, EducationOptions, EmploymentOptions, CarOptions, OwnershipOptions, StandingOptions } from './lib/options'
-import { ValidateScope, ValidatePhone } from './functions/validation'
+import { validateFunc } from './functions/validation'
 import { Salart } from './lib/salary'
 import { CustomStyles } from './lib/salary-style'
 
@@ -109,7 +109,7 @@ export const EmploymentAndIncome = ({onChangePassportDetails, onChangeEmployment
                   name="phone"
                   rules={{
                     minLength: {
-                      value: ValidatePhone(employmentAndIncome.phone.replace(/[^0-9]/g, "").length),
+                      value: validateFunc( "phoneMinLength" ,employmentAndIncome.phone.replace(/[^0-9]/g, "").length),
                       message: "*Заполните полностью поле телефона",
                     }
                   
@@ -117,9 +117,9 @@ export const EmploymentAndIncome = ({onChangePassportDetails, onChangeEmployment
                   render={({ field: { onChange, onBlur } }) => (
                     <>
                       <PhoneField
-                        phone={employmentAndIncome.phone.replace("7", "")}
-                        setPhone={(value) => setEmploymentAndIncome({...employmentAndIncome, phone: "7" + value})}
-                        onChange={onChange}
+                        phone={employmentAndIncome.phone}
+                        setPhone={(value) => setEmploymentAndIncome({...employmentAndIncome, phone: value})}
+                        onChange={(value) => onChange(validateFunc("phoneEmpty", value))}
                         onBlur={onBlur}
                       />
                       <WarrningError>{errors?.phone && (<p>{errors?.phone?.message || `*Необходимо заполнить поле "Дополнительный телефон"`}</p>)}</WarrningError>
@@ -186,7 +186,7 @@ export const EmploymentAndIncome = ({onChangePassportDetails, onChangeEmployment
                 <Controller
                   control={control}
                   name="scope"
-                  rules={{required: ValidateScope(employmentAndIncome.employment.value)}}
+                  rules={{required: validateFunc("scope", employmentAndIncome.employment.value)}}
                   render={({field: { onChange, onBlur }}) => (
                     <>
                       <SelectComponent
@@ -202,6 +202,39 @@ export const EmploymentAndIncome = ({onChangePassportDetails, onChangeEmployment
                   )}
                 />
                 <div id="error_activity_id" className="help-block hidden">Необходимо заполнить поле "Сфера деятельности"</div>
+              </div>
+              <div id="form_work_experience"
+                className={
+                  employmentAndIncome.employment.value === 6 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 8 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 11 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 12 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 14 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 15 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 16 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 17 ? "input-box inpBxFF"
+                  : "input-box inpBxFF hidden"
+                }
+              >
+                <label className="control-label">Стаж работы на последнем месте</label>
+                <Controller
+                  control={control}
+                  name="standing"
+                  rules={{ required: validateFunc("scope", employmentAndIncome.employment.value) }}
+                  render={({ field: { onChange, onBlur } }) => (
+                    <>
+                      <SelectComponent
+                        placeholder="Выберите стаж на последнем месте работы"
+                        options={StandingOptions}
+                        style={CustomStyles}
+                        object={(value) => setEmploymentAndIncome({...employmentAndIncome, standing: value})}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                      />
+                      <WarrningError>{errors?.standing && (<p>{errors?.standing?.message || `*Необходимо заполнить поле "Стаж работы на последнем месте"`}</p>)}</WarrningError>
+                    </>
+                  )}
+                />
               </div>
               <div className="input-box inpBxFF" id="form_monthly_expenses">
                 <label className="control-label">Сумма ежемесячных расходов</label>
@@ -276,39 +309,6 @@ export const EmploymentAndIncome = ({onChangePassportDetails, onChangeEmployment
                         onBlur={onBlur}
                       />
                       <WarrningError>{errors?.ownership && (<p>{errors?.ownership?.message || `*Необходимо заполнить поле "Наличие собственности"`}</p>)}</WarrningError>
-                    </>
-                  )}
-                />
-              </div>
-              <div  id="form_work_experience"
-                className={
-                  employmentAndIncome.employment.value === 6 ? "input-box inpBxFF"
-                  : employmentAndIncome.employment.value === 8 ? "input-box inpBxFF"
-                  : employmentAndIncome.employment.value === 11 ? "input-box inpBxFF"
-                  : employmentAndIncome.employment.value === 12 ? "input-box inpBxFF"
-                  : employmentAndIncome.employment.value === 14 ? "input-box inpBxFF"
-                  : employmentAndIncome.employment.value === 15 ? "input-box inpBxFF"
-                  : employmentAndIncome.employment.value === 16 ? "input-box inpBxFF"
-                  : employmentAndIncome.employment.value === 17 ? "input-box inpBxFF"
-                  : "input-box inpBxFF hidden"
-                }
-              >
-                <label className="control-label">Стаж работы на последнем месте</label>
-                <Controller
-                  control={control}
-                  name="standing"
-                  rules={{ required: ValidateScope(employmentAndIncome.employment.value) }}
-                  render={({ field: { onChange, onBlur } }) => (
-                    <>
-                      <SelectComponent
-                        placeholder="Выберите стаж на последнем месте работы"
-                        options={StandingOptions}
-                        style={CustomStyles}
-                        object={(value) => setEmploymentAndIncome({...employmentAndIncome, standing: value})}
-                        onChange={onChange}
-                        onBlur={onBlur}
-                      />
-                      <WarrningError>{errors?.standing && (<p>{errors?.standing?.message || `*Необходимо заполнить поле "Стаж работы на последнем месте"`}</p>)}</WarrningError>
                     </>
                   )}
                 />
