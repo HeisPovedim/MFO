@@ -1,41 +1,39 @@
-// REACT
+// # REACT
 import React, { useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 
-// HELPERS
+// # HELPERS
 import { capitalizeFirstLetter } from '../../../../helpers/capitalize-first-letter'
 import { RegForInitials } from '../../../../helpers/regular-expressions'
 
-// COMPONENTS
+// # COMPONENTS
 import { PhoneField } from '../../../shared/fields/phone-field'
 import { WarrningError } from '../../../shared/verify/warrning-error'
 
-// CUSTOM HOOKS
+// # CUSTOM HOOKS
 import { useLocalStorage } from '../../../../hooks/use-local-storage'
 
-// CUSTOM LIBRARIES
+// # CUSTOM LIBRARIES
 import { EmailSuggestions } from 'react-dadata'
 import 'react-dadata/dist/react-dadata.css'
 
-// OTHER
+// # OTHER
 import { TOKEN } from '../../../../config/api/dadata-token'
 
 
-const StepOneForm = (props) => {
+export const ContactUs = ({onChangeContactUs, onChangePhoneNumberVerification}) => {
 
-  // UseEffect
+  // ^USEEFFECT
   useEffect(() => {
-    // LOCALSTORAGE
-    localStorage.setItem("userPhone", phoneNumber.replace(/[^0-9]/g, ""))
+    localStorage.setItem("userPhone", phoneNumber)
     localStorage.setItem("userEmail", email)
     localStorage.setItem("userLastName", lastName)
     localStorage.setItem("userFirstName", firstName)
     localStorage.setItem("userMiddleName", middleName)
-    // console.log("Step: "+phoneNumber)
   })
 
 
-  // СТЕЙТЫ | STATES
+  // ^СТЕЙТЫ | STATES
   const [checked, setChecked] = useState(false);
   const [phoneNumber, setPhoneNumber] = useLocalStorage("userPhone", "")
   const [email, setEmail] = useLocalStorage("userEmail", "")
@@ -44,6 +42,7 @@ const StepOneForm = (props) => {
   const [middleName, setMiddleName] = useLocalStorage("userMiddleName", "")
 
 
+  // ^ХУКИ | HOOKS
   const {
     register,
     formState: { errors },
@@ -61,16 +60,14 @@ const StepOneForm = (props) => {
 })
 
 
-  // КНОПКИ | BUTTONS
+  // ^⁡⁣⁣⁡⁣⁡⁣⁣КНОПКИ | BUTTONS
   const onSubmit = (data) => {
-    props.statusStepOneForm(false)
-    props.statusSmsPhone(true)
-    props.phoneNumber(phoneNumber)
-    console.log(data)
+    onChangeContactUs(false)
+    onChangePhoneNumberVerification(true)
   }
 
 
-  // ХЕНДЛЕРЫ | HANDLERS
+  // ^ХЕНДЛЕРЫ | HANDLERS
   const handlerLastName = (event) => {
     setLastName(capitalizeFirstLetter(event.replace(RegForInitials, '')))
   }
@@ -217,26 +214,11 @@ const StepOneForm = (props) => {
                   render={({ field: { onChange, onBlur } }) => (
                     <>
                       <PhoneField
-                        phone={phoneNumber.replace('7', '')}
+                        phone={phoneNumber.replace(/[^0-9]/g, "").replace('7', '')}
                         setPhone={setPhoneNumber}
                         onChange={onChange}
                         onBlur={onBlur}
                       />
-                      {/* <NumberFormat
-                        type="tel"
-                        format="+7 (###) ###-####"
-                        allowEmptyFormatting
-                        mask="_"
-                        onBlur={onBlur}
-                        value={phoneNumber}
-                        onValueChange={(values) => {
-                          const { formattedValue, value } = values;
-                          // formattedValue = $2,223
-                          // value ie, 2223
-                          setPhoneNumber(formattedValue.toString());
-                        }}
-                        onChange={ (event) => onChange(event.target.value.replace(/[^0-9]/g, "")) }
-                      /> */}
                       <WarrningError>{errors?.phoneNumber && (<p>{errors?.phoneNumber?.message || `*Необходимо заполнить поле "Номер телефона"`}</p>)}</WarrningError>
                     </>
                   )}
@@ -401,4 +383,3 @@ const StepOneForm = (props) => {
     </>
   )
 }
-export { StepOneForm }

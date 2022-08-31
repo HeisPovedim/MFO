@@ -13,7 +13,6 @@ import { ErrorPage } from './pages/errorPage/errorPage'
 const App = () => {
   return (
     <>
-    <div className="App"></div>
     <Routes>
       <Route path="/" element={ <BasicPage /> } />
       <Route path="/application-form" element={ <ApplicationFormPage /> } />

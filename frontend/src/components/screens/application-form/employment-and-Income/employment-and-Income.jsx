@@ -1,46 +1,48 @@
-// REACT
+// #REACT
 import React, { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 
-// COMPONENTS
+// #COMPONENTS
 import { SelectComponent } from './lib/select'
 import { FamilyOptions, ScopeOptions, EducationOptions, EmploymentOptions, CarOptions, OwnershipOptions, StandingOptions } from './lib/options'
 import { ValidateScope, ValidatePhone } from './functions/validation'
 import { Salart } from './lib/salary'
 import { CustomStyles } from './lib/salary-style'
 
-// SHARED/LIB/COMPONENTS
-import { WarrningError } from '../../../shared/verify/warrning-error'
-import { PhoneField } from '../../../shared/fields/phone-field'
+// #SHARED
+  // component
+  import { WarrningError } from '../../../shared/verify/warrning-error'
+  import { PhoneField } from '../../../shared/fields/phone-field'
 
-const StepThreeForm = (props) => {
+export const EmploymentAndIncome = ({onChangePassportDetails, onChangeEmploymentAndIncome}) => {
 
-  React.useEffect(() => {
-    console.log(phone.replace(/[^0-9]/g, ""))
+
+  // ^СТЕЙТЫ | STATES
+  // const [family, setFamily] = useState("") // ПОЛЕ - "Семейное положение"
+  // const [phone, setPhone] = useState("") // ПОЛЕ - "Дополнительный телефон"
+  // const [education, setEducation] = useState("") // ПОЛЕ - "Образование"
+  // const [employment, setEmployment] = useState("") // ПОЛЕ - "Занятость"
+  // const [scope, setScope] = useState("") // ПОЛЕ - "Сфера деятельности"
+  // const [expenses, setExpenses] = useState("") // ПОЛЕ - "Сумма ежемесячных расходов"
+  // const [income, setIncome] = useState("") // ПОЛЕ - "Ваш доход в месяц"
+  // const [car, setCar] = useState("") // ПОЛЕ - "Наличие автомобиля"
+  // const [ownership, setOwnership] = useState("") // ПОЛЕ - "Наличие собственности"
+  // const [standing, setStanding] = useState("") // ПОЛЕ - "Стаж работы на последнем месте"
+  const [employmentAndIncome, setEmploymentAndIncome] = useState({
+    family: "", // семейное положение
+    phone: "", // дополнительные телефон
+    education: "", // образование
+    employment: "", // занятость
+    scope: "", // сфера занятости
+    expenses: "", // сумма ежемесячных расходов
+    income: "", // доход в месяц
+    car: "", // наличие автомобиля
+    ownership: "", // наличие собственности
+    standing: "", // cтаж работы на последнем месте
   })
 
-  // ПОЛЕ - "Семейное положение"
-  const [family, setFamily] = useState("")
-  // ПОЛЕ - "Дополнительный телефон"
-  const [phone, setPhone] = useState("")
-  // ПОЛЕ - "Образование"
-  const [education, setEducation] = useState("")
-  // ПОЛЕ - "Занятость"
-  const [employment, setEmployment] = useState("")
-  // ПОЛЕ - "Сфера деятельности"
-  const [scope, setScope] = useState("")
-  // ПОЛЕ - "Сумма ежемесячных расходов"
-  const [expenses, setExpenses] = useState("")
-  // ПОЛЕ - "Ваш доход в месяц"
-  const [income, setIncome] = useState("")
-  // ПОЛЕ - "Наличие автомобиля"
-  const [car, setCar] = useState("")
-  // ПОЛЕ - "Наличие собственности"
-  const [ownership, setOwnership] = useState("")
-  // ПОЛЕ - "Стаж работы на последнем месте"
-  const [standing, setStanding] = useState("")
 
-  // USEFORM
+  // ^ ХУКИ | HOOKS
   const {
     formState: { errors },
     handleSubmit,
@@ -49,13 +51,21 @@ const StepThreeForm = (props) => {
     mode: "all",
   })
 
-  // КНОПКИ | BUTTONS
+
+  React.useEffect(()=> console.log(employmentAndIncome), [employmentAndIncome])
+  React.useEffect(() => {
+    // console.log(phone.replace(/[^0-9]/g, ""))
+    // console.log(employmentAndIncome.family)
+  })
+
+
+  // ^КНОПКИ | BUTTONS
   const onSubmit = (data) => {
     console.log(data)
   }
   const onBack = () => {
-    props.statusStepTwoForm(true)
-    props.statusStepThreeForm(false)
+    onChangePassportDetails(true)
+    onChangeEmploymentAndIncome(false)
   }
 
 
@@ -79,11 +89,11 @@ const StepThreeForm = (props) => {
                   rules={{ required: true }}
                   render={({ field: { onChange, onBlur } }) => (
                     <>
-                      <SelectComponent 
+                      <SelectComponent
                         placeholder="Выберите семейное положение" 
                         options={FamilyOptions}
                         style={CustomStyles}
-                        object={setFamily}
+                        object={(value) => setEmploymentAndIncome({...employmentAndIncome, family: value})}
                         onChange={onChange}
                         onBlur={onBlur}
                       />
@@ -99,7 +109,7 @@ const StepThreeForm = (props) => {
                   name="phone"
                   rules={{
                     minLength: {
-                      value: ValidatePhone(phone.replace(/[^0-9]/g, "").length),
+                      value: ValidatePhone(employmentAndIncome.phone.replace(/[^0-9]/g, "").length),
                       message: "*Заполните полностью поле телефона",
                     }
                   
@@ -107,8 +117,8 @@ const StepThreeForm = (props) => {
                   render={({ field: { onChange, onBlur } }) => (
                     <>
                       <PhoneField
-                        phone={phone}
-                        setPhone={setPhone}
+                        phone={employmentAndIncome.phone.replace("7", "")}
+                        setPhone={(value) => setEmploymentAndIncome({...employmentAndIncome, phone: "7" + value})}
                         onChange={onChange}
                         onBlur={onBlur}
                       />
@@ -129,7 +139,7 @@ const StepThreeForm = (props) => {
                         placeholder="Выберите уровень образования"
                         options={EducationOptions}
                         style={CustomStyles}
-                        object={setEducation}
+                        object={(value) => setEmploymentAndIncome({...employmentAndIncome, education: value})}
                         onChange={onChange}
                         onBlur={onBlur}
                       />
@@ -150,7 +160,7 @@ const StepThreeForm = (props) => {
                         placeholder="Выберите тип занятости"
                         options={EmploymentOptions}
                         style={CustomStyles}
-                        object={setEmployment}
+                        object={(value) => setEmploymentAndIncome({...employmentAndIncome, employment: value})}
                         onChange={onChange}
                         onBlur={onBlur}
                       />
@@ -161,14 +171,14 @@ const StepThreeForm = (props) => {
               </div>
               <div id="form_activity_id" 
                 className={
-                  employment.value === 6 ? "input-box inpBxFF"
-                  : employment.value === 8 ? "input-box inpBxFF"
-                  : employment.value === 11 ? "input-box inpBxFF"
-                  : employment.value === 12 ? "input-box inpBxFF"
-                  : employment.value === 14 ? "input-box inpBxFF"
-                  : employment.value === 15 ? "input-box inpBxFF"
-                  : employment.value === 16 ? "input-box inpBxFF"
-                  : employment.value === 17 ? "input-box inpBxFF"
+                  employmentAndIncome.employment.value === 6 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 8 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 11 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 12 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 14 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 15 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 16 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 17 ? "input-box inpBxFF"
                   : "input-box inpBxFF hidden"
                 }
               >
@@ -176,14 +186,14 @@ const StepThreeForm = (props) => {
                 <Controller
                   control={control}
                   name="scope"
-                  rules={{ required: ValidateScope(employment.value) }}
-                  render={({ field: { onChange, onBlur } }) => (
+                  rules={{required: ValidateScope(employmentAndIncome.employment.value)}}
+                  render={({field: { onChange, onBlur }}) => (
                     <>
-                      <SelectComponent 
+                      <SelectComponent
                         placeholder="Сфера деятельности" 
                         options={ScopeOptions}
                         style={CustomStyles}
-                        object={setScope}
+                        object={(value) => setEmploymentAndIncome({...employmentAndIncome, scope: value})}
                         onChange={onChange}
                         onBlur={onBlur}
                       />
@@ -201,7 +211,7 @@ const StepThreeForm = (props) => {
                     rules={{ required: true }}
                     render={({ field: { onChange, onBlur } }) => (
                       <>
-                        <Salart value={setExpenses} onChange={onChange} onBlur={onBlur} />
+                        <Salart value={(value) => setEmploymentAndIncome({...employmentAndIncome, expenses: value})} onChange={onChange} onBlur={onBlur} />
                         <WarrningError>{errors?.expenses && (<p>{errors?.expenses?.message || `*Необходимо заполнить поле "Сумма ежемесячных расходов"`}</p>)}</WarrningError>
                       </>
                     )}
@@ -216,12 +226,12 @@ const StepThreeForm = (props) => {
                       required: true,
                       min: {
                         value: 1000,
-                        message: "Минимальный доход в месяц - 1000"
+                        message: "*Минимальный доход в месяц должен состовлять не меньше - 1000 ₽"
                       }
                     }}
                     render={({ field: { onChange, onBlur } }) => (
                       <>
-                        <Salart value={setIncome} onChange={onChange} onBlur={onBlur} />
+                        <Salart value={(value) => setEmploymentAndIncome({...employmentAndIncome, income: value})} onChange={onChange} onBlur={onBlur} />
                         <WarrningError>{errors?.income && (<p>{errors?.income?.message || `*Необходимо заполнить поле "Ваш доход в месяц"`}</p>)}</WarrningError>
                       </>
                     )}
@@ -239,7 +249,7 @@ const StepThreeForm = (props) => {
                         placeholder="Укажите наличие автомобиля"
                         options={CarOptions}
                         style={CustomStyles}
-                        object={setCar}
+                        object={(value) => setEmploymentAndIncome({...employmentAndIncome, car: value})}
                         onChange={onChange}
                         onBlur={onBlur}
                       />
@@ -261,7 +271,7 @@ const StepThreeForm = (props) => {
                         placeholder="Укажите наличие собственности"
                         options={OwnershipOptions}
                         style={CustomStyles}
-                        object={setOwnership}
+                        object={(value) => setEmploymentAndIncome({...employmentAndIncome, ownership: value})}
                         onChange={onChange}
                         onBlur={onBlur}
                       />
@@ -272,14 +282,14 @@ const StepThreeForm = (props) => {
               </div>
               <div  id="form_work_experience"
                 className={
-                  employment.value === 6 ? "input-box inpBxFF"
-                  : employment.value === 8 ? "input-box inpBxFF"
-                  : employment.value === 11 ? "input-box inpBxFF"
-                  : employment.value === 12 ? "input-box inpBxFF"
-                  : employment.value === 14 ? "input-box inpBxFF"
-                  : employment.value === 15 ? "input-box inpBxFF"
-                  : employment.value === 16 ? "input-box inpBxFF"
-                  : employment.value === 17 ? "input-box inpBxFF"
+                  employmentAndIncome.employment.value === 6 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 8 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 11 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 12 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 14 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 15 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 16 ? "input-box inpBxFF"
+                  : employmentAndIncome.employment.value === 17 ? "input-box inpBxFF"
                   : "input-box inpBxFF hidden"
                 }
               >
@@ -287,14 +297,14 @@ const StepThreeForm = (props) => {
                 <Controller
                   control={control}
                   name="standing"
-                  rules={{ required: ValidateScope(employment.value) }}
+                  rules={{ required: ValidateScope(employmentAndIncome.employment.value) }}
                   render={({ field: { onChange, onBlur } }) => (
                     <>
                       <SelectComponent
                         placeholder="Выберите стаж на последнем месте работы"
                         options={StandingOptions}
                         style={CustomStyles}
-                        object={setStanding}
+                        object={(value) => setEmploymentAndIncome({...employmentAndIncome, standing: value})}
                         onChange={onChange}
                         onBlur={onBlur}
                       />
@@ -314,4 +324,3 @@ const StepThreeForm = (props) => {
     </>
   )
 }
-export { StepThreeForm }

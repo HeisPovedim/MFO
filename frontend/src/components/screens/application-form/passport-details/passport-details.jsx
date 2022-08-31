@@ -1,26 +1,22 @@
-// REACT
+// #REACT
 import React, { useState, useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 
-// SHARED
+// #SHARED
 import { WarrningError } from '../../../shared/verify/warrning-error'
 import { FirstSetUp, SecondSetUp } from './lib/input-number-format'
 
-// HELPERS
+// #HELPERS
 import { RegForAddress, RegForHouseNumber, RegForApartmentNumber } from '../../../../helpers/regular-expressions'
 
-// CUSTOM LIBRARIES
+// #CUSTOM LIBRARIES
 import NumberFormat from 'react-number-format'
-import { IMaskInput } from 'react-imask'
 
 import { placeOfIssueScript, legalAddressScript, actualAddressScript } from '../../../../config/DaData/script'
-import $ from 'jquery'
-import 'suggestions-jquery'
 
-const StepTwoForm = (props) => {
+export const PassportDetails = ({onChangePassportDetails, onChangeEmploymentAndIncome}) => {
 
-
-  // СТЕЙТЫ | STATES
+  // ^СТЕЙТЫ | STATES
   const [passport, setPassport] = useState({
     series: "", // серия паспорта
     number: "", // номер паспорта
@@ -50,23 +46,19 @@ const StepTwoForm = (props) => {
     additionalFields: true, // дополнительные поля для адреса проживания
     unselectedFieldWarning: Boolean // предупреждение о невыбранном значение в подсказках
   })
-  // const [statusSelec, setStatusSelec] = useState("") // предупреждение
 
 
-  // ХУКИ | HOOKS
-  const
-  { register,
+  // ^ХУКИ | HOOKS
+  const {
+    register,
     formState: { errors },
     handleSubmit,
     control,
-    watch,
     setValue,
     resetField
   } = useForm({ mode: "all" })
 
-  // СКРИПТЫ | SCRIPTS
-
-  // скрипт - placeOfIssueScript
+  // ^СКРИПТЫ | SCRIPTS
   useEffect (() => {
     placeOfIssueScript(
       (value) => setPassport(passport => {
@@ -85,7 +77,6 @@ const StepTwoForm = (props) => {
     setValue("placeOfIssue", passport.placeOfIssue)
   }, [passport.placeOfIssue, resetField, setValue])
 
-  // legalAddressScript
   useEffect(() => {
     legalAddressScript(
       (value) => setLegalAddress((legalAddress) => {
@@ -97,9 +88,7 @@ const StepTwoForm = (props) => {
     )
   }, [])
 
-  // actualAddressScript
   useEffect(() => {
-    // ActualAddress(setAddressActual, setHouseActual)
     actualAddressScript(
       (value) => setActualAddress((actualAddress) => {
         return {...actualAddress, address: value}
@@ -111,44 +100,38 @@ const StepTwoForm = (props) => {
   }, [])
 
 
-  // КНОПКИ | BUTTONS
+  // ^⁡⁣⁣⁡⁣⁡⁣⁣КНОПКИ | BUTTONS
   const onSubmit = (data) => {
-    props.statusStepTwoForm(false)
-    props.statusStepThreeForm(true)
+    onChangePassportDetails(false)
+    onChangeEmploymentAndIncome(true)
     console.log(data)
   }
 
 
-  // ОБРАБОТЧИКИ | HANDLERS
-
-  // выбор мужского гендора
-  const handlerClickedMan = () => {
+  // ^ХЕНДЛЕРЫ | HANDLERS
+  const handlerClickedMan = () => { // выбор мужского гендора
     setFunctionalStates({...functionalStates, clickedGender: true})
     setOtherData({...otherData, gender: "Мужской"})
   }
-
-  // выбор женского гендора
-  const handlerClickedWoman = () => {
+  const handlerClickedWoman = () => { // выбор женского гендора
     setFunctionalStates({...functionalStates, clickedGender: false})
     setOtherData({...otherData, gender: "Женский"})
   }
-
-  // согласие на сведение
-  const handlerAccord = () => {
+  const handlerAccord = () => { // согласие на сведение
     if ( functionalStates.consentToDataProcessing === true ) {
       setFunctionalStates({...functionalStates, consentToDataProcessing: false})
     } else {
       setFunctionalStates({...functionalStates, consentToDataProcessing: true})
     }
   }
-  const handlerResidentialAddress = () => {
+  const handlerResidentialAddress = () => { // включение дополнительных полей ввода адреса
     if ( functionalStates.additionalFields === false ) {
       setFunctionalStates({...functionalStates, additionalFields: true})
     } else {
       setFunctionalStates({...functionalStates, additionalFields: false})
     }
   }
-  const handlerResidentialAddressActive = () => {
+  const handlerResidentialAddressActive = () => { // активация полей - нужно для корректоной работы useForm
     if ( functionalStates.additionalFields === false ) {
       return true
     } else {
@@ -283,7 +266,6 @@ const StepTwoForm = (props) => {
                 </span> : undefined }
               </div>
               <div className="input-box inpBxFF" id="form_place_of_birth">
-                {/* @ Место рождения */}
                 <label className="control-label">Место рождения</label>
                 <input
                   id="place_of_birth"
@@ -307,7 +289,6 @@ const StepTwoForm = (props) => {
                 <WarrningError>{ errors?.placeOfBirth && (<p>{ errors?.placeOfBirth?.message ||`*Необходимо заполнить поле "Место рождения"`}</p>) }</WarrningError>
               </div>
               <div className="input-box inpBxFull" id="form_place_of_issue">
-                {/* @ Паспорт выдан */}
                 <label className="control-label">Паспорт выдан</label>
                 <input
                   id="place_of_issue"
@@ -1033,4 +1014,3 @@ const StepTwoForm = (props) => {
     </>
   )
 }
-export { StepTwoForm }

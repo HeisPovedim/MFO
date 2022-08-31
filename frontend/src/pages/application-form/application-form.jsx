@@ -1,23 +1,22 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-// REACT
-import React, { useState, useEffect } from 'react'
+// #REACT
+import React, { useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 
-// COMPONENTS
-import { StepOneForm } from '../../components/screens/application-form/step-one-form/step-one-form'
-import { StepTwoForm } from '../../components/screens/application-form/step-two-form/step-two-form'
-import { StepThreeForm } from '../../components/screens/application-form/step-three-form/step-three-form'
-import { ModalDialog } from '../../components/screens/application-form/modal-dialog/modal-dialog'
+// #COMPONENTS
+import { ContactUs } from '../../components/screens/application-form/contact-us/contact-us'
+import { PhoneNumberVerification } from '../../components/screens/application-form/phone-number-verification/phone-number-verification'
+import { PassportDetails } from '../../components/screens/application-form/passport-details/passport-details'
+import { EmploymentAndIncome } from '../../components/screens/application-form/employment-and-Income/employment-and-Income'
 
-// IMG | className = wrapper container site-header__wrapper
-// import PresonPng from '../../assets/img/basic/person.png'
+// #IMG | className = wrapper container site-header__wrapper
 import PresonPng from '../../assets/img/basic/person.png'
 import BurgerPng from '../../assets/img/basic/burger.png'
 
-// IMG | className = btn_person_settings
+// #IMG | className = btn_person_settings
 import PersonHeaderPng from '../../assets/img/basic/person-header.png'
 
-// IMG | className = footer-wrapper wrapper container flex --just-space
+// #IMG | className = footer-wrapper wrapper container flex --just-space
 import IconEmailPng from '../../assets/img/basic/icon-email.png'
 import FooterWatchPng from '../../assets/img/basic/footer-watch.png'
 import FooterLocationPng from '../../assets/img/basic/footer-location.png'
@@ -25,18 +24,29 @@ import FooterLocationPng from '../../assets/img/basic/footer-location.png'
 
 const ApplicationFormPage = () => {
 
-  // СТЕЙТЫ | STATES
-  const [statusStepOneForm, setStatusStepOneForm] = useState(true)
-  const [statusStepTwoForm, setStatusStepTwoForm] = useState(false)
-  const [statusStepThreeForm, setStatusStepThreeForm] = useState(false)
-  const [statusSmsPhone, setStatusSmsPhone] = useState(false)
-  const [phoneNumber, setPhoneNumber] = useState()
+  // ^СТЕЙТЫ | STATES
+  const [questionnaireSteps, setQuestionnaireSteps] = useState({
+    contactUs: true, // контактная информация - 1-я форма
+    phoneNumberVerification: false, // подтверждение номера телефона - код из смс
+    passportDetails: false, // паспортные данные - 2-я форма
+    employmentAndIncome: true, // занятость и доходы - 3-я форма
+  })
 
-
-  // ХЕНДЛЕРЫ | HANDLERS
-  const handlerstatusStepOneForm = (event) => {
-    setStatusStepOneForm(event)
-  }
+  // ?ФУНКЦИЯ ОБНОВЛЕНИЯ СОСТОЯНИЯ
+  const funcStateSwitching = useCallback((type, value) => {
+    if(type === 'contactUs') setQuestionnaireSteps(prev => {
+      return {...prev, contactUs: value}
+    });
+    if(type === 'phoneNumberVerification') setQuestionnaireSteps(prev => {
+      return {...prev, phoneNumberVerification: value}
+    })
+    if(type === 'passportDetails') setQuestionnaireSteps(prev => {
+      return {...prev, passportDetails: value}
+    })
+    if(type === 'employmentAndIncome') setQuestionnaireSteps(prev => {
+      return {...prev, employmentAndIncome: value}
+    })
+}, [setQuestionnaireSteps]);
 
 
   return(
@@ -179,15 +189,15 @@ const ApplicationFormPage = () => {
               <div className="registration-steps">
                 <ul className="reg-steps-list">
                   <li>
-                    <a className={ statusStepOneForm === true || statusSmsPhone === true ? "active" : undefined } >Контактная информация</a>
+                    <a className={ questionnaireSteps.contactUs === true || questionnaireSteps.phoneNumberVerification === true ? "active" : undefined } >Контактная информация</a>
                     <span className="reg-step_sp">вероятность одобрения</span>
                   </li>
                   <li>
-                    <a className={ statusStepTwoForm === true ? "active" : undefined } >Паспортные данные</a>
+                    <a className={ questionnaireSteps.passportDetails === true ? "active" : undefined } >Паспортные данные</a>
                     <span className="reg-step_sp">вероятность одобрения</span>
                   </li>
                   <li>
-                    <a className={ statusStepThreeForm === true ? "active" : undefined } >Занятость и доходы</a>
+                    <a className={ questionnaireSteps.employmentAndIncome === true ? "active" : undefined } >Занятость и доходы</a>
                     <span className="reg-step_sp">вероятность одобрения</span>
                   </li>
                   <li>
@@ -204,11 +214,36 @@ const ApplicationFormPage = () => {
                   </li>
                 </ul>
               </div>
-              {/* ! Component */}
-              { statusStepOneForm === true ? <StepOneForm statusStepOneForm = { setStatusStepOneForm } statusSmsPhone={ setStatusSmsPhone } phoneNumber = { setPhoneNumber } /> : undefined }
-              { statusSmsPhone === true ? <ModalDialog phoneNumber = { phoneNumber } statusSmsPhone = { setStatusSmsPhone } statusStepOneForm = { setStatusStepOneForm } setStatusStepTwoForm = { setStatusStepTwoForm } /> : undefined }
-              { statusStepTwoForm === false ? <StepTwoForm statusSmsPhone = { setStatusSmsPhone } statusStepTwoForm = { setStatusStepTwoForm } statusStepThreeForm = { setStatusStepThreeForm } /> : undefined }
-              { statusStepThreeForm === true ? <StepThreeForm statusStepTwoForm = {setStatusStepTwoForm} statusStepThreeForm = { setStatusStepThreeForm } /> : undefined }
+              { questionnaireSteps.contactUs && (
+                // контактная информация - 1-я форма
+                <ContactUs
+                  onChangeContactUs={(value) => funcStateSwitching('contactUs', value)}
+                  onChangePhoneNumberVerification={(value) => funcStateSwitching('phoneNumberVerification', value)}
+                />
+              )}
+              { questionnaireSteps.phoneNumberVerification && (
+                // подтверждение номера телефона - код из смс
+                <PhoneNumberVerification
+                  onChangePhoneNumberVerification={(value) => funcStateSwitching('phoneNumberVerification', value)}
+                  onChangeContactUs={(value) => funcStateSwitching('contactUs', value)}
+                  onChangePassportDetails={(value) => funcStateSwitching('passportDetails', value)}
+                />
+              )}
+              { questionnaireSteps.passportDetails && (
+                // паспортные данные - 2-я форма
+                <PassportDetails
+                  onChangePhoneNumberVerification={(value) => funcStateSwitching('phoneNumberVerification', value)}
+                  onChangePassportDetails={(value) => funcStateSwitching('passportDetails', value)}
+                  onChangeEmploymentAndIncome={(value) => funcStateSwitching('employmentAndIncome', value)}
+                />
+              )}
+              { questionnaireSteps.employmentAndIncome && (
+                // занятость и доходы - 3-я форма
+                <EmploymentAndIncome
+                  onChangePassportDetails={(value) => funcStateSwitching('passportDetails', value)}
+                  onChangeEmploymentAndIncome={(value) => funcStateSwitching('employmentAndIncome', value)}
+                />
+              )}
             </div>
           </div>
         </div>

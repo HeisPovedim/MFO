@@ -18,8 +18,8 @@ export const PhoneField = ({ phone, setPhone, onChange, onBlur }) => {
         const { formattedValue, value } = values;
         // formattedValue = $2,223
         // value ie, 2223
-        setPhone(formattedValue)
-        onChange(formattedValue.replace(/[^0-9]/g, ""))
+        setPhone(value)
+        onChange(value)
       }}
     />
   )

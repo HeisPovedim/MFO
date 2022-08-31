@@ -1,27 +1,27 @@
-// REACT
+// #REACT
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-// HELPER
+// #HELPER
   // functions
   import { divideNumberByPieces } from "../../helpers/divide-number-by-pieces"
   import { convertObjectValues } from "../../helpers/convert-object-values";
 
-// CUSTOM LIBRARIES
+// #CUSTOM LIBRARIES
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 import { IMaskInput } from 'react-imask'
 
-// IMG | className = wrapper container site-header__wrapper
+// #IMG | className = wrapper container site-header__wrapper
 import PresonPng from '../../assets/img/basic/person.png'
 import BurgerPng from '../../assets/img/basic/burger.png'
 
-// IMG | className = carts_wrapper flex --just-center
+// #IMG | className = carts_wrapper flex --just-center
 import ViasPng from '../../assets/img/basic/visa.png'
 import MasterCardPng from '../../assets/img/basic/mastercard.png'
 import MirPng from '../../assets/img/basic/mir.png'
 
-// IMG | className = blocks wrapper flex --just-center
+// #IMG | className = blocks wrapper flex --just-center
 import OneBlock from '../../assets/img/basic/1.png'
 import TicketPng from '../../assets/img/basic/ticket.png'
 import TwoBlock from '../../assets/img/basic/2.png'
@@ -29,25 +29,25 @@ import WatchPng from '../../assets/img/basic/watch.png'
 import ThreeBlock from '../../assets/img/basic/3.png'
 import MobilePng from '../../assets/img/basic/mobile.png'
 
-// IMG | className = info__imgs
+// #IMG | className = info__imgs
 import CapPng from '../../assets/img/basic/cap.png'
 import TvPng from '../../assets/img/basic/tv.png'
 import MedicPng from '../../assets/img/basic/medic.png'
 import CoinPng from '../../assets/img/basic/coin.png'
 import TrevelPng from '../../assets/img/basic/trevel.png'
 
-// IMG | className = __tariff
+// #IMG | className = __tariff
 import TariffIconPng from '../../assets/img/basic/tariff-icon.png'
 import TariffCoinPng from '../../assets/img/basic/tariif-coin.png'
 import Tariff24Png from '../../assets/img/basic/tariff-24.png'
 
-// IMG | className = grid 
+// #IMG | className = grid 
 import N200Png from '../../assets/img/default/files/2022-02/n200.jpg'
 import MFOPng from '../../assets/img/default/files/2021-12/MFO.jpg'
 import CentroPng from '../../assets/img/default/files/2021-10/4.png'
 import LoanPng from '../../assets/img/default/files/2021-10/3.png'
 
-// IMG | className = apply-loan__body
+// #IMG | className = apply-loan__body
 import Loan1Png from '../../assets/img/basic/loan1.png'
 import Loan2Png from '../../assets/img/basic/loan2.png'
 import Loan3Png from '../../assets/img/basic/loan3.png'
@@ -55,28 +55,30 @@ import Loan4Png from '../../assets/img/basic/loan4.png'
 import Loan5Png from '../../assets/img/basic/loan5.png'
 import Loan6Png from '../../assets/img/basic/loan6.png'
 
-// IMG | className = footer-wrapper wrapper container flex --just-space
+// #IMG | className = footer-wrapper wrapper container flex --just-space
 import IconEmailPng from '../../assets/img/basic/icon-email.png'
 import FooterWatchPng from '../../assets/img/basic/footer-watch.png'
 import FooterLocationPng from '../../assets/img/basic/footer-location.png'
 
 const BasicPage = () => {
 
-  // UseEffect
+  // ^USE EFFECT
   useEffect(() => {
     localStorage.clear()
   })
 
 
-  // СТЕЙТЫ | STATES
+  // ^СТЕЙТЫ | STATES
   const [valueSum, setValueSum] = useState(10000)
   const [valueDay, setValueDay] = useState(21)
   const current = new Date()
 
 
+  // ^ХЕНДЛЕРЫ | HANDLERS
   const handlerBlurSum = () => { 
     setValueSum(convertObjectValues((Math.round(valueSum/500)*500), true))
   }
+
 
   return (
   <>

@@ -1,4 +1,4 @@
-// Функция для проверки и появления поля - "Сфера деятельности"
+// ?: Функция для проверки и появления поля - "Сфера деятельности"
 export const ValidateScope = (value) => {
   if (value === 6) {
     return true
@@ -21,11 +21,11 @@ export const ValidateScope = (value) => {
   }
 }
 
-// Функция для проверки длины поля - "Дополнительный телефон"
+// ?: Функция для проверки длины поля - "Дополнительный телефон"
 export const ValidatePhone = (value) => {
-  if (value >= 2) {
-    console.log(value)
-    return 11
+  if (value >= 1) {
+    // console.log(value)
+    return 10
   } else {
     return 0
   }

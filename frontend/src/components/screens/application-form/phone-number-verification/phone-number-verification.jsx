@@ -1,44 +1,41 @@
-// REACT
+// #REACT
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-// HELPER
+// #HELPERS
   // functions
   import { CountDown } from '../../../../helpers/count-down'
   // component
   import { WarrningError } from '../../../shared/verify/warrning-error'
 
-// IMG
+// #IMG
 import backPng from '../../../../assets/img/free-icon-back-130882.png'
 
+export const PhoneNumberVerification = ({onChangeContactUs, onChangePassportDetails, onChangePhoneNumberVerification}) => {
 
-const ModalDialog = (props) => {
-
-
-  // USEFORM
+  // ^СТЕЙТЫ | STATES
+  const [statusTimer, setStatusTimer] = useState(false)
+  
+  
+  // ⁡⁣^HOOKS⁡⁡
   const { register, formState: { errors }, handleSubmit } = useForm({ mode: "onBlur" })
 
 
-  // СТЕЙТЫ | STATES
-  const [statusTimer, setStatusTimer] = useState(false)
-
-
-  // КНОПКИ | BUTTONS
+  // ^⁡⁣⁣⁡⁣⁡⁣⁣КНОПКИ | BUTTONS
   const onSubmit = (data) => {
-    props.statusSmsPhone(false)
-    props.setStatusStepTwoForm(true)
+    onChangePhoneNumberVerification(false)
+    onChangePassportDetails(true)
   }
 
 
-  // ХЕНДЛЕРЫ | HANDLERS
+  // ^ХЕНДЛЕРЫ | HANDLERS
   const handlerRestartTimer = () => {
     setStatusTimer(false)
   }
   const handlerModalBack = () => {
-    props.statusStepOneForm(true)
-    props.statusSmsPhone(false)
+    onChangeContactUs(true)
+    onChangePhoneNumberVerification(false)
   }
-
 
   return (
     <>
@@ -54,7 +51,7 @@ const ModalDialog = (props) => {
             </div>
             <div className="modal-body text-center">
               <div className="alert alert-danger hidden">Ошибка</div>
-              <p>Введите код из SMS, отправленный на номер <span className="phone_num_info">{ props.phoneNumber }</span></p>
+              <p>Введите код из SMS, отправленный на номер <span className="phone_num_info">{ localStorage.getItem("userPhone") }</span></p>
               <form className="dnt_sbmt_frm" name="check_form" method="post"
                 onSubmit={ handleSubmit(onSubmit) }
               >
@@ -95,4 +92,3 @@ const ModalDialog = (props) => {
     </>
   )
 }
-export { ModalDialog }
