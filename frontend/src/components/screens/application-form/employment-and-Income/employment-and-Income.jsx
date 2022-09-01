@@ -1,15 +1,15 @@
-// #REACT
+// #: REACT
 import React, { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 
-// #COMPONENTS
+// #: COMPONENTS
 import { SelectComponent } from './lib/select'
 import { FamilyOptions, ScopeOptions, EducationOptions, EmploymentOptions, CarOptions, OwnershipOptions, StandingOptions } from './lib/options'
 import { validateFunc } from './functions/validation'
 import { Salart } from './lib/salary'
 import { CustomStyles } from './lib/salary-style'
 
-// #SHARED
+// #: SHARED
   // component
   import { WarrningError } from '../../../shared/verify/warrning-error'
   import { PhoneField } from '../../../shared/fields/phone-field'
@@ -17,17 +17,7 @@ import { CustomStyles } from './lib/salary-style'
 export const EmploymentAndIncome = ({onChangePassportDetails, onChangeEmploymentAndIncome}) => {
 
 
-  // ^СТЕЙТЫ | STATES
-  // const [family, setFamily] = useState("") // ПОЛЕ - "Семейное положение"
-  // const [phone, setPhone] = useState("") // ПОЛЕ - "Дополнительный телефон"
-  // const [education, setEducation] = useState("") // ПОЛЕ - "Образование"
-  // const [employment, setEmployment] = useState("") // ПОЛЕ - "Занятость"
-  // const [scope, setScope] = useState("") // ПОЛЕ - "Сфера деятельности"
-  // const [expenses, setExpenses] = useState("") // ПОЛЕ - "Сумма ежемесячных расходов"
-  // const [income, setIncome] = useState("") // ПОЛЕ - "Ваш доход в месяц"
-  // const [car, setCar] = useState("") // ПОЛЕ - "Наличие автомобиля"
-  // const [ownership, setOwnership] = useState("") // ПОЛЕ - "Наличие собственности"
-  // const [standing, setStanding] = useState("") // ПОЛЕ - "Стаж работы на последнем месте"
+  // ^: СТЕЙТЫ | STATES
   const [employmentAndIncome, setEmploymentAndIncome] = useState({
     family: "", // семейное положение
     phone: "", // дополнительные телефон
@@ -42,7 +32,7 @@ export const EmploymentAndIncome = ({onChangePassportDetails, onChangeEmployment
   })
 
 
-  // ^ ХУКИ | HOOKS
+  // ^: ХУКИ | HOOKS
   const {
     formState: { errors },
     handleSubmit,
@@ -53,13 +43,9 @@ export const EmploymentAndIncome = ({onChangePassportDetails, onChangeEmployment
 
 
   React.useEffect(()=> console.log(employmentAndIncome), [employmentAndIncome])
-  React.useEffect(() => {
-    // console.log(phone.replace(/[^0-9]/g, ""))
-    // console.log(employmentAndIncome.family)
-  })
 
 
-  // ^КНОПКИ | BUTTONS
+  // ^: КНОПКИ | BUTTONS
   const onSubmit = (data) => {
     console.log(data)
   }
@@ -109,17 +95,16 @@ export const EmploymentAndIncome = ({onChangePassportDetails, onChangeEmployment
                   name="phone"
                   rules={{
                     minLength: {
-                      value: validateFunc( "phoneMinLength" ,employmentAndIncome.phone.replace(/[^0-9]/g, "").length),
+                      value: validateFunc( "phoneMinLength" , employmentAndIncome.phone.replace(/[^0-9]/g, "")),
                       message: "*Заполните полностью поле телефона",
                     }
-                  
                   }}
                   render={({ field: { onChange, onBlur } }) => (
                     <>
                       <PhoneField
-                        phone={employmentAndIncome.phone}
-                        setPhone={(value) => setEmploymentAndIncome({...employmentAndIncome, phone: value})}
-                        onChange={(value) => onChange(validateFunc("phoneEmpty", value))}
+                        phone={employmentAndIncome.phone.replace("7", "")}
+                        setPhone={(value) => setEmploymentAndIncome({...employmentAndIncome, phone: validateFunc("phoneEmptyString", value.replace(/[^0-9]/g, ""))})}
+                        onChange={(value) => onChange(validateFunc("phoneEmptyUndefiend", value))}
                         onBlur={onBlur}
                       />
                       <WarrningError>{errors?.phone && (<p>{errors?.phone?.message || `*Необходимо заполнить поле "Дополнительный телефон"`}</p>)}</WarrningError>

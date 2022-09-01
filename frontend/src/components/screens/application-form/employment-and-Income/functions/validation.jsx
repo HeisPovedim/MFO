@@ -21,14 +21,21 @@ export const validateFunc = (type, value) => {
       return false
     }
   } else if (type === "phoneMinLength") { // !: функция для проверки длины поля - "Дополнительный телефон"
-    if (value >= 2) {
+    console.log(value)
+    if (value >= 0) {
       return 11
     } else {
       return 0
     }
-  } else if (type === "phoneEmpty") { // !: функция для проверки номера телефона на пустоту
+  } else if (type === "phoneEmptyUndefiend") { // !: функция для проверки номера телефона на пустоту
     if (value.length <= 1) {
       return value = undefined
+    } else {
+      return value
+    }
+  } else if (type === "phoneEmptyString"){
+    if (value.length <= 1) {
+      return value = ""
     } else {
       return value
     }
