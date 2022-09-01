@@ -1,22 +1,22 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-// #REACT
+// #: REACT
 import React, { useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 
-// #COMPONENTS
+// #: COMPONENTS
 import { ContactUs } from '../../components/screens/application-form/contact-us/contact-us'
 import { PhoneNumberVerification } from '../../components/screens/application-form/phone-number-verification/phone-number-verification'
 import { PassportDetails } from '../../components/screens/application-form/passport-details/passport-details'
 import { EmploymentAndIncome } from '../../components/screens/application-form/employment-and-Income/employment-and-Income'
 
-// #IMG | className = wrapper container site-header__wrapper
+// #: IMG | className = wrapper container site-header__wrapper
 import PresonPng from '../../assets/img/basic/person.png'
 import BurgerPng from '../../assets/img/basic/burger.png'
 
-// #IMG | className = btn_person_settings
+// #: IMG | className = btn_person_settings
 import PersonHeaderPng from '../../assets/img/basic/person-header.png'
 
-// #IMG | className = footer-wrapper wrapper container flex --just-space
+// #: IMG | className = footer-wrapper wrapper container flex --just-space
 import IconEmailPng from '../../assets/img/basic/icon-email.png'
 import FooterWatchPng from '../../assets/img/basic/footer-watch.png'
 import FooterLocationPng from '../../assets/img/basic/footer-location.png'
@@ -29,7 +29,7 @@ const ApplicationFormPage = () => {
     contactUs: true, // контактная информация - 1-я форма
     phoneNumberVerification: false, // подтверждение номера телефона - код из смс
     passportDetails: false, // паспортные данные - 2-я форма
-    employmentAndIncome: false, // занятость и доходы - 3-я форма
+    employmentAndIncome: true, // занятость и доходы - 3-я форма
   })
 
   // ?: ФУНКЦИЯ ОБНОВЛЕНИЯ СОСТОЯНИЯ
