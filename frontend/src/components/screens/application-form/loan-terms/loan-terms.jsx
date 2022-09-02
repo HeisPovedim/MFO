@@ -10,34 +10,34 @@ export const LoanTerms = () => {
     <div className="alert alert-danger ">Указанные данные калькулятора потеряны!</div>
     <div className="wrapper-master">
       <h3>Доступная сумма займа до 15 000 &nbsp;₽</h3>
-      <h4 style="padding-bottom: 20px;">Сумма займа свыше 15 000 рублей доступна со второго займа</h4>
+      <h4 style={{paddingBottom: "20px"}}>Сумма займа свыше 15 000 рублей доступна со второго займа</h4>
       <div className="wrapper-inputs ">
       </div>
       <div className="calculator_inner-section">
         <div className="calc">
-          <input type="hidden" name="curdate" value="1662040742" />
-          <input type="hidden" name="summ" value="10000" />
-          <input type="hidden" name="limit" value="21" />
-          <input type="hidden" name="over" value="2100" />
-          <input type="hidden" name="total" value="12100" />
-          <input type="hidden" name="day" value="22.09.2022" />
-          <input type="hidden" id="sum-min" value="1500" />
-          <input type="hidden" id="sum-max" value="15000" />
-          <input type="hidden" id="limit-min" value="5" />
-          <input type="hidden" id="limit-max" value="30" />
-          <input type="hidden" id="procent" value="1.00" />
-          <input type="hidden" id="step_amount" value="500" />
-          <input type="hidden" id="step_term" value="1" />
-          <input type="hidden" name="product" value="1" />
-          <input type="hidden" id="count_prod" value="1" />
-          <input type="hidden" id="annuity" name="is_annuity" value="" />
-          <input type="hidden" id="currency_lang" value="&amp;#8381;" />
-          <input type="hidden" id="sum-max_label" value="60000" />
-          <input type="hidden" id="days_to_reduce" value="0" />
-          <input type="hidden" id="is_grace_periods" value="0" />
-          <input type="hidden" id="delete_duplicate" value="1" />
-          <input type="hidden" id="service-sum" value="0" />
-          <input type="hidden" id="extra_service-sum" value="980" />
+          <input type="hidden" name="curdate" defaultValue="1662040742" />
+          <input type="hidden" name="summ" defaultValue="10000" />
+          <input type="hidden" name="limit" defaultValue="21" />
+          <input type="hidden" name="over" defaultValue="2100" />
+          <input type="hidden" name="total" defaultValue="12100" />
+          <input type="hidden" name="day" defaultValue="22.09.2022" />
+          <input type="hidden" id="sum-min" defaultValue="1500" />
+          <input type="hidden" id="sum-max" defaultValue="15000" />
+          <input type="hidden" id="limit-min" defaultValue="5" />
+          <input type="hidden" id="limit-max" defaultValue="30" />
+          <input type="hidden" id="procent" defaultValue="1.00" />
+          <input type="hidden" id="step_amount" defaultValue="500" />
+          <input type="hidden" id="step_term" defaultValue="1" />
+          <input type="hidden" name="product" defaultValue="1" />
+          <input type="hidden" id="count_prod" defaultValue="1" />
+          <input type="hidden" id="annuity" name="is_annuity" defaultValue="" />
+          <input type="hidden" id="currency_lang" defaultValue="&amp;#8381;" />
+          <input type="hidden" id="sum-max_label" defaultValue="60000" />
+          <input type="hidden" id="days_to_reduce" defaultValue="0" />
+          <input type="hidden" id="is_grace_periods" defaultValue="0" />
+          <input type="hidden" id="delete_duplicate" defaultValue="1" />
+          <input type="hidden" id="service-sum" defaultValue="0" />
+          <input type="hidden" id="extra_service-sum" defaultValue="980" />
           <input type="hidden" id="p1" attr-maxa="15000" attr-mina="1500" attr-mint="5" attr-maxt="30" attr-p="1.00" attr-sa="500" attr-st="1" attr-id="1" attr-labelt="дней" attr-isa="0" attr-timevalindex="1" attr-position="0" />
           <div className="calc-desc">
             <div className="cd_info">
@@ -64,11 +64,11 @@ export const LoanTerms = () => {
                 <div className="calc-value-info calc-value-info-amount">
                   <span className="calc-summ">10 000<small>&nbsp;₽</small></span>
                 </div>
-                <input type="text" value="1 500" className="calc-summ num" />
+                <input type="text" defaultValue="1 500" className="calc-summ num" />
               </div>
               <div className="uislider summ ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                <div className="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min" style="width: 62.963%;"></div>
-                <span className="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 62.963%;"></span>
+                <div className="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min" style={{width: "62.963%"}}></div>
+                <span className="ui-slider-handle ui-state-default ui-corner-all" tabIndex="0" style={{left: "62.963%"}}></span>
               </div>
               <p className="range_label flex justify-content-between">
                 <span>1 500</span>
@@ -81,11 +81,11 @@ export const LoanTerms = () => {
                 <div className="calc-value-info calc-value-info-term">
                   <span className="calc-limit"><span>21</span><small>&nbsp;день</small></span>
                 </div>
-                <input type="text" value="5" className="calc-limit num" />
+                <input type="text" defaultValue="5" className="calc-limit num" />
               </div>
               <div className="uislider limit ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                <div className="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min" style="width: 64%;"></div>
-                <span className="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 64%;"></span>
+                <div className="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min" style={{width: "64%"}}></div>
+                <span className="ui-slider-handle ui-state-default ui-corner-all" tabIndex="0" style={{left: "64%"}}></span>
               </div>
               <p className="range_label flex justify-content-between">
                 <span className="limit_min ">5 дней</span>
@@ -99,14 +99,14 @@ export const LoanTerms = () => {
         </div>
         <div className="wrapper-checkboxes">
           <label className="control-label label-checkbox main-checkbox">
-            <input type="checkbox" name="mastrChckbx[all]" value="1" data-btnchckbx="btn_submit_step_save" data-promo="false" />
-            <div>Я ознакомлен(-а) и согласен(-на) <a href="javascript:void(0)" className="toggle_inner_checkboxes">со следующим</a></div>
+            <input type="checkbox" name="mastrChckbx[all]" defaultValue="1" data-btnchckbx="btn_submit_step_save" data-promo="false" />
+            <div>Я ознакомлен(-а) и согласен(-на) <a  className="toggle_inner_checkboxes">со следующим</a></div>
           </label>
           <div className="inner_checkboxes hidden">
             <div className="services_box">
-              <label className="control-label label-checkbox addr-check-label" for="extra_service_1">
-              <input type="checkbox" className="checkbox services_check" name="extra_service_match[1]" id="extra_service_1" data-identifier="1" checked="checked" value="1" />
-              <a href="javascript:void(0)" className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services" data-service_id="extra_service_1">Страховка от несчастного случая</a>
+              <label className="control-label label-checkbox addr-check-label" htmlFor="extra_service_1">
+              <input type="checkbox" className="checkbox services_check" name="extra_service_match[1]" id="extra_service_1" data-identifier="1" defaultChecked="defaultChecked" defaultValue="1" />
+              <a  className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services" data-service_id="extra_service_1">Страховка от несчастного случая</a>
               </label>
               <div id="extraServiceBroken">
                 <input type="hidden" id="extra_service_broken" data-products="2,3,4" />
@@ -114,20 +114,20 @@ export const LoanTerms = () => {
                 <input type="hidden" className="extra_service_broken active" data-from="5000" data-to="15000" data-products="3" />
                 <input type="hidden" className="extra_service_broken active" data-from="6500" data-to="15000" data-products="4" />
               </div>
-              <label className="control-label label-checkbox addr-check-label extra_service_broken-label" for="extra_service_2">
-              <input type="checkbox" className="checkbox services_check" name="extra_service_match[2]" id="extra_service_2" data-identifier="2" checked="checked" value="1" />
-              <a href="javascript:void(0)" className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_2">Подбор финансовых продуктов</a>
+              <label className="control-label label-checkbox addr-check-label extra_service_broken-label" htmlFor="extra_service_2">
+              <input type="checkbox" className="checkbox services_check" name="extra_service_match[2]" id="extra_service_2" data-identifier="2" defaultChecked="defaultChecked" defaultValue="1" />
+              <a  className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_2">Подбор финансовых продуктов</a>
               </label>
-              <label className="control-label label-checkbox addr-check-label extra_service_broken-label" for="extra_service_3">
-              <input type="checkbox" className="checkbox services_check" name="extra_service_match[3]" id="extra_service_3" data-identifier="3" checked="checked" value="1" />
-              <a href="javascript:void(0)" className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_3">Персональный менеджер</a>
+              <label className="control-label label-checkbox addr-check-label extra_service_broken-label" htmlFor="extra_service_3">
+              <input type="checkbox" className="checkbox services_check" name="extra_service_match[3]" id="extra_service_3" data-identifier="3" defaultChecked="defaultChecked" defaultValue="1" />
+              <a  className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_3">Персональный менеджер</a>
               </label>
-              <label className="control-label label-checkbox addr-check-label extra_service_broken-label" for="extra_service_4">
-              <input type="checkbox" className="checkbox services_check" name="extra_service_match[4]" id="extra_service_4" data-identifier="4" checked="checked" value="1" />
-              <a href="javascript:void(0)" className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_4">Юридические услуги</a>
+              <label className="control-label label-checkbox addr-check-label extra_service_broken-label" htmlFor="extra_service_4">
+              <input type="checkbox" className="checkbox services_check" name="extra_service_match[4]" id="extra_service_4" data-identifier="4" defaultChecked="defaultChecked" defaultValue="1" />
+              <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_4">Юридические услуги</a>
               </label>
             </div>
-            <div className="modal fade modal-very-lg" id="modal_offers_extra_services" tabindex="-1">
+            <div className="modal fade modal-very-lg" id="modal_offers_extra_services" tabIndex="-1">
               <div className="modal-dialog">
                 <div className="modal-content">
                   <div className="modal-header">
@@ -714,14 +714,14 @@ export const LoanTerms = () => {
                               {/* <o:p>&nbsp;</o:p> */}
                             </span>
                           </p>
-                          <p className="MsoNoSpacing" style={{marginTop: "0cm", marginRight: "1.0cm", marginBottom: "0cm", marginLeft: "1.0cm", marginBottom: ".0001pt", textAlign: "justify"}}><font face="Times New Roman, serif">Общество с ограниченной ответственностью  Микрокредитная компания «Забирай» (ООО МКК «Забирай»), именуемое в дальнейшем «Общество», в лице Генерального  директора Баканова Виталия Сергеевича, действующей на основании Устава, с одной стороны, и любое физическое лицо, полностью и безоговорочно принимающее условия настоящего соглашения, выразившее акцепт настоящей оферты путем размещения своих персональных данных, заполнив форму регистрации и заполнив анкету на Сайте Общества www.zabiray.ru и подтвердив свое согласие с приведенными ниже условиями (путем выбора и акцептования указанного Соглашения-оферты на сайте Общества простой электронной подписью), именуемое в дальнейшем «Клиент», с другой стороны, совместно именуемые «Сторонами», заключили настоящее Соглашение о нижеследующем:</font><br/></p>
-                          <p className="MsoNoSpacing" style={{marginTop: "0cm", marginRight: "1.0cm", marginBottom: "0cm", marginLeft: "1.0cm", marginBottom: ".0001pt", textAlign: "justify"}}><font face="Times New Roman, serif">1. Клиент имеет право на включение в Список застрахованных лиц по Программе добровольного коллективного страхования от несчастного случая № К-2.0)&nbsp; (Приложение №1 к настоящему Соглашению, далее – Программа страхования) в соответствии с Договором добровольного коллективного страхования № 26-21-МКК от 23.08.2021г. (заключенного между страхователем - Обществом и страховщиком – АО «Д2 Страхование») (Далее –Договор коллективного страхования) в качестве Застрахованного лица.</font><br/></p>
-                          <p className="MsoNoSpacing" style={{marginTop: "0cm", marginRight: "1.0cm", marginBottom: "0cm", marginLeft: "1.0cm", marginBottom: ".0001pt", textAlign: "justify"}}><font face="Times New Roman, serif">2.&nbsp;</font><span style={{fontFamily: "Times New Roman"}}>Стоимость услуги Общества по включению Клиента в Список застрахованных лиц по Программе добровольного коллективного страхования по Договору коллективного страхования (далее – Услуга Общества) составляет 905,00 рублей. Услуга Общества, оказываемая по настоящему Соглашению, включает в себя консультирование по условиям Программы страхования, сбор, обработку и техническую передачу информации о Клиенте Страховщику, связанную с организацией включения застрахованного лица в Список застрахованных лиц по Договору коллективного страхования, а также консультирование и документальное сопровождение при урегулировании страховых случаев в случае их наступления. По факту включения в список застрахованных лиц, в том числе при не наступлении страхового случая, Услуга Общества считается оказанной в полном объеме.</span><b><span style="mso-spacerun:'yes';font-family:'Times New Roman';mso-fareast-font-family:宋体;
+                          <p className="MsoNoSpacing" style={{marginTop: "0cm", marginRight: "1.0cm", marginBottom: "0cm", marginLeft: "1.0cm", textAlign: "justify"}}><font face="Times New Roman, serif">Общество с ограниченной ответственностью  Микрокредитная компания «Забирай» (ООО МКК «Забирай»), именуемое в дальнейшем «Общество», в лице Генерального  директора Баканова Виталия Сергеевича, действующей на основании Устава, с одной стороны, и любое физическое лицо, полностью и безоговорочно принимающее условия настоящего соглашения, выразившее акцепт настоящей оферты путем размещения своих персональных данных, заполнив форму регистрации и заполнив анкету на Сайте Общества www.zabiray.ru и подтвердив свое согласие с приведенными ниже условиями (путем выбора и акцептования указанного Соглашения-оферты на сайте Общества простой электронной подписью), именуемое в дальнейшем «Клиент», с другой стороны, совместно именуемые «Сторонами», заключили настоящее Соглашение о нижеследующем:</font><br/></p>
+                          <p className="MsoNoSpacing" style={{marginTop: "0cm", marginRight: "1.0cm", marginBottom: "0cm", marginLeft: "1.0cm", textAlign: "justify"}}><font face="Times New Roman, serif">1. Клиент имеет право на включение в Список застрахованных лиц по Программе добровольного коллективного страхования от несчастного случая № К-2.0)&nbsp; (Приложение №1 к настоящему Соглашению, далее – Программа страхования) в соответствии с Договором добровольного коллективного страхования № 26-21-МКК от 23.08.2021г. (заключенного между страхователем - Обществом и страховщиком – АО «Д2 Страхование») (Далее –Договор коллективного страхования) в качестве Застрахованного лица.</font><br/></p>
+                          <p className="MsoNoSpacing" style={{marginTop: "0cm", marginRight: "1.0cm", marginBottom: "0cm", marginLeft: "1.0cm", textAlign: "justify"}}><font face="Times New Roman, serif">2.&nbsp;</font><span style={{fontFamily: "Times New Roman"}}>Стоимость услуги Общества по включению Клиента в Список застрахованных лиц по Программе добровольного коллективного страхования по Договору коллективного страхования (далее – Услуга Общества) составляет 905,00 рублей. Услуга Общества, оказываемая по настоящему Соглашению, включает в себя консультирование по условиям Программы страхования, сбор, обработку и техническую передачу информации о Клиенте Страховщику, связанную с организацией включения застрахованного лица в Список застрахованных лиц по Договору коллективного страхования, а также консультирование и документальное сопровождение при урегулировании страховых случаев в случае их наступления. По факту включения в список застрахованных лиц, в том числе при не наступлении страхового случая, Услуга Общества считается оказанной в полном объеме.</span><b><span style="mso-spacerun:'yes';font-family:'Times New Roman';mso-fareast-font-family:宋体;
                             mso-ansi-font-weight:bold;font-size:10,0000pt;mso-font-kerning:1,0000pt;">&nbsp;</span></b></p>
-                          <p className="MsoNoSpacing" style={{marginTop: "0cm", marginRight: "1.0cm", marginBottom: "0cm", marginLeft: "1.0cm", marginBottom: ".0001pt", textAlign: "justify"}}><span style={{fontFamily: "Times New Roman"}}>Участие в Программе страхования не является условием для получения иных услуг, в том числе предоставляемых Обществом. Отказ от участия в Программе страхования не может являться основанием для отказа в предоставлении таких услуг или ухудшения условий их предоставления. Участие в Программе страхования не является способом обеспечения исполнения каких-либо обязательств Застрахованного лица.</span></p>
-                          <p className="MsoNoSpacing" style={{marginTop: "0cm", marginRight: "1.0cm", marginBottom: "0cm", marginLeft: "1.0cm", marginBottom: ".0001pt", textAlign: "justify"}}><span style={{fontFamily: "Times New Roman"}}>Клиент, подписывая настоящее Соглашение, подтверждает, что:</span></p>
-                          <p className="MsoNoSpacing" style={{marginTop: "0cm", marginRight: "1.0cm", marginBottom: "0cm", marginLeft: "1.0cm", marginBottom: ".0001pt", textAlign: "justify"}}><span style={{fontFamily: "Times New Roman"}}>- сумма услуги, оказываемой Обществом, не включает в себя компенсацию каких-либо расходов Страхователя (Общества) на оплату страховой премии Страховщику;</span></p>
-                          <p className="MsoNoSpacing" style={{marginTop: "0cm", marginRight: "1.0cm", marginBottom: "0cm", marginLeft: "1.0cm", marginBottom: ".0001pt", textAlign: "justify"}}><span style={{fontFamily: "Times New Roman"}}>- при включении в Список застрахованных лиц будет являться Застрахованным лицом по Договору коллективного страхования на условиях Программы страхования и в соответствие со ст.934 ГК РФ, застрахованное лицо не уплачивает прямо или косвенно страховую премию Страховщику, застрахованное лицо не является Страхователем по Договору коллективного страхования (в связи с чем, на отношения сторон по настоящему Соглашению и по Договору коллективного страхования не распространяются положения Указания Банка России от 20.11.2015г. № 3854-у «О минимальных (стандартных) требованиях к условиям и порядку осуществления отдельных видов добровольного страхования»);</span><span style="font-family: &quot;Times New Roman&quot;, serif;">&nbsp;</span></p>
+                          <p className="MsoNoSpacing" style={{marginTop: "0cm", marginRight: "1.0cm", marginBottom: "0cm", marginLeft: "1.0cm", textAlign: "justify"}}><span style={{fontFamily: "Times New Roman"}}>Участие в Программе страхования не является условием для получения иных услуг, в том числе предоставляемых Обществом. Отказ от участия в Программе страхования не может являться основанием для отказа в предоставлении таких услуг или ухудшения условий их предоставления. Участие в Программе страхования не является способом обеспечения исполнения каких-либо обязательств Застрахованного лица.</span></p>
+                          <p className="MsoNoSpacing" style={{marginTop: "0cm", marginRight: "1.0cm", marginBottom: "0cm", marginLeft: "1.0cm", textAlign: "justify"}}><span style={{fontFamily: "Times New Roman"}}>Клиент, подписывая настоящее Соглашение, подтверждает, что:</span></p>
+                          <p className="MsoNoSpacing" style={{marginTop: "0cm", marginRight: "1.0cm", marginBottom: "0cm", marginLeft: "1.0cm", textAlign: "justify"}}><span style={{fontFamily: "Times New Roman"}}>- сумма услуги, оказываемой Обществом, не включает в себя компенсацию каких-либо расходов Страхователя (Общества) на оплату страховой премии Страховщику;</span></p>
+                          <p className="MsoNoSpacing" style={{marginTop: "0cm", marginRight: "1.0cm", marginBottom: "0cm", marginLeft: "1.0cm", textAlign: "justify"}}><span style={{fontFamily: "Times New Roman"}}>- при включении в Список застрахованных лиц будет являться Застрахованным лицом по Договору коллективного страхования на условиях Программы страхования и в соответствие со ст.934 ГК РФ, застрахованное лицо не уплачивает прямо или косвенно страховую премию Страховщику, застрахованное лицо не является Страхователем по Договору коллективного страхования (в связи с чем, на отношения сторон по настоящему Соглашению и по Договору коллективного страхования не распространяются положения Указания Банка России от 20.11.2015г. № 3854-у «О минимальных (стандартных) требованиях к условиям и порядку осуществления отдельных видов добровольного страхования»);</span><span style="font-family: &quot;Times New Roman&quot;, serif;">&nbsp;</span></p>
                           <p className="MsoNoSpacing" style={{marginLeft: "1.0cm"}}><font face="Times New Roman, serif">3.Оплата Услуг Общества производится не позднее 30 дней с момента подписания настоящего Соглашения. Общество приступает к оказанию услуг, предусмотренных п. 2 Соглашения, после поступления оплаты, в т. ч. осуществляет включение застрахованного лица в Список застрахованных лиц (дата начала срока страхования) в день поступления оплаты за услугу.</font></p>
                           <p className="MsoNoSpacing" style={{marginLeft: "1.0cm"}}><span style={{fontFamily: "Times New Roman"}}>Клиент оплачивает Услугу Общества:</span></p>
                           <p className="MsoNoSpacing" style={{marginLeft: "1.0cm"}}><span style={{fontFamily: "Times New Roman"}}>- путем перевода по следующим реквизитам:</span></p>
@@ -2419,7 +2419,7 @@ export const LoanTerms = () => {
                 </div>
               </div>
             </div>
-            <div className="modal fade modal-very-lg" id="modal_offers_extra_services_broken" tabindex="-1">
+            <div className="modal fade modal-very-lg" id="modal_offers_extra_services_broken" tabIndex="-1">
               <div className="modal-dialog">
                 <div className="modal-content">
                   <div className="modal-header">
@@ -4803,18 +4803,18 @@ export const LoanTerms = () => {
               </div>
             </div>
             <label className="control-label label-checkbox">
-            <input type="checkbox" name="mastrChckbx[two]" value="1" data-btnchckbx="btn_submit_step_save" />
+            <input type="checkbox" name="mastrChckbx[two]" defaultValue="1" data-btnchckbx="btn_submit_step_save" />
             Выражаю свое согласие на направление в электронном виде сведений обо мне в кредитную организацию для прохождения упрощенной идентификации
             </label>
           </div>
         </div>
       </div>
     </div>
-    <input type="hidden" name="action[signing_of_agreements_action]" value="1" />
-    <input type="hidden" name="action[add_questionnaire_action]" value="1" />
+    <input type="hidden" name="action[signing_of_agreements_action]" defaultValue="1" />
+    <input type="hidden" name="action[add_questionnaire_action]" defaultValue="1" />
     <div className="btn-box">
-      <button type="button" className="btn btn-light btn_back_step" id="btn_back_step" value="usloviya_zayma"><span>Назад</span></button>
-      <button type="submit" name="btn_submit_step_save" className="btn btn-primary" id="btn_submit_step_save" value="usloviya_zayma" disabled="disabled"><span>Продолжить</span></button>
+      <button type="button" className="btn btn-light btn_back_step" id="btn_back_step" defaultValue="usloviya_zayma"><span>Назад</span></button>
+      <button type="submit" name="btn_submit_step_save" className="btn btn-primary" id="btn_submit_step_save" defaultValue="usloviya_zayma" disabled="disabled"><span>Продолжить</span></button>
     </div>
   </form>
 </div>

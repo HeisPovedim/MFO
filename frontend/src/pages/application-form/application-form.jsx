@@ -139,6 +139,7 @@ const ApplicationFormPage = () => {
           </div>
           <div className="user_info hidden">
             <div className="user_settings">
+              {/* This line Warning: Expected `onClick` listener to be a function, instead got a value of `string` type. */}
               <button type="button" className="btn_person_settings" onClick="window.top.location.href='/cabinet/profile'">
               <img src={PersonHeaderPng} alt="settings" />
               </button>
@@ -245,10 +246,12 @@ const ApplicationFormPage = () => {
                   onChangeEmploymentAndIncome={(value) => funcStateSwitching('employmentAndIncome', value)}
                 />
               )}
-              {/* { questionnaireSteps.loanTerms && (
+              { questionnaireSteps.loanTerms && (
+                // условия займа - 5-я форма
                 <LoanTerms
+                  
                 />
-              )} */}
+              )}
             </div>
           </div>
         </div>
