@@ -553,7 +553,7 @@ const BasicPage = () => {
                         <h1>Получи займ<br/>и сделай себе подарок</h1>
                       </div>
                       <div className="promo__button__wrap">
-                        <button className="promo__button common-btn" className="window.top.location='/form/reg.php'">Заполнить анкету</button>
+                        <button className="promo__button common-btn">Заполнить анкету</button>
                       </div>
                     </div>
                   </div>

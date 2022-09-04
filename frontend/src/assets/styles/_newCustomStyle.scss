@@ -26,9 +26,12 @@
 
 .rc-slider-rail, .rc-slider-track {
   width: 100%;
-  height: 6px;
-  border-radius: 0px 0px 100px 100px;
+  height: 6px !important;
+  border-radius: 0px 0px 100px 100px !important;
   z-index: 10;
+}
+.rc-slider, .rc-slider-horizontal {
+  padding-top: 0 !important;
 }
 
 .slider-range-box {
