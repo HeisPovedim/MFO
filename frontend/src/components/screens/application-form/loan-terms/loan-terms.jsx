@@ -100,13 +100,13 @@ export const LoanTerms = () => {
         <div className="wrapper-checkboxes">
           <label className="control-label label-checkbox main-checkbox">
             <input type="checkbox" name="mastrChckbx[all]" defaultValue="1" data-btnchckbx="btn_submit_step_save" data-promo="false" />
-            <div>Я ознакомлен(-а) и согласен(-на) <a  className="toggle_inner_checkboxes">со следующим</a></div>
+            <div>Я ознакомлен(-а) и согласен(-на) <a className="toggle_inner_checkboxes" href="#/">со следующим</a></div>
           </label>
           <div className="inner_checkboxes hidden">
             <div className="services_box">
               <label className="control-label label-checkbox addr-check-label" htmlFor="extra_service_1">
               <input type="checkbox" className="checkbox services_check" name="extra_service_match[1]" id="extra_service_1" data-identifier="1" defaultChecked="defaultChecked" defaultValue="1" />
-              <a  className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services" data-service_id="extra_service_1">Страховка от несчастного случая</a>
+              <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services" data-service_id="extra_service_1" href="#/">Страховка от несчастного случая</a>
               </label>
               <div id="extraServiceBroken">
                 <input type="hidden" id="extra_service_broken" data-products="2,3,4" />
@@ -116,15 +116,15 @@ export const LoanTerms = () => {
               </div>
               <label className="control-label label-checkbox addr-check-label extra_service_broken-label" htmlFor="extra_service_2">
               <input type="checkbox" className="checkbox services_check" name="extra_service_match[2]" id="extra_service_2" data-identifier="2" defaultChecked="defaultChecked" defaultValue="1" />
-              <a  className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_2">Подбор финансовых продуктов</a>
+              <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_2" href="#/">Подбор финансовых продуктов</a>
               </label>
               <label className="control-label label-checkbox addr-check-label extra_service_broken-label" htmlFor="extra_service_3">
               <input type="checkbox" className="checkbox services_check" name="extra_service_match[3]" id="extra_service_3" data-identifier="3" defaultChecked="defaultChecked" defaultValue="1" />
-              <a  className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_3">Персональный менеджер</a>
+              <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_3" href="#/">Персональный менеджер</a>
               </label>
               <label className="control-label label-checkbox addr-check-label extra_service_broken-label" htmlFor="extra_service_4">
               <input type="checkbox" className="checkbox services_check" name="extra_service_match[4]" id="extra_service_4" data-identifier="4" defaultChecked="defaultChecked" defaultValue="1" />
-              <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_4">Юридические услуги</a>
+              <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_4" href="#/">Юридические услуги</a>
               </label>
             </div>
             <div className="modal fade modal-very-lg" id="modal_offers_extra_services" tabIndex="-1">
@@ -139,16 +139,15 @@ export const LoanTerms = () => {
                     <div className="type_offer_service hidden" data-service_id="extra_service_1">
                       <div className="offer" id="MessServicePrint_extra_service_1">
                         <div className="wrap">
-                          <div style="display: block; page-break-before: always;"></div>
-                          <table className="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" style="border: none;width: 100%;">
+                          <div style={{display: "block", pageBreakBefore: "always"}}></div>
+                          <table className="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" style={{border: "none", width: "100%"}}>
                             <tbody>
-                              <tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;height:19.85pt">
-                                <td width="709" colspan="5" style="width:531.6pt;border:1pt solid windowtext;
-                                  mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:19.85pt">
-                                  <p className="MsoNormal" align="center" style="text-align:center">
-                                    <span style="font-size:12px;color:black">&nbsp;</span>
+                              <tr style={{msoYftiIrow: "0", msoYftiFirstrow: "yes", height: "19.85pt"}}>
+                                <td width="709" colSpan="5" style={{width: "531.6pt", border: "1pt solid windowtext", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt", height: "19.85pt"}}>
+                                  <p className="MsoNormal" align="center" style={{textAlign: "center"}}>
+                                    <span style={{fontSize: "12px", color: "black"}}>&nbsp;</span>
                                     <b>
-                                      <span style="font-size:12px">
+                                      <span style={{fontSize: "12px"}}>
                                         Заявление о
                                         включении в Список застрахованных лиц к Договору добровольного коллективного
                                         страхования
@@ -156,9 +155,9 @@ export const LoanTerms = () => {
                                       </span>
                                     </b>
                                   </p>
-                                  <p className="MsoNormal" align="center" style="text-align:center">
+                                  <p className="MsoNormal" align="center" style={{textAlign: "center"}}>
                                     <b>
-                                      <span style="font-size:12px">
+                                      <span style={{fontSize: "12px"}}>
                                         по
                                         Программе добровольного коллективного
                                         страхования от несчастного случая № К-2.0 (ред. 30.04.2019)
@@ -169,202 +168,150 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr>
-                                <td width="139" valign="top" style="width:104.4pt;border:1pt solid windowtext;
-                                  border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
-                                  padding:0cm 5.4pt 0cm 5.4pt">
-                                  <p className="MsoNormal" style="margin-bottom:2.0pt;text-align:justify;tab-stops:
-                                    center 233.85pt right 467.75pt">
+                                <td width="139" valign="top" style={{width: "104.4pt", border: "1pt solid windowtext", borderTop: "none", msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt"}}
+                                  >
+                                  <p className="MsoNormal" style={{marginBottom: "2.0pt", textAlign: "justify", tabStops: "center 233.85pt right 467.75pt"}}>
                                     <b>
-                                      <span style="font-size:12px;letter-spacing:-.1pt">
+                                      <span style={{fontSize: "12px", letterSpacing: "-.1pt"}}>
                                         Настоящим я,
                                         {/* <o:p></o:p> */}
                                       </span>
                                     </b>
                                   </p>
                                 </td>
-                                <td width="570" colspan="4" valign="top" style="width:427.2pt;border-top:none;
-                                  border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
-                                  mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
-                                  mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt">
-                                  <p className="MsoNormal" style="margin-bottom:2.0pt;text-align:justify;tab-stops:
-                                    center 233.85pt right 467.75pt">
-                                    <span style="
-                                      font-size:12px;
-                                      letter-spacing:
-                                      -.1pt;
-                                      ">Тестиняк Тест Тестович</span>
-                                    <span style="font-size:12px;letter-spacing:-.1pt;background:lightgrey;mso-highlight:
-                                      lightgrey">
+                                <td width="570" colSpan="4" valign="top" style={{
+                                    width: "427.2pt", borderTop: "none", borderLeft: "none", borderBottom: "1pt solid windowtext", borderRight: "1pt solid windowtext",
+                                    msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderLeftAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt"
+                                  }}
+                                  >
+                                  <p className="MsoNormal" style={{marginBottom: "2.0pt", textAlign: "justify", tabStops: "center 233.85pt right 467.75pt"}}>
+                                    <span style={{fontSize: "12px", letterSpacing: "-.1pt"}} >Тестиняк Тест Тестович</span>
+                                    <span style={{fontSize: "12px", letterSpacing: "-.1pt", background:"lightgrey", msoHighlight: "lightgrey"}}>
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
                                 </td>
                               </tr>
                               <tr>
-                                <td width="139" valign="top" style="width:104.4pt;border:1pt solid windowtext;
-                                  border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
-                                  padding:0cm 5.4pt 0cm 5.4pt">
-                                  <p className="MsoNormal" style="margin-bottom:2.0pt;text-align:justify;tab-stops:
-                                    center 233.85pt right 467.75pt">
-                                    <span style="font-size:12px;letter-spacing:
-                                      -.1pt">
+                                <td width="139" valign="top" style={{width: "104.4pt", border: "1pt solid windowtext", borderTop: "none", msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt"}}>
+                                  <p className="MsoNormal" style={{marginBottom: "2.0pt", textAlign: "justify", tabStops: "center 233.85pt right 467.75pt"}}>
+                                    <span style={{fontSize: "12px", letterSpacing: "-.1pt"}}>
                                       Дата рождения
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
                                 </td>
-                                <td width="371" valign="top" style="width:278.35pt;border-top:none;border-left:
-                                  none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
-                                  mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
-                                  mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt">
-                                  <p className="MsoNormal" style="margin-bottom:2.0pt;text-align:justify;tab-stops:
-                                    center 233.85pt right 467.75pt">
-                                    <span style="
-                                      font-size:12px;
-                                      letter-spacing:
-                                      -.1pt;
-                                      ">31.05.1991</span>
-                                    <span style="font-size:12px;letter-spacing:-.1pt;background:lightgrey;mso-highlight:
-                                      lightgrey">
+                                <td width="371" valign="top" style={{width: "278.35pt", borderTop: "none", borderLeft: "none", borderBottom: "1pt solid windowtext", borderRight: "1pt solid windowtext",
+                                    msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderLeftAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt"
+                                  }}>
+                                  <p className="MsoNormal" style={{marginBottom: "2.0pt", textAlign: "justify", tabStops: "center 233.85pt right 467.75pt"}}>
+                                    <span style={{fontSize: "12px", letterSpacing: "-.1pt"}}>31.05.1991</span>
+                                    <span style={{fontSize: "12px", letterSpacing: "-.1pt", background:"lightgrey", msoHighlight: "lightgrey"}}>
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
                                 </td>
-                                <td width="66" valign="top" style="width:49.6pt;border-top:none;border-left:none;
-                                  border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
-                                  mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
-                                  mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt">
-                                  <p className="MsoNormal" style="margin-bottom:2.0pt;text-align:justify;tab-stops:
-                                    center 233.85pt right 467.75pt">
-                                    <span style="font-size:12px;letter-spacing:
-                                      -.1pt">
+                                <td width="66" valign="top" style={{
+                                    width: "49.6pt", borderTop: "none", borderLeft: "none", borderBottom: "1pt solid windowtext", borderRight: "1pt solid windowtext",
+                                    msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderLeftAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt"
+                                  }}>
+                                  <p className="MsoNormal" style={{marginBottom: "2.0pt", textAlign: "justify", tabStops: "center 233.85pt right 467.75pt"}}>
+                                    <span style={{fontSize: "12px", letterSpacing: "-.1pt"}}>
                                       Телефон
-                                      <span style="background:lightgrey;mso-highlight:lightgrey">
+                                      <span style={{background: "lightgrey", msoHighlight: "lightgrey"}}>
                                         {/* <o:p></o:p> */}
                                       </span>
                                     </span>
                                   </p>
                                 </td>
-                                <td width="132" colspan="2" valign="top" style="width:99.25pt;border-top:none;
-                                  border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
-                                  mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
-                                  mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt">
-                                  <p className="MsoNormal" style="margin-bottom:2.0pt;text-align:justify;tab-stops:
-                                    center 233.85pt right 467.75pt">
-                                    <span style="
-                                      font-size:12px;
-                                      letter-spacing:
-                                      -.1pt;
-                                      ">+79321131916</span>
-                                    <span style="font-size:12px;letter-spacing:-.1pt;background:lightgrey;mso-highlight:
-                                      lightgrey">
+                                <td width="132" colSpan="2" valign="top" style={{
+                                    width: "99.25pt", borderTop: "none", borderLeft: "none", borderBottom: "1pt solid windowtext", borderRight: "1pt solid windowtext",
+                                    msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderLeftAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt"
+                                  }}>
+                                  <p className="MsoNormal" style={{marginBottom: "2.0pt", textAlign: "justify", tabStops: "center 233.85pt right 467.75pt"}}>
+                                    <span style={{fontSize: "12px", letterSpacing: "-.1pt"}}>+79321131916</span>
+                                    <span style={{fontSize: "12px", letterSpacing: "-.1pt", background:"lightgrey", msoHighlight: "lightgrey"}}>
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
                                 </td>
                               </tr>
                               <tr>
-                                <td width="139" valign="top" style="width:104.4pt;border:1pt solid windowtext;
-                                  border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
-                                  padding:0cm 5.4pt 0cm 5.4pt">
-                                  <p className="MsoNormal" style="margin-bottom:2.0pt;text-align:justify;tab-stops:
-                                    center 233.85pt right 467.75pt">
-                                    <span style="font-size:12px;letter-spacing:
-                                      -.1pt">
+                                <td width="139" valign="top" style={{width: "104.4pt", border: "1pt solid windowtext", borderTop: "none", msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt"}}>
+                                  <p className="MsoNormal" style={{marginBottom: "2.0pt", textAlign: "justify", tabStops: "center 233.85pt right 467.75pt"}}>
+                                    <span style={{fontSize: "12px", letterSpacing: "-.1pt"}}>
                                       Паспортные данные
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
                                 </td>
-                                <td width="570" colspan="4" valign="top" style="width:427.2pt;border-top:none;
-                                  border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
-                                  mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
-                                  mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt">
-                                  <p className="MsoNormal" style="margin-bottom:2.0pt;text-align:justify;tab-stops:
-                                    center 233.85pt right 467.75pt">
-                                    <span style="
-                                      font-size:12px;
-                                      letter-spacing:
-                                      -.1pt;
-                                      ">серия 6511 номер 342432 выдан ТП № 2 ОУФМС РОССИИ ПО РЕСП. БУРЯТИЯ В ОКТЯБРЬСКОМ РАЙОНЕ Г. УЛАН-УДЭ от 07.07.2011 код подразделения 030-006</span>
-                                    <span style="font-size:12px;
-                                      letter-spacing:-.1pt;background:lightgrey;mso-highlight:lightgrey">
+                                <td width="570" colSpan="4" valign="top" style={{
+                                    width: "427.2pt", borderTop: "none", borderLeft: "none", borderBottom: "1pt solid windowtext", borderRight: "1pt solid windowtext",
+                                    msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderLeftAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt"
+                                  }}>
+                                  <p className="MsoNormal" style={{marginBottom: "2.0pt", textAlign: "justify", tabStops: "center 233.85pt right 467.75pt"}}>
+                                    <span style={{fontSize: "12px", letterSpacing: "-.1pt"}}>серия 6511 номер 342432 выдан ТП № 2 ОУФМС РОССИИ ПО РЕСП. БУРЯТИЯ В ОКТЯБРЬСКОМ РАЙОНЕ Г. УЛАН-УДЭ от 07.07.2011 код подразделения 030-006</span>
+                                    <span style={{fontSize: "12px", letterSpacing: "-.1pt", background: "lightgrey", msoHighlight: "lightgrey"}}>
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
                                 </td>
                               </tr>
                               <tr>
-                                <td width="139" valign="top" style="width:104.4pt;border:1pt solid windowtext;
-                                  border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
-                                  padding:0cm 5.4pt 0cm 5.4pt">
-                                  <p className="MsoNormal" style="margin-bottom:2.0pt;text-align:justify;tab-stops:
-                                    center 233.85pt right 467.75pt">
-                                    <span style="font-size:12px;letter-spacing:
-                                      -.1pt">
+                                <td width="139" valign="top" style={{width: "104.4pt", border: "1pt solid windowtext", borderTop: "none", msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt"}}>
+                                  <p className="MsoNormal" style={{marginBottom: "2.0pt", textAlign: "justify", tabStops: "center 233.85pt right 467.75pt"}}>
+                                    <span style={{fontSize: "12px", letterSpacing: "-.1pt"}}>
                                       Адрес регистрации
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
                                 </td>
-                                <td width="570" colspan="4" valign="top" style="width:427.2pt;border-top:none;
-                                  border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
-                                  mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
-                                  mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt">
-                                  <p className="MsoNormal" style="margin-bottom:2.0pt;text-align:justify;tab-stops:
-                                    center 233.85pt right 467.75pt">
-                                    <span style="
-                                      font-size:12px;
-                                      letter-spacing:
-                                      -.1pt;
-                                      ">г. г Екатеринбург, ул.ул Щербакова, дом д 45, кв.683</span>
-                                    <span style="font-size:12px;letter-spacing:-.1pt;
-                                      background:lightgrey;mso-highlight:lightgrey">
+                                <td width="570" colSpan="4" valign="top" style={{
+                                    width: "427.2pt", borderTop: "none", borderLeft: "none", borderBottom: "1pt solid windowtext", borderRight: "1pt solid windowtext",
+                                    msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderLeftAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt"
+                                  }}>
+                                  <p className="MsoNormal" style={{marginBottom: "2.0pt", textAlign: "justify", tabStops: "center 233.85pt right 467.75pt"}}>
+                                    <span style={{fontSize: "12px", letterSpacing: "-.1pt"}}>г. г Екатеринбург, ул.ул Щербакова, дом д 45, кв.683</span>
+                                    <span style={{fontSize: "12px", letterSpacing: "-.1pt", background: "lightgrey", msoHighlight: "lightgrey"}}>
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
                                 </td>
                               </tr>
                               <tr>
-                                <td width="709" colspan="5" valign="top" style="width:531.6pt;border:1pt solid windowtext;
-                                  border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
-                                  padding:0cm 5.4pt 0cm 5.4pt">
-                                  <p className="MsoNormal" style="margin-right:21.25pt">
-                                    <span style="font-size:12px;
-                                      letter-spacing:-.1pt">действуя осознанно и добровольно, выражаю свое желание
+                                <td width="709" colSpan="5" valign="top" style={{width: "531.6pt", border: "1pt solid windowtext", borderTop: "none", msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt"}}>
+                                  <p className="MsoNormal" style={{marginRight: "21.25pt"}}>
+                                    <span style={{fontSize: "12px", letterSpacing: "-.1pt"}}>действуя осознанно и добровольно, выражаю свое желание
                                     быть Застрахованным лицом по Программе добровольного коллективного
                                     страхования от несчастного случая <br/>
                                     № К-2.0 (ред. 30.04.2019) (далее – Программа страхования) в соответствии с
-                                    Договором добровольного коллективного страхования № 26-21-МКК&nbsp; от</span><span style="font-size:12px;
-                                      color:black"> 23.08.</span><span style="font-size:12px;letter-spacing:-.1pt">2021
-                                    г.</span><span style="font-size: 12px;">, заключенным</span><span style="font-size: 12px; letter-spacing: -0.1pt;"> между </span><span style="background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><font color="#333333"><span style="font-size: 12px;">ООО "МКК «Забирай» </span></font></span><span style="font-size: 12px;">(</span><span style="font-size: 12px; letter-spacing: -0.1pt;">далее
+                                    Договором добровольного коллективного страхования № 26-21-МКК&nbsp; от</span><span style={{fontSize: "12px", color: "black"}}> 23.08.</span><span style={{fontSize: "12px", letterSpacing: "-.1pt"}}>2021
+                                    г.</span><span style={{fontSize: "12px"}}>, заключенным</span><span style={{fontSize: "12px", letterSpacing: "-0.1pt"}}> между </span><span style={{backgroundImage: "initial", backgroundPosition: "initial", backgroundSize: "initial", backgroundRepeat: "initial", backgroundAttachment: "initial", backgroundOrigin: "initial", backgroundClip: "initial"}}><font color="#333333"><span style={{fontSize: "12px"}}>ООО "МКК «Забирай» </span></font></span><span style={{fontSize: "12px"}}>(</span><span style={{fontSize: "12px", letterSpacing: "-0.1pt"}}>далее
                                     – Страхователь) и АО «Д2 Страхование» (далее – Страховщик) </span>
-                                    <span style="font-size: 12px;">
+                                    <span style={{fontSize: "12px", letterSpacing: "-.1pt"}}>
                                       (далее –
                                       Договор добровольного коллективного страхования).
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="margin-bottom:3.0pt;text-align:justify;tab-stops:
-                                    center 233.85pt right 467.75pt">
-                                    <span style="font-size:12px;letter-spacing:
-                                      -.1pt">Настоящим я подтверждаю, что ознакомлен (-а) с информацией о
+                                  <p className="MsoNormal" style={{marginBottom: "3.0pt", textAlign: "justify", tabStops: "center 233.85pt right 467.75pt"}}>
+                                    <span style={{fontSize: "12px", letterSpacing: "-.1pt"}}>Настоящим я подтверждаю, что ознакомлен (-а) с информацией о
                                     Страховщике, со всеми условиями Программы страхования, включая сведения о
                                     страховых случаях / рисках, размере страховой суммы, сроке страхования,
                                     имущественном интересе, являющемся объектом страхования, размере страховой премии
                                     (страхового тарифа), условиях досрочного расторжения договора страхования в
                                     отношении Застрахованного лица</span>
-                                    <span style="font-size:12px">
+                                    <span style={{fontSize: "12px"}}>
                                       , 
-                                      <span style="letter-spacing:-.1pt">
+                                      <span style={{letterSpacing:"-0.1pt"}}>
                                         порядке осуществления страховой выплаты.
                                         {/* <o:p></o:p> */}
                                       </span>
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <b>
-                                      <span style="font-size:12px;letter-spacing:-.1pt">
+                                      <span style={{fontSize: "12px", letterSpacing: "-0.1pt"}}>
                                         Располагая всей
                                         необходимой информацией, я прошу указать меня в Списке Застрахованных лиц
                                         (являющемся неотъемлемой частью Договора добровольного коллективного
@@ -376,59 +323,47 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr>
-                                <td width="510" colspan="2" valign="top" style="width:382.75pt;border:1pt solid windowtext;
-                                  border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
-                                  background:#D9D9D9;padding:0cm 5.4pt 0cm 5.4pt">
-                                  <p className="2CxSpFirst" style="margin-left:0cm;mso-add-space:auto;text-align:
-                                    justify">
-                                    <b><span style="font-size:12px;
-                                      color:black;mso-color-alt:windowtext;letter-spacing:-.1pt">Страховой случай</span></b>
+                                <td width="510" colSpan="2" valign="top" style={{width: "382.75pt", border: "1pt solid windowtext", borderTop: "none", msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt"}}>
+                                  <p className="2CxSpFirst" style={{marginLeft: "0cm", msoAddSpace: "auto", textAlign: "justify"}}>
+                                    <b><span style={{fontSize: "12px", color: "black", msoColorAlt: "windowtext", letterSpacing: "-0.1pt"}}>Страховой случай</span></b>
                                     <b>
-                                      <span style="font-size:12px;letter-spacing:
-                                        -.1pt">
+                                      <span style={{fontSize: "12px", letterSpacing: "-.1pt"}}>
                                         {/* <o:p></o:p> */}
                                       </span>
                                     </b>
                                   </p>
                                 </td>
-                                <td width="95" colspan="2" valign="top" style="width:70.9pt;border-top:none;
-                                  border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
-                                  mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
-                                  mso-border-alt:solid #BFBFBF .5pt;background:#D9D9D9;padding:0cm 5.4pt 0cm 5.4pt">
-                                  <p className="2CxSpMiddle" style="margin-left:0cm;mso-add-space:auto;text-align:
-                                    justify">
-                                    <b><span style="font-size:12px;
-                                      color:black;mso-color-alt:windowtext;letter-spacing:-.1pt">Страховая сумма</span></b>
+                                <td width="95" colSpan="2" valign="top" style={{
+                                    width: "70.9pt", borderTop: "none", borderLeft: "none", borderBottom: "1pt solid windowtext", borderRight: "1pt solid windowtext",
+                                    msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderLeftAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt"
+                                  }}>
+                                  <p className="2CxSpMiddle" style={{marginLeft: "0cm", msoAddSpace: "auto", textAlign: "justify"}}>
+                                    <b><span style={{fontSize: "12px", color: "black", msoColorAlt: "windowtext", letterSpacing: "-0.1pt"}}>Страховая сумма</span></b>
                                     <b>
-                                      <span style="font-size:12px;letter-spacing:
-                                        -.1pt">
+                                      <span style={{fontSize: "12px", letterSpacing: "-0.1pt"}}>
                                         {/* <o:p></o:p> */}
                                       </span>
                                     </b>
                                   </p>
                                 </td>
-                                <td width="104" valign="top" style="width:77.95pt;border-top:none;border-left:
-                                  none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
-                                  mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
-                                  mso-border-alt:solid #BFBFBF .5pt;background:#D9D9D9;padding:0cm 5.4pt 0cm 5.4pt">
-                                  <p className="2CxSpLast" style="margin-left:0cm;mso-add-space:auto;text-align:justify">
-                                    <b><span style="font-size:12px;color:black;
-                                      mso-color-alt:windowtext;letter-spacing:-.1pt">Срок страхования</span></b>
+                                <td width="104" valign="top" style={{
+                                    width: "77.95pt", borderTop: "none", borderLeft: "none", borderBottom: "1pt solid windowtext", borderRight: "1pt solid windowtext",
+                                    msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderLeftAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt"
+                                  }}>
+                                  <p className="2CxSpLast" style={{marginLeft: "0cm", msoAddSpace: "auto", textAlign: "justify"}}>
+                                    <b><span style={{fontSize: "12px", color: "black", msoColorAlt: "windowtext", letterSpacing: "-0.1pt"}}>Срок страхования</span></b>
                                     <b>
-                                      <span style="font-size:12px;letter-spacing:
-                                        -.1pt">
+                                      <span style={{fontSize: "12px", letterSpacing: "-0.1pt"}}>
                                         {/* <o:p></o:p> */}
                                       </span>
                                     </b>
                                   </p>
                                 </td>
                               </tr>
-                              <tr style="mso-yfti-irow:7;height:49.75pt">
-                                <td width="510" colspan="2" rowspan="3" valign="top" style="width:382.75pt;
-                                  border:1pt solid windowtext;border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;
-                                  mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:49.75pt">
+                              <tr style={{msoYftiIrow: "7", height: "49.75pt"}}>
+                                <td width="510" colSpan="2" rowSpan="3" valign="top" style={{width: "382.75pt", border: "1pt solid windowtext", borderTop: "none", msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt", height: "49.75pt"}}>
                                   <p className="MsoNormal">
-                                    <span style="font-size:12px">
+                                    <span style={{fontSize: "12px"}}>
                                       – <b>Смерть Застрахованного лица</b> в результате одного из событий: а)
                                       взрыв; б) действие электрического тока; в) удар молнии; г) нападение
                                       животных; д) противоправные действия третьих лиц; е) падение предметов на
@@ -442,7 +377,7 @@ export const LoanTerms = () => {
                                     </span>
                                   </p>
                                   <p className="MsoNormal">
-                                    <span style="font-size:12px">
+                                    <span style={{fontSize: "12px"}}>
                                       – <b>Установление Застрахованному лицу инвалидности I (первой), II
                                       (второй) группы впервые</b> в результате одного из событий: а) взрыв; б)
                                       действие электрического тока; в) удар молнии; г) нападение животных; д) противоправные
@@ -452,62 +387,55 @@ export const LoanTerms = () => {
                                       к) движение средств транспорта или их крушение; л) пользование движущими
                                       механизмами, оружием, всякого рода инструментами; м) воздействие высоких или
                                       низких температур, химических веществ.
-                                      <span style="letter-spacing:-.1pt">
+                                      <span style={{letterSpacing: "-0.1pt"}} >
                                         {/* <o:p></o:p> */}
                                       </span>
                                     </span>
                                   </p>
                                 </td>
-                                <td width="95" colspan="2" valign="top" style="width:70.9pt;border-top:none;
-                                  border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
-                                  mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
-                                  mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:49.75pt">
-                                  <p className="2CxSpFirst" style="margin-left:0cm;mso-add-space:auto;text-align:
-                                    justify">
+                                <td width="95" colSpan="2" valign="top" style={{
+                                    width: "70.9pt", borderTop: "none", borderLeft: "none", borderBottom: "1pt solid windowtext", borderRight: "1pt solid windowtext",
+                                    msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderLeftAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt", height: "49.75pt"
+                                  }}>
+                                  <p className="2CxSpFirst" style={{marginLeft: "0cm", msoAddSpace: "auto", textAlign: "justify"}}>
                                     <span className="d2 _amount"></span>15 000 рублей
-                                    <span style="font-size:12px;
-                                      letter-spacing:-.1pt">
+                                    <span style={{fontSize: "12px", letterSpacing: "-0.1pt"}}>
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
                                 </td>
-                                <td width="104" valign="top" style="width:77.95pt;border-top:none;border-left:
-                                  none;border-bottom:dotted #7F7F7F 1.0pt;border-right:1pt solid windowtext;
-                                  mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
-                                  mso-border-alt:solid #BFBFBF .5pt;mso-border-bottom-alt:dotted #7F7F7F .5pt;
-                                  padding:0cm 5.4pt 0cm 5.4pt;height:49.75pt">
-                                  <p className="2CxSpMiddle" style="text-align: start; margin-left: 0cm;font-size:12px;color:black">1 (один) месяц с даты, установленной соглашением Застрахованного лица и Страхователя (и при условии уплаты Страхователем страховой премии Страховщику).</p>
+                                <td width="104" valign="top" style={{
+                                    width: "77.95pt", borderTop: "none", borderLeft: "none", borderBottom: "1pt solid windowtext", borderRight: "1pt solid windowtext",
+                                    msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderLeftAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt", height: "49.75pt"
+                                  }}>
+                                  <p className="2CxSpMiddle" style={{textAlign: "start",marginLeft: "0cm", fonstSize: "12px", color: "black"}}>1 (один) месяц с даты, установленной соглашением Застрахованного лица и Страхователя (и при условии уплаты Страхователем страховой премии Страховщику).</p>
                                 </td>
                               </tr>
-                              <tr style="mso-yfti-irow:8;height:9.95pt">
-                                <td width="198" colspan="3" valign="top" style="width:148.85pt;border-top:none;
-                                  border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
-                                  mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
-                                  mso-border-alt:solid #BFBFBF .5pt;background:#D9D9D9;padding:0cm 5.4pt 0cm 5.4pt;
-                                  height:9.95pt">
-                                  <p className="2" style="margin-left:0cm;mso-add-space:auto;text-align:justify">
-                                    <b><span style="font-size:12px;color:black;
-                                      mso-color-alt:windowtext;letter-spacing:-.1pt">Выгодоприобретатель</span></b>
+                              <tr style={{msoYftiIrow: "8", height: "9.95pt"}}>
+                                <td width="198" colSpan="3" valign="top" style={{
+                                    width: "148.85pt", borderTop: "none", borderLeft: "none", borderBottom: "1pt solid windowtext", borderRight: "1pt solid windowtext",
+                                    msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderLeftAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt", height: "9.95pt"
+                                  }}>
+                                  <p className="2" style={{marginLeft: "0cm", msoAddSpace: "auto", textAlign: "justify"}}>
+                                    <b><span style={{fontSize: "12px", color: "black", msoColorAlt: "windowtext", letterSpacing: "-0.1pt"}} >Выгодоприобретатель</span></b>
                                     <b>
-                                      <span style="font-size:12px;letter-spacing:
-                                        -.1pt">
+                                      <span style={{fontSize: "12px", letterSpacing: "-0.1pt"}}>
                                         {/* <o:p></o:p> */}
                                       </span>
                                     </b>
                                   </p>
                                 </td>
                               </tr>
-                              <tr style="mso-yfti-irow:9;height:28.75pt">
-                                <td width="198" colspan="3" valign="top" style="width:148.85pt;border-top:none;
-                                  border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
-                                  mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
-                                  mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:28.75pt">
-                                  <p className="2" style="margin-left:0cm;mso-add-space:auto">
-                                    <span style="font-size:
-                                      12px">
+                              <tr style={{msoYftiIrow: "9", height: "28.75pt"}}>
+                                <td width="198" colSpan="3" valign="top" style={{
+                                    width: "148.85pt", borderTop: "none", borderLeft: "none", borderBottom: "1pt solid windowtext", borderRight: "1pt solid windowtext",
+                                    msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderLeftAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt", padding: "0cm 5.4pt 0cm 5.4pt", height: "28.75pt"
+                                  }}>
+                                  <p className="2" style={{marginLeft: "0cm", msoAddspace: "auto"}}>
+                                    <span style={{fontSize: "12px"}}>
                                       Получателем страховой выплаты (Выгодоприобретателем) является
                                       Застрахованное лицо, а в случае его смерти – наследники Застрахованного лица.
-                                      <span style="letter-spacing:-.1pt">
+                                      <span style={{letterSpacing: "-0.1pt"}}>
                                         {/* <o:p></o:p> */}
                                       </span>
                                     </span>
@@ -515,15 +443,15 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr>
-                                <td width="709" colspan="5" valign="top" style="width:531.6pt;border:1pt solid windowtext;
-                                  border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
-                                  padding:0cm 5.4pt 0cm 5.4pt">
+                                <td width="709" colSpan="5" valign="top" style={{width: "531.6pt", border: "1pt solid windowtext", borderTop: "none",
+                                  msoBorderTopAlt: "solid #BFBFBF .5pt", msoBorderAlt: "solid #BFBFBF .5pt",
+                                  padding: "0cm 5.4pt 0cm 5.4pt"}}>
                                   <span className="fio_asp"></span>
-                                  <p className="MsoNormal" style="margin-bottom:2.0pt;text-align:justify;tab-stops:
-                                    center 233.85pt right 467.75pt"><span style="font-size:12px;color:#7F7F7F"></span></p>
-                                  <p className="2" style="margin-top:0cm;margin-right:-.05pt;margin-bottom:3.0pt;
-                                    margin-left:0cm;text-align:justify;mso-pagination:none;tab-stops:0cm">
-                                    <span style="font-size:12px">
+                                  <p className="MsoNormal" style={{marginBottom: "2.0pt", textAlign: "justify", tabStops: "center 233.85pt right 467.75pt"}}><span style={{fontSize: "12px", color: "#7F7F7F"}}></span></p>
+                                  <p className="2" style={{marginTop: "0cm", marginRight: "-0.5pt", marginBottom: "3.0pt",
+                                      marginLeft: "0cm", textAlign: "justify", msoPagination: "none", tabStops: "0cm"
+                                    }}>
+                                    <span style={{fontSize: "12px"}}>
                                       Я заявляю, что на момент подписания настоящего
                                       заявления: а) не являюсь инвалидом с детства, инвалидом I, II или III группы
                                       и не имею оснований на установление группы инвалидности (в т.ч. направления
@@ -542,9 +470,10 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="2" style="margin-top:0cm;margin-right:-.05pt;margin-bottom:3.0pt;
-                                    margin-left:0cm;text-align:justify;mso-pagination:none;tab-stops:0cm">
-                                    <span style="font-size:12px">
+                                  <p className="2" style={{marginTop: "0cm", marginRight: "-0.5pt", marginBottom: "3.0pt",
+                                      marginLeft: "0cm", textAlign: "justify", msoPagination: "none", tabStops: "0cm"
+                                    }}>
+                                    <span style={{fontSize: "12px"}}>
                                       Я подтверждаю достоверность всех сведений, указанных
                                       в настоящем заявлении. Мне известно, что характер этих сведений является
                                       основанием для моего участия в Программе страхования. Я понимаю и согласен
@@ -554,9 +483,9 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="margin-bottom:3.0pt;text-align:justify;tab-stops:
-                                    list 18.0pt left 36.0pt;mso-layout-grid-align:none;text-autospace:none">
-                                    <span style="font-size:12px">
+                                  <p className="MsoNormal" style={{marginBottom: "3.0pt", textAlign: "justify", tabStops: "list 18.0pt left 36.0pt", msoLayoutGridAlign: "none", msTextAutospace: "none"}}
+                                    >
+                                    <span style={{fontSize: "12px"}}>
                                       Я&nbsp;уведомлен и согласен, что действие Договора
                                       добровольного коллективного страхования (страховая защита) не
                                       распространяется на меня в период моего нахождения в состоянии алкогольного, наркотического,
@@ -564,9 +493,10 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="2" style="margin-top:0cm;margin-right:-.05pt;margin-bottom:3.0pt;
-                                    margin-left:0cm;text-align:justify;mso-pagination:none;tab-stops:0cm">
-                                    <span style="font-size:12px">
+                                  <p className="2" style={{marginTop: "0cm", marginRight: "-0.5pt", marginBottom: "3.0pt",
+                                      marginLeft: "0cm", textAlign: "justify", msoPagination: "none", tabStops: "0cm"
+                                    }}>
+                                    <span style={{fontSize: "12px"}}>
                                       Я даю согласие на предоставление медицинскими
                                       учреждениями, страховыми организациями, Фондом ОМС, в соответствии с
                                       Федеральным законом от 21.11.2011 №&nbsp;323-ФЗ «Об основах охраны здоровья
@@ -581,10 +511,10 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="2" style="margin-top:0cm;margin-right:0cm;margin-bottom:3.0pt;
-                                    margin-left:0cm;text-align:justify;mso-layout-grid-align:none;text-autospace:
-                                    none">
-                                    <span style="font-size:12px">
+                                  <p className="2" style={{marginTop: "0cm", marginRight: "0cm", marginBottom: "3.0pt",
+                                      marginLeft: "0cm", textAlign: "justify", msoLayoutGridAlign: "none", msTextAutospace: "none"
+                                    }}>
+                                    <span style={{fontSize: "12px"}}>
                                       Я подтверждаю, что Страховщик выбран мною
                                       добровольно, и что я уведомлен (-а) Страхователем о своем праве выбрать любую
                                       другую страховую компанию по своему усмотрению либо отказаться от участия в
@@ -592,25 +522,25 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="2" style="margin-top:0cm;margin-right:0cm;margin-bottom:3.0pt;
-                                    margin-left:0cm;text-align:justify;mso-layout-grid-align:none;text-autospace:
-                                    none">
-                                    <span style="font-size:12px">Я уведомлен (-а), что участие в Программе
+                                  <p className="2" style={{marginTop: "0cm", marginRight: "0cm", marginBottom: "3.0pt",
+                                      marginLeft: "0cm", textAlign: "justify", msoLayoutGridAlign: "none", msTextAutospace: "none"
+                                    }}>
+                                    <span style={{fontSize: "12px"}}>Я уведомлен (-а), что участие в Программе
                                     страхования не является условием для получения иных услуг, в том числе
                                     предоставляемых Страхователем, и мой отказ от участия в Программе страхования
                                     не может являться основанием для отказа в предоставлении таких услуг или
-                                    ухудшения условий предоставления таких услуг. Я</span><span lang="EN-US" style="font-size:12px;mso-ansi-language:EN-US">&nbsp;</span>
-                                    <span style="font-size:12px">
+                                    ухудшения условий предоставления таких услуг. Я</span><span lang="EN-US" style={{fontSize: "12px", msoAnsiLanguage: "EN-US"}}>&nbsp;</span>
+                                    <span style={{fontSize: "12px"}}>
                                       подтверждаю, что Договор добровольного коллективного
                                       страхования / мое участие в Программе страхования не является способом
                                       обеспечения исполнения каких-либо обязательств Застрахованного лица.
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="2" style="margin-top:0cm;margin-right:0cm;margin-bottom:3.0pt;
-                                    margin-left:0cm;text-align:justify;tab-stops:14.2pt;mso-layout-grid-align:
-                                    none;text-autospace:none">
-                                    <span style="font-size:12px">
+                                  <p className="2" style={{marginTop: "0cm", marginRight: "0cm", marginBottom: "3.0pt",
+                                      marginLeft: "0cm", textAlign: "justify", tabStops: "14.2pt", msoLayoutGridAlign: "none", msTextAutospace: "none"
+                                    }}>
+                                    <span style={{fontSize: "12px"}}>
                                       Я даю согласие
                                       Страховщику – АО «Д2 Страхование» (630099, Новосибирск, ул.&nbsp;Депутатская,
                                       дом 2, помещ. 1) и его контрагентам на обработку (в том числе сбор, запись,
@@ -631,7 +561,7 @@ export const LoanTerms = () => {
                                       телефону, Интернет, электронной почте, почте и другим каналам связи о
                                       продуктах и услугах Страховщика (включая сообщения рекламного характера).
                                       Согласие на обработку персональных данных и согласие на информирование
-                                      вступают в силу <span style="color:black">в момент подписания настоящего
+                                      вступают в силу <span style={{color: "black"}}>в момент подписания настоящего
                                       заявления</span> и действуют в течение 5 (Пяти) лет с даты окончания срока
                                       страхования; по истечении указанного срока действие согласий считается
                                       продленным на каждые следующие 5 (Пять) лет при отсутствии сведений об их
@@ -643,18 +573,18 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="2CxSpLast" style="margin-top:0cm;margin-right:0cm;margin-bottom:3.0pt;
-                                    margin-left:0cm;mso-add-space:auto;text-align:justify;tab-stops:36.0pt;
-                                    mso-layout-grid-align:none;text-autospace:none">
-                                    <span style="font-size:12px">
+                                  <p className="2CxSpLast"style={{marginTop: "0cm", marginRight: "0cm", marginBottom: "3.0pt",
+                                      marginLeft: "0cm", msoAddSpace: "auto", textAlign: "justify", tabStops: "36.0pt", msoLayoutGridAlign: "none", msTextAutospace: "none"
+                                    }}>
+                                    <span style={{fontSize: "12px"}}>
                                       Я
                                       уведомлен, что уплаченная Страхователем Страховщику страховая премия
                                       составляет 75,00 руб.
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="margin-bottom:3.0pt;text-align:justify">
-                                    <span style="font-size:12px">
+                                  <p className="MsoNormal" style={{marginBottom: "3.0pt", textAlign: "justify"}}>
+                                    <span style={{fontSize: "12px"}}>
                                       С Договором добровольного коллективного страхования,
                                       Программой добровольного
                                       коллективного страхования от несчастного случая № К-2.0 ознакомлен
@@ -664,8 +594,8 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="margin-bottom:3.0pt;text-align:justify">
-                                    <span style="font-size:12px">
+                                  <p className="MsoNormal" style={{marginBottom: "3.0pt", textAlign: "justify"}}>
+                                    <span style={{fontSize: "12px"}}>
                                       Настоящее заявление заполнено с моих слов и по моему
                                       поручению. Со&nbsp;всеми документами и условиями, перечисленными в заявлении,
                                       я&nbsp;подробно ознакомился&nbsp;(-ась), все указываемые в заявлении условия
@@ -674,10 +604,8 @@ export const LoanTerms = () => {
                                     </span>
                                   </p>
                                   <br/><br/><span className="fio_asp"></span>
-                                  <p className="MsoNormal" style="margin-bottom:2.0pt;text-align:justify;tab-stops:
-                                    center 233.85pt right 467.75pt">
-                                    <span style="font-size:12px;letter-spacing:
-                                      -.1pt">
+                                  <p className="MsoNormal" style={{marginBottom: "2.0pt", textAlign: "justify", tabStops: "center 233.85pt right 467.75pt"}}>
+                                    <span style={{fontSize: "12px", letterSpacing: "-.1pt"}}>
                                       {/* <o:p>&nbsp;</o:p> */}
                                     </span>
                                   </p>
@@ -709,7 +637,7 @@ export const LoanTerms = () => {
                             добровольного коллективного страхования № 26-21-МКК от 23.08.2021г.
                             </span>
                           </p>
-                          <p className="MsoNormal" align="center" style="text-align:center">
+                          <p className="MsoNormal" align="center" style={{textAlign: "center"}}>
                             <span style="font-size:13px;font-family:&quot;Times New Roman&quot;,serif">
                               {/* <o:p>&nbsp;</o:p> */}
                             </span>
@@ -776,14 +704,14 @@ export const LoanTerms = () => {
                               {/* <o:p>&nbsp;</o:p> */}
                             </span>
                           </p>
-                          <table className="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" style="border: none;width: 100%;">
+                          <table className="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" style={{border: "none", width: "100%"}}>
                             <tbody>
                               <tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;height:8.5pt">
                                 <td width="95" valign="top" style="width:70.9pt;border:none;padding:0cm 5.4pt 0cm 5.4pt;
                                   height:8.5pt">
                                   <p className="MsoNormal" style="margin-left:-5.4pt;text-align:justify"><img style={{width: "85px", height: "19px"}} align="left" hspace="12" alt="Логотип_горизонтальный.png" /></p>
                                 </td>
-                                <td width="576" colspan="4" style="width:432.3pt;border:none;padding:0cm 5.4pt 0cm 5.4pt;
+                                <td width="576" colSpan="4" style="width:432.3pt;border:none;padding:0cm 5.4pt 0cm 5.4pt;
                                   height:8.5pt">
                                   <p className="MsoNormal">
                                     <b><span style="font-size:13px;font-family:&quot;Times New Roman&quot;,serif">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Программа
@@ -797,7 +725,7 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr style="mso-yfti-irow:1;height:8.5pt">
-                                <td width="671" colspan="5" valign="top" style="width:503.2pt;border:none;
+                                <td width="671" colSpan="5" valign="top" style="width:503.2pt;border:none;
                                   border-bottom:1pt solid windowtext;mso-border-bottom-alt:solid #BFBFBF .5pt;
                                   padding:0cm 5.4pt 0cm 5.4pt;height:8.5pt">
                                   <p className="MsoNormal" style="margin-top:0cm;margin-right:-5.4pt;margin-bottom:
@@ -840,7 +768,7 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr style="mso-yfti-irow:2;height:8.5pt">
-                                <td width="104" colspan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
+                                <td width="104" colSpan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
                                   border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
                                   padding:0cm 5.4pt 0cm 5.4pt;height:8.5pt">
                                   <p className="MsoNormal">
@@ -853,11 +781,11 @@ export const LoanTerms = () => {
                                     </b>
                                   </p>
                                 </td>
-                                <td width="567" colspan="3" valign="top" style="width:15.0cm;border-top:none;
+                                <td width="567" colSpan="3" valign="top" style="width:15.0cm;border-top:none;
                                   border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
                                   mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
                                   mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:8.5pt">
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       Акционерное общество «Д2 Страхование»,
@@ -865,7 +793,7 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">Полная информация о Страховщике доступна
                                     на сайте </span><a href="http://www.d2insur.ru/"><span style="font-size:13px;
@@ -878,7 +806,7 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr style="mso-yfti-irow:3;height:11.35pt">
-                                <td width="104" colspan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
+                                <td width="104" colSpan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
                                   border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
                                   padding:0cm 5.4pt 0cm 5.4pt;height:11.35pt">
                                   <p className="MsoNormal">
@@ -891,7 +819,7 @@ export const LoanTerms = () => {
                                     </b>
                                   </p>
                                 </td>
-                                <td width="567" colspan="3" valign="top" style="width:15.0cm;border-top:none;
+                                <td width="567" colSpan="3" valign="top" style="width:15.0cm;border-top:none;
                                   border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
                                   mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
                                   mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:11.35pt">
@@ -909,7 +837,7 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr style="mso-yfti-irow:4;height:19.75pt">
-                                <td width="104" colspan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
+                                <td width="104" colSpan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
                                   border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
                                   padding:0cm 5.4pt 0cm 5.4pt;height:19.75pt">
                                   <p className="MsoNormal">
@@ -922,7 +850,7 @@ export const LoanTerms = () => {
                                     </b>
                                   </p>
                                 </td>
-                                <td width="567" colspan="3" valign="top" style="width:15.0cm;border-top:none;
+                                <td width="567" colSpan="3" valign="top" style="width:15.0cm;border-top:none;
                                   border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
                                   mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
                                   mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:19.75pt">
@@ -973,7 +901,7 @@ export const LoanTerms = () => {
                                   </p>
                                   <p className="MsoNormal" style="margin-left:1.65pt;text-align:justify;text-indent:
                                     0cm;mso-pagination:none;mso-list:l2 level1 lfo4;tab-stops:15.85pt">
-                                   <span style="font-size:9.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+                                    <span style="font-size:9.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
                                       &quot;Times New Roman&quot;">в.<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 9px; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp;
                                     </span></span>
                                     <span style="font-size:13px;font-family:
@@ -988,7 +916,7 @@ export const LoanTerms = () => {
                                   </p>
                                   <p className="MsoNormal" style="margin-left:1.65pt;text-align:justify;text-indent:
                                     0cm;mso-pagination:none;mso-list:l2 level1 lfo4;tab-stops:15.85pt">
-                                   <span style="font-size:9.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+                                    <span style="font-size:9.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
                                       &quot;Times New Roman&quot;">г.<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 9px; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp;&nbsp;
                                     </span></span>
                                     <span style="font-size:13px;font-family:
@@ -1001,7 +929,7 @@ export const LoanTerms = () => {
                                   </p>
                                   <p className="MsoNormal" style="margin-left:1.65pt;text-align:justify;text-indent:
                                     0cm;mso-pagination:none;mso-list:l2 level1 lfo4;tab-stops:15.85pt">
-                                   <span style="font-size:9.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+                                    <span style="font-size:9.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
                                       &quot;Times New Roman&quot;">д.<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 9px; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp;
                                     </span></span>
                                     <span style="font-size:13px;font-family:
@@ -1013,7 +941,7 @@ export const LoanTerms = () => {
                                   </p>
                                   <p className="MsoNormal" style="margin-left:1.65pt;text-align:justify;text-indent:
                                     0cm;mso-pagination:none;mso-list:l2 level1 lfo4;tab-stops:15.85pt">
-                                   <span style="font-size:9.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+                                  <span style="font-size:9.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
                                       &quot;Times New Roman&quot;">е.<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 9px; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp;&nbsp;
                                     </span></span>
                                     <span style="font-size:13px;font-family:
@@ -1025,7 +953,7 @@ export const LoanTerms = () => {
                                   </p>
                                   <p className="MsoNormal" style="margin-left:1.65pt;text-align:justify;text-indent:
                                     0cm;mso-pagination:none;mso-list:l2 level1 lfo4;tab-stops:15.85pt">
-                                   <span style="font-size:9.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+                                    <span style="font-size:9.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
                                       &quot;Times New Roman&quot;">ж.<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 9px; line-height: normal; font-family: &quot;Times New Roman&quot;;">&nbsp;&nbsp;
                                     </span></span>
                                     <span style="font-size:13px;font-family:
@@ -1046,7 +974,7 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       3.3. Подписывая Заявление на
@@ -1062,7 +990,7 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr style="mso-yfti-irow:5;height:3.0pt">
-                                <td width="104" colspan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
+                                <td width="104" colSpan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
                                   border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
                                   padding:0cm 5.4pt 0cm 5.4pt;height:3.0pt">
                                   <p className="MsoNormal">
@@ -1075,11 +1003,11 @@ export const LoanTerms = () => {
                                     </b>
                                   </p>
                                 </td>
-                                <td width="567" colspan="3" valign="top" style="width:15.0cm;border-top:none;
+                                <td width="567" colSpan="3" valign="top" style="width:15.0cm;border-top:none;
                                   border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
                                   mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
                                   mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:3.0pt">
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       Объектами страхования являются не
@@ -1092,7 +1020,7 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr style="mso-yfti-irow:6;height:3.0pt">
-                                <td width="104" colspan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
+                                <td width="104" colSpan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
                                   border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
                                   padding:0cm 5.4pt 0cm 5.4pt;height:3.0pt">
                                   <p className="MsoNormal">
@@ -1105,11 +1033,11 @@ export const LoanTerms = () => {
                                     </b>
                                   </p>
                                 </td>
-                                <td width="567" colspan="3" valign="top" style="width:15.0cm;border-top:none;
+                                <td width="567" colSpan="3" valign="top" style="width:15.0cm;border-top:none;
                                   border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
                                   mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
                                   mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:3.0pt">
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       Получателем страховой выплаты
@@ -1121,7 +1049,7 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr style="mso-yfti-irow:7;height:6.9pt">
-                                <td width="104" colspan="2" rowspan="5" valign="top" style="width:77.95pt;border:
+                                <td width="104" colSpan="2" rowSpan="5" valign="top" style="width:77.95pt;border:
                                   1pt solid windowtext;border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;
                                   mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:6.9pt">
                                   <p className="MsoNormal">
@@ -1139,12 +1067,12 @@ export const LoanTerms = () => {
                                     </b>
                                   </p>
                                 </td>
-                                <td width="567" colspan="3" valign="top" style="width:15.0cm;border:none;
+                                <td width="567" colSpan="3" valign="top" style="width:15.0cm;border:none;
                                   border-right:1pt solid windowtext;mso-border-top-alt:solid #BFBFBF .5pt;
                                   mso-border-left-alt:solid #BFBFBF .5pt;mso-border-top-alt:solid #BFBFBF .5pt;
                                   mso-border-left-alt:solid #BFBFBF .5pt;mso-border-right-alt:solid #BFBFBF .5pt;
                                   padding:0cm 5.4pt 0cm 5.4pt;height:6.9pt">
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       Страховым случаем в рамках настоящей
@@ -1155,7 +1083,7 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <b><span style="font-size:13px;font-family:&quot;Times New Roman&quot;,serif">6.1.
                                     Смерть Застрахованного лица</span></b>
                                     <span style="font-size:13px;
@@ -1271,11 +1199,11 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr style="mso-yfti-irow:9;height:6.9pt">
-                                <td width="567" colspan="3" valign="top" style="width:15.0cm;border:none;
+                                <td width="567" colSpan="3" valign="top" style="width:15.0cm;border:none;
                                   border-right:1pt solid windowtext;mso-border-left-alt:solid #BFBFBF .5pt;
                                   mso-border-left-alt:solid #BFBFBF .5pt;mso-border-right-alt:solid #BFBFBF .5pt;
                                   padding:0cm 5.4pt 0cm 5.4pt;height:6.9pt">
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <b><span style="font-size:13px;font-family:&quot;Times New Roman&quot;,serif">6.2.
                                     Установление Застрахованному лицу инвалидности I (первой), II (второй) группы
                                     впервые</span></b>
@@ -1390,12 +1318,12 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr style="mso-yfti-irow:11;height:6.9pt">
-                                <td width="567" colspan="3" valign="top" style="width:15.0cm;border-top:none;
+                                <td width="567" colSpan="3" valign="top" style="width:15.0cm;border-top:none;
                                   border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
                                   mso-border-left-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
                                   mso-border-bottom-alt:solid #BFBFBF .5pt;mso-border-right-alt:solid #BFBFBF .5pt;
                                   padding:0cm 5.4pt 0cm 5.4pt;height:6.9pt">
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       Инвалидность, установленная в результате
@@ -1406,7 +1334,7 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       При этом инвалидность I (первой), II
@@ -1423,7 +1351,7 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr style="mso-yfti-irow:12;height:13.3pt">
-                                <td width="104" colspan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
+                                <td width="104" colSpan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
                                   border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
                                   padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt">
                                   <p className="MsoNormal">
@@ -1436,11 +1364,11 @@ export const LoanTerms = () => {
                                     </b>
                                   </p>
                                 </td>
-                                <td width="567" colspan="3" valign="top" style="width:15.0cm;border-top:none;
+                                <td width="567" colSpan="3" valign="top" style="width:15.0cm;border-top:none;
                                   border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
                                   mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
                                   mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt">
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif;color:black;layout-grid-mode:line">
                                       7.1.
@@ -1604,7 +1532,7 @@ export const LoanTerms = () => {
                                   <p className="MsoNormal" style="margin-left:0cm;text-align:justify;text-indent:
                                     0cm;mso-list:l3 level1 lfo3;tab-stops:8.8pt;punctuation-wrap:simple;
                                     text-autospace:ideograph-numeric;vertical-align:baseline">
-                                   <span style="font-size:13px;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+                                    <span style="font-size:13px;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
                                       &quot;Times New Roman&quot;">л)<span style="font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; font-size: 9px; line-height: normal; font-family: &quot;Times New Roman&quot;;">
                                     </span></span>
                                     <span style="font-size:13px;font-family:
@@ -1616,7 +1544,7 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr style="mso-yfti-irow:13;height:4.8pt">
-                                <td width="104" colspan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
+                                <td width="104" colSpan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
                                   border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
                                   padding:0cm 5.4pt 0cm 5.4pt;height:4.8pt">
                                   <p className="MsoNormal">
@@ -1629,11 +1557,11 @@ export const LoanTerms = () => {
                                     </b>
                                   </p>
                                 </td>
-                                <td width="567" colspan="3" valign="top" style="width:15.0cm;border-top:none;
+                                <td width="567" colSpan="3" valign="top" style="width:15.0cm;border-top:none;
                                   border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
                                   mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
                                   mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:4.8pt">
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       Страховая сумма устанавливается
@@ -1646,7 +1574,7 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr style="mso-yfti-irow:14;height:17.5pt">
-                                <td width="104" colspan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
+                                <td width="104" colSpan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
                                   border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
                                   padding:0cm 5.4pt 0cm 5.4pt;height:17.5pt">
                                   <p className="MsoNormal">
@@ -1659,7 +1587,7 @@ export const LoanTerms = () => {
                                     </b>
                                   </p>
                                 </td>
-                                <td width="567" colspan="3" valign="top" style="width:15.0cm;border-top:none;
+                                <td width="567" colSpan="3" valign="top" style="width:15.0cm;border-top:none;
                                   border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
                                   mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
                                   mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:17.5pt">
@@ -1733,7 +1661,7 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif;letter-spacing:.1pt">9.3. При наличии
                                     достаточных оснований Страховщик имеет право отсрочить решение вопроса о
@@ -1744,7 +1672,7 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       9.4. <span style="letter-spacing:.1pt">Общая
@@ -1756,7 +1684,7 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       9.5. Страховая выплата НЕ
@@ -1764,7 +1692,7 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       а) компетентные органы не подтверждают
@@ -1773,7 +1701,7 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       б) Застрахованным лицом
@@ -1783,7 +1711,7 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       в) Застрахованное лицо отказывается
@@ -1791,7 +1719,7 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       г) Застрахованным лицом (Выгодоприобретателем)
@@ -1805,7 +1733,7 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr style="mso-yfti-irow:15;height:34.95pt">
-                                <td width="104" colspan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
+                                <td width="104" colSpan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
                                   border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
                                   padding:0cm 5.4pt 0cm 5.4pt;height:34.95pt">
                                   <p className="MsoNormal">
@@ -1818,11 +1746,11 @@ export const LoanTerms = () => {
                                     </b>
                                   </p>
                                 </td>
-                                <td width="567" colspan="3" valign="top" style="width:15.0cm;border-top:none;
+                                <td width="567" colSpan="3" valign="top" style="width:15.0cm;border-top:none;
                                   border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
                                   mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
                                   mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:34.95pt">
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       Срок страхования устанавливается
@@ -1832,7 +1760,7 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif;color:black">Действие Договора
                                     страхования в отношении конкретного Застрахованного лица (срок страхования)
@@ -1847,7 +1775,7 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr>
-                                <td width="104" colspan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
+                                <td width="104" colSpan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
                                   border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
                                   padding:0cm 5.4pt 0cm 5.4pt">
                                   <p className="MsoNormal">
@@ -1860,11 +1788,11 @@ export const LoanTerms = () => {
                                     </b>
                                   </p>
                                 </td>
-                                <td width="567" colspan="3" valign="top" style="width:15.0cm;border-top:none;
+                                <td width="567" colSpan="3" valign="top" style="width:15.0cm;border-top:none;
                                   border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
                                   mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
                                   mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt">
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       Уплата страховой премии осуществляется
@@ -1877,7 +1805,7 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr>
-                                <td width="104" colspan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
+                                <td width="104" colSpan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
                                   border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
                                   padding:0cm 5.4pt 0cm 5.4pt">
                                   <p className="MsoNormal">
@@ -1890,11 +1818,11 @@ export const LoanTerms = () => {
                                     </b>
                                   </p>
                                 </td>
-                                <td width="567" colspan="3" valign="top" style="width:15.0cm;border-top:none;
+                                <td width="567" colSpan="3" valign="top" style="width:15.0cm;border-top:none;
                                   border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
                                   mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
                                   mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt">
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif;mso-fareast-language:EN-US">В любое время
                                     суток на территории Российской Федерации, за исключением территории
@@ -1908,7 +1836,7 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr>
-                                <td width="104" colspan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
+                                <td width="104" colSpan="2" valign="top" style="width:77.95pt;border:1pt solid windowtext;
                                   border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
                                   padding:0cm 5.4pt 0cm 5.4pt">
                                   <p className="MsoNormal">
@@ -1921,7 +1849,7 @@ export const LoanTerms = () => {
                                     </b>
                                   </p>
                                 </td>
-                                <td width="567" colspan="3" valign="top" style="width:15.0cm;border-top:none;
+                                <td width="567" colSpan="3" valign="top" style="width:15.0cm;border-top:none;
                                   border-left:none;border-bottom:1pt solid windowtext;border-right:1pt solid windowtext;
                                   mso-border-top-alt:solid #BFBFBF .5pt;mso-border-left-alt:solid #BFBFBF .5pt;
                                   mso-border-alt:solid #BFBFBF .5pt;padding:0cm 5.4pt 0cm 5.4pt">
@@ -1935,7 +1863,7 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <b>
                                       <span style="font-size:13px;font-family:&quot;Times New Roman&quot;,serif;
                                         letter-spacing:.1pt">
@@ -1954,7 +1882,7 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif;letter-spacing:.1pt">
                                       б)&nbsp;Заверенная
@@ -1963,7 +1891,7 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif;letter-spacing:.1pt">в) Паспорт
                                     Застрахованного лица / Выгодоприобретателя / наследника Застрахованного лица
@@ -1977,7 +1905,7 @@ export const LoanTerms = () => {
                                       </span>
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif;letter-spacing:.1pt">г) </span>
                                     <span style="font-size:13px;font-family:&quot;Times New Roman&quot;,serif">
@@ -2254,7 +2182,7 @@ export const LoanTerms = () => {
                                     – оригинал или копия, заверенная выдавшим учреждением.
                                     {/* <o:p></o:p> */}
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       г) При несчастном случае по пути на
@@ -2263,7 +2191,7 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       13.5. При наступлении страхового случая
@@ -2289,7 +2217,7 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr style="mso-yfti-irow:19;height:11.35pt">
-                                <td width="671" colspan="5" style="width:503.2pt;border:1pt solid windowtext;
+                                <td width="671" colSpan="5" style="width:503.2pt;border:1pt solid windowtext;
                                   border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
                                   background:#D9D9D9;padding:0cm 5.4pt 0cm 5.4pt;height:11.35pt">
                                   <p className="MsoNormal" style="punctuation-wrap:simple;text-autospace:ideograph-numeric;
@@ -2305,10 +2233,10 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr>
-                                <td width="671" colspan="5" valign="top" style="width:503.2pt;border:1pt solid windowtext;
+                                <td width="671" colSpan="5" valign="top" style="width:503.2pt;border:1pt solid windowtext;
                                   border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
                                   padding:0cm 5.4pt 0cm 5.4pt">
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif">
                                       При наступлении события, имеющего
@@ -2334,7 +2262,7 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify">
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}>
                                     <span style="font-size:13px;
                                       font-family:&quot;Times New Roman&quot;,serif;mso-bidi-font-weight:bold">3. Соберите <u>полный
                                     пакет</u> документов </span>
@@ -2345,12 +2273,12 @@ export const LoanTerms = () => {
                                       {/* <o:p></o:p> */}
                                     </span>
                                   </p>
-                                  <p className="MsoNormal" style="text-align:justify"><span style="font-size:13px;
+                                  <p className="MsoNormal" style={{textAlign: "justify"}}><span style="font-size:13px;
                                     font-family:&quot;Times New Roman&quot;,serif;mso-bidi-font-weight:bold"></span></p>
                                 </td>
                               </tr>
                               <tr style="mso-yfti-irow:21;height:11.35pt">
-                                <td width="671" colspan="5" style="width:503.2pt;border:1pt solid windowtext;
+                                <td width="671" colSpan="5" style="width:503.2pt;border:1pt solid windowtext;
                                   border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
                                   background:#D9D9D9;padding:0cm 5.4pt 0cm 5.4pt;height:11.35pt">
                                   <p className="MsoNormal">
@@ -2366,7 +2294,7 @@ export const LoanTerms = () => {
                                 </td>
                               </tr>
                               <tr>
-                                <td width="671" colspan="5" valign="top" style="width:503.2pt;border:1pt solid windowtext;
+                                <td width="671" colSpan="5" valign="top" style="width:503.2pt;border:1pt solid windowtext;
                                   border-top:none;mso-border-top-alt:solid #BFBFBF .5pt;mso-border-alt:solid #BFBFBF .5pt;
                                   padding:0cm 5.4pt 0cm 5.4pt">
                                   <p className="MsoNormal">
