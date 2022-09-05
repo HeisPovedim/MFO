@@ -132,12 +132,7 @@ export const LoanTerms = () => {
 
   // ?: ФУНКЦИЯ ПОДСЧЕТА СУММЫ => ЗАВИСЯЩЕЙ ОТ ВЫБРАННЫХ ПУНКТОВ
   const calculationValueSum = () => {
-    let val, 
-    tempAccidentInsurance, // страховка от несчастного случая
-    tempSelectionOfFinancialProducts, // подбор финансовых продуктов
-    tempPersonalManager, // персональный менеджер
-    tempLegalServices; // юридические услуги
-
+    let val
     let valSum = convertObjectValues(valueSum, false)
     let valDay = convertObjectValues(valueDay, false)
     val = Math.trunc(valSum / 100 * valDay) + valSum
@@ -154,9 +149,9 @@ export const LoanTerms = () => {
     if (stagesOfConsent.legalServices === true) {
       val += 1550
     }
-
     return val
   }
+
 
   return (
   <>
@@ -306,7 +301,7 @@ export const LoanTerms = () => {
                     <input type="checkbox" className="checkbox services_check" name="extra_service_match[2]" id="extra_service_2" data-identifier="2" defaultChecked="defaultChecked" defaultValue="1" onClick={handlerSetSelectionOfFinancialProducts}/>
                     <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_2" href="#/">Подбор финансовых продуктов</a>
                   </label>
-                  <label className={ showNewItemsFunc("personalManager") }htmlFor="extra_service_3">
+                  <label className={showNewItemsFunc("personalManager")} htmlFor="extra_service_3">
                     <input type="checkbox" className="checkbox services_check" name="extra_service_match[3]" id="extra_service_3" data-identifier="3" defaultChecked="defaultChecked" defaultValue="1" onClick={handlerSetPersonalManager}/>
                     <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_3" href="#/">Персональный менеджер</a>
                   </label>
