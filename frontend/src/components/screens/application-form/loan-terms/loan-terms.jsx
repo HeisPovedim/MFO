@@ -1,5 +1,5 @@
 // #: REACT
-import React, { useState } from "react"
+import React, { useState, useRef, useCallback, useEffect } from "react"
 
 // #HELPER
   // functions
@@ -21,15 +21,19 @@ export const LoanTerms = () => {
     readAndAgree: false, // ознакомлен и согласен
     accidentInsurance: false, // страховка от несчастного - изначально
     selectionOfFinancialProducts: false, // подбор финансовых продуктов - изначально
-    personalManager: false, // персональный менеджер - от 5 000к
+    personalManager: false, // персональный менеджер - от 5 000
     legalServices: false, // юридические услуги - от 6 500
     agreement: false // выражаю свое согласие на направление...
   })
   const [showPreview, setShowPreview] = useState(false) // согласия с перечисленным списком
   const current = new Date()
 
+  let personalManagerActive = useRef()
+  let legalServicesActive = useRef()
 
-  React.useEffect(() => console.log(stagesOfConsent), [stagesOfConsent])
+
+
+  useEffect(() => console.log(stagesOfConsent), [stagesOfConsent])
 
 
   // ^ХЕНДЛЕРЫ | HANDLERS
@@ -152,6 +156,67 @@ export const LoanTerms = () => {
     return val
   }
 
+  const [stage, setStage] = useState({
+    stagePersonalManager: true, // персональный менеджер - от 5000
+    stageLegalServices: true // юридические услуги - от 6 500
+  })
+    const handlerCalcSumm = async (value) => {
+
+      // if (stage.stagelegalServices === true) {
+      //   if (legalServicesActive.current.className === "control-label label-checkbox addr-check-label extra_service_broken-label hidden") {
+      //     setStagesOfConsent({
+      //       readAndAgree: false,
+      //       accidentInsurance: false,
+      //       selectionOfFinancialProducts: false,
+      //       personalManager: false,
+      //       legalServices: false,
+      //       agreement: false,
+      //     })
+      //     setStage({...stage, stagelegalServices: false})
+      //   }
+      // } else if (legalServicesActive.current.className === "control-label label-checkbox addr-check-label extra_service_broken-label active" || legalServicesActive.current.className === "control-label label-checkbox addr-check-label extra_service_broken-label") {
+      //   setStage({...stage, stagelegalServices: true})
+      // }
+
+      // if (stage.stagePersonalManager === true) {
+      //   if (personalManagerActive.current.className === "control-label label-checkbox addr-check-label extra_service_broken-label hidden") {
+      //     setStagesOfConsent({
+      //       readAndAgree: false,
+      //       accidentInsurance: false,
+      //       selectionOfFinancialProducts: false,
+      //       personalManager: false,
+      //       legalServices: false,
+      //       agreement: false,
+      //     })
+      //     setStage({...stage, stagePersonalManager: false})
+      //   }
+      // } else if (personalManagerActive.current.className === "control-label label-checkbox addr-check-label extra_service_broken-label active" || personalManagerActive.current.className === "control-label label-checkbox addr-check-label extra_service_broken-label") {
+      //   setStage({...stage, stagePersonalManager: true})
+      // }
+
+      // if (value >= 6000 && value < 6500) {
+      //       setStagesOfConsent({
+      //         readAndAgree: false,
+      //         accidentInsurance: false,
+      //         selectionOfFinancialProducts: false,
+      //         personalManager: false,
+      //         legalServices: false,
+      //         agreement: false,
+      //       })
+      //     }
+
+      if (!(value < 6000) && !(value > 6500)) {
+        setStagesOfConsent({
+          readAndAgree: false,
+          accidentInsurance: false,
+          selectionOfFinancialProducts: false,
+          personalManager: false,
+          legalServices: false,
+          agreement: false,
+        })
+      }
+  }
+
 
   return (
   <>
@@ -200,7 +265,6 @@ export const LoanTerms = () => {
                 <div className="cd_info">
                   <p className="payment_period">Возвращаете</p>
                   <p>
-                    {/* <span className="calc-total">{ divideNumberByPieces( convertObjectValues( calculationValueSum(convertObjectValues(valueSum, false)), true ) ) } <small>₽</small></span> */}
                     <span className="calc-total">{ divideNumberByPieces(convertObjectValues( calculationValueSum(), true ))} <small>₽</small></span>
                   </p>
                 </div>
@@ -220,7 +284,10 @@ export const LoanTerms = () => {
                         blocks={{ d: { mask: "₽" }, a: { mask: Number, thousandsSeparator: ' ', min: 1500, max: 15000 } }}
                         lazy={false}
                         unmask={true}
-                        onAccept={ (value) => setValueSum(value) }
+                        onAccept={ (value) => {
+                          handlerCalcSumm(value)
+                          setValueSum(value)
+                        }}
                         onBlur={handlerBlurSum}
                         onPointerLeave={handlerBlurSum}
                         onClick={handlerBlurSum}
@@ -301,11 +368,11 @@ export const LoanTerms = () => {
                     <input type="checkbox" className="checkbox services_check" name="extra_service_match[2]" id="extra_service_2" data-identifier="2" defaultChecked="defaultChecked" defaultValue="1" onClick={handlerSetSelectionOfFinancialProducts}/>
                     <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_2" href="#/">Подбор финансовых продуктов</a>
                   </label>
-                  <label className={showNewItemsFunc("personalManager")} htmlFor="extra_service_3">
+                  <label ref={personalManagerActive} className={showNewItemsFunc("personalManager")} htmlFor="extra_service_3">
                     <input type="checkbox" className="checkbox services_check" name="extra_service_match[3]" id="extra_service_3" data-identifier="3" defaultChecked="defaultChecked" defaultValue="1" onClick={handlerSetPersonalManager}/>
                     <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_3" href="#/">Персональный менеджер</a>
                   </label>
-                  <label className={showNewItemsFunc("legalServices")} htmlFor="extra_service_extra_service_4">
+                  <label ref={legalServicesActive} className={showNewItemsFunc("legalServices")} htmlFor="extra_service_4">
                     <input type="checkbox" className="checkbox services_check" name="extra_service_match[4]" id="extra_service_4" data-identifier="4" defaultChecked="defaultChecked" defaultValue="1" onClick={handlerSetLegalServices}/>
                     <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_4" href="#/">Юридические услуги</a>
                   </label>
