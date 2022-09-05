@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { ContactUs } from '../../components/screens/application-form/contact-us/contact-us'
 import { PhoneNumberVerification } from '../../components/screens/application-form/phone-number-verification/phone-number-verification'
 import { PassportDetails } from '../../components/screens/application-form/passport-details/passport-details'
-import { EmploymentAndIncome } from '../../components/screens/application-form/employment-and-Income/employment-and-income'
+import { EmploymentAndIncome } from '../../components/screens/application-form/employment-and-income/employment-and-income'
 
 // #: IMG | className = wrapper container site-header__wrapper
 import PresonPng from '../../assets/img/basic/person.png'
@@ -29,7 +29,7 @@ const ApplicationFormPage = () => {
     contactUs: true, // контактная информация - 1-я форма
     phoneNumberVerification: false, // подтверждение номера телефона - код из смс
     passportDetails: false, // паспортные данные - 2-я форма
-    employmentAndIncome: true, // занятость и доходы - 3-я форма
+    employmentAndIncome: false, // занятость и доходы - 3-я форма
   })
 
   // ?: ФУНКЦИЯ ОБНОВЛЕНИЯ СОСТОЯНИЯ
