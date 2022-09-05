@@ -62,6 +62,7 @@ import FooterLocationPng from '../../assets/img/basic/footer-location.png'
 
 const BasicPage = () => {
 
+
   // ^USE EFFECT
   useEffect(() => {
     localStorage.clear()
@@ -222,8 +223,8 @@ const BasicPage = () => {
                                 <h4>Сумма</h4>
                                 <div className="calc-value-box">
                                   <div className="calc-value-info calc-value-info-amount">
-                                    <span id="rangeValue" className="calc-summ" style={{ display: "inline-block" }}>
-                                      <IMaskInput
+                                    {/* <span id="rangeValue" className="calc-summ" style={{ display: "inline-block" }}> */}
+                                      <IMaskInput className="calc-summ"
                                         value={convertObjectValues(valueSum, true)}
                                         mask={"a d"}
                                         blocks={{ d: { mask: "₽" }, a: { mask: Number, thousandsSeparator: ' ', min: 1500, max: 15000 } }}
@@ -234,10 +235,9 @@ const BasicPage = () => {
                                         onPointerLeave={handlerBlurSum}
                                         onClick={handlerBlurSum}
                                       />
-                                    </span>
-                                    
+                                    {/* </span> */}
                                   </div>
-                                  <input type="text" default Value="1 500" />
+                                  <input type="text" />
                                 </div>
                                 <div className="slider-range-box" >
                                   <Slider
@@ -259,8 +259,8 @@ const BasicPage = () => {
                                 <h4>Срок</h4>
                                 <div className="calc-value-box">
                                   <div className="calc-value-info calc-value-info-term">
-                                    <span className="calc-limit">
-                                      <IMaskInput
+                                    {/* <span className="calc-limit"> */}
+                                      <IMaskInput className="calc-limit"
                                         value={convertObjectValues(valueDay, true)}
                                         mask={"a d"}
                                         blocks={{ d: { mask: "дней" }, a:{mask: Number, min: 5, max: 30} }}
@@ -268,7 +268,7 @@ const BasicPage = () => {
                                         unmask={true}
                                         onAccept={ (value) => setValueDay(value) }
                                       />
-                                    </span>
+                                    {/* </span> */}
                                   </div>
                                   <input type="text" defaultValue="5" className="calc-limit num" />
                                   
