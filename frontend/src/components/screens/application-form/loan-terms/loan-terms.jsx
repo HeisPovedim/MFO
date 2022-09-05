@@ -132,10 +132,29 @@ export const LoanTerms = () => {
 
   // ?: ФУНКЦИЯ ПОДСЧЕТА СУММЫ => ЗАВИСЯЩЕЙ ОТ ВЫБРАННЫХ ПУНКТОВ
   const calculationValueSum = () => {
+    let val, 
+    tempAccidentInsurance, // страховка от несчастного случая
+    tempSelectionOfFinancialProducts, // подбор финансовых продуктов
+    tempPersonalManager, // персональный менеджер
+    tempLegalServices; // юридические услуги
+
     let valSum = convertObjectValues(valueSum, false)
     let valDay = convertObjectValues(valueDay, false)
-    let val = Math.trunc(valSum / 100 * valDay) + valSum
-    console.log(val)
+    val = Math.trunc(valSum / 100 * valDay) + valSum
+
+    if (stagesOfConsent.accidentInsurance === true) {
+      val += 980
+    }
+    if (stagesOfConsent.selectionOfFinancialProducts === true) {
+      val += 850
+    }
+    if (stagesOfConsent.personalManager === true) {
+      val += 850
+    }
+    if (stagesOfConsent.legalServices === true) {
+      val += 1550
+    }
+
     return val
   }
 
@@ -187,7 +206,7 @@ export const LoanTerms = () => {
                   <p className="payment_period">Возвращаете</p>
                   <p>
                     {/* <span className="calc-total">{ divideNumberByPieces( convertObjectValues( calculationValueSum(convertObjectValues(valueSum, false)), true ) ) } <small>₽</small></span> */}
-                    <span className="calc-total">{ divideNumberByPieces( convertObjectValues( calculationValueSum(), true ) ) } <small>₽</small></span>
+                    <span className="calc-total">{ divideNumberByPieces(convertObjectValues( calculationValueSum(), true ))} <small>₽</small></span>
                   </p>
                 </div>
                 <div className="cd_info">
