@@ -108,33 +108,36 @@ export const LoanTerms = () => {
     }
   }
 
-
-  const handlerTest = () => {
-    if (valueSum >= 5000) {
-      if (stagesOfConsent.personalManager === true) {
-        return "control-label label-checkbox addr-check-label extra_service_broken-label active"
-      } else {
+  // ?: ФУНКЦИЯ ОТРИСОВКИ НОВЫХ ПУНКТОВ => ЗАВИСЯЩИХ ОТ КОЛИЧЕСТВА ВЛОЖЕННОЙ СУММЫ
+  const showNewItemsFunc = (type) => {
+    if (type === "personalManager") {
+      if (valueSum >= 5000) {
+        if (stagesOfConsent.personalManager === true) return "control-label label-checkbox addr-check-label extra_service_broken-label active"
         return "control-label label-checkbox addr-check-label extra_service_broken-label"
+      } else {
+        if (stagesOfConsent.personalManager === true) setStagesOfConsent({...stagesOfConsent, personalManager: false})
+        return "control-label label-checkbox addr-check-label extra_service_broken-label hidden"
       }
-    } else {
-      if(stagesOfConsent.personalManager === false) {
-        setStagesOfConsent({...stagesOfConsent, personalManager: true})
-      } else if (stagesOfConsent.personalManager === true) {
-        setStagesOfConsent({...stagesOfConsent, personalManager: false})
+    } else if (type === "legalServices") {
+      if (valueSum >= 6500) {
+        if (stagesOfConsent.legalServices === true) return "control-label label-checkbox addr-check-label extra_service_broken-label active"
+        return "control-label label-checkbox addr-check-label extra_service_broken-label"
+      } else {
+        if (stagesOfConsent.legalServices === true) setStagesOfConsent({...stagesOfConsent, legalServices: false})
+        return "control-label label-checkbox addr-check-label extra_service_broken-label hidden"
       }
-      return "control-label label-checkbox addr-check-label extra_service_broken-label hidden"
     }
   }
 
-  const test = () => {
-    if(stagesOfConsent.personalManager === false) {
-      setStagesOfConsent({...stagesOfConsent, personalManager: true})
-    } else if (stagesOfConsent.personalManager === true) {
-      setStagesOfConsent({...stagesOfConsent, personalManager: false})
-    }
-    return 
-  }
 
+  // ?: ФУНКЦИЯ ПОДСЧЕТА СУММЫ => ЗАВИСЯЩЕЙ ОТ ВЫБРАННЫХ ПУНКТОВ
+  const calculationValueSum = () => {
+    let valSum = convertObjectValues(valueSum, false)
+    let valDay = convertObjectValues(valueDay, false)
+    let val = Math.trunc(valSum / 100 * valDay) + valSum
+    console.log(val)
+    return val
+  }
 
   return (
   <>
@@ -183,7 +186,8 @@ export const LoanTerms = () => {
                 <div className="cd_info">
                   <p className="payment_period">Возвращаете</p>
                   <p>
-                    <span className="calc-total">{ divideNumberByPieces( convertObjectValues( convertObjectValues( Math.trunc(valueSum / 100 * valueDay), false) + convertObjectValues(valueSum, false), true) ) } <small>₽</small></span>
+                    {/* <span className="calc-total">{ divideNumberByPieces( convertObjectValues( calculationValueSum(convertObjectValues(valueSum, false)), true ) ) } <small>₽</small></span> */}
+                    <span className="calc-total">{ divideNumberByPieces( convertObjectValues( calculationValueSum(), true ) ) } <small>₽</small></span>
                   </p>
                 </div>
                 <div className="cd_info">
@@ -283,22 +287,11 @@ export const LoanTerms = () => {
                     <input type="checkbox" className="checkbox services_check" name="extra_service_match[2]" id="extra_service_2" data-identifier="2" defaultChecked="defaultChecked" defaultValue="1" onClick={handlerSetSelectionOfFinancialProducts}/>
                     <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_2" href="#/">Подбор финансовых продуктов</a>
                   </label>
-                  {/* className={
-                      stagesOfConsent.personalManager === true 
-                      ? "control-label label-checkbox addr-check-label extra_service_broken-label active" 
-                      : "control-label label-checkbox addr-check-label extra_service_broken-label"}  */}
-                  <label className={
-                      valueSum >= 5000
-                      ? stagesOfConsent.personalManager === true
-                        ? "control-label label-checkbox addr-check-label extra_service_broken-label active" 
-                        : "control-label label-checkbox addr-check-label extra_service_broken-label"
-                      : "control-label label-checkbox addr-check-label extra_service_broken-label hidden"}
-                      htmlFor="extra_service_3"
-                    >
+                  <label className={ showNewItemsFunc("personalManager") }htmlFor="extra_service_3">
                     <input type="checkbox" className="checkbox services_check" name="extra_service_match[3]" id="extra_service_3" data-identifier="3" defaultChecked="defaultChecked" defaultValue="1" onClick={handlerSetPersonalManager}/>
                     <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_3" href="#/">Персональный менеджер</a>
                   </label>
-                  <label className={stagesOfConsent.legalServices === true ? "control-label label-checkbox addr-check-label extra_service_broken-label active" : "control-label label-checkbox addr-check-label extra_service_broken-label"} htmlFor="extra_service_4">
+                  <label className={showNewItemsFunc("legalServices")} htmlFor="extra_service_extra_service_4">
                     <input type="checkbox" className="checkbox services_check" name="extra_service_match[4]" id="extra_service_4" data-identifier="4" defaultChecked="defaultChecked" defaultValue="1" onClick={handlerSetLegalServices}/>
                     <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_4" href="#/">Юридические услуги</a>
                   </label>
