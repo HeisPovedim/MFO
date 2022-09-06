@@ -10,6 +10,7 @@ import React, { useState, useRef, useCallback, useEffect } from "react"
 import { IMaskInput } from "react-imask"
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
+import { CSSTransition } from "react-transition-group"
 
 export const LoanTerms = () => {
 
@@ -26,6 +27,10 @@ export const LoanTerms = () => {
     agreement: false // выражаю свое согласие на направление...
   })
   const [showPreview, setShowPreview] = useState(false) // согласия с перечисленным списком
+  const [showModal, setShowModal] = useState({
+    modal: false, 
+    borken: false
+  })
   const current = new Date()
 
   let personalManagerRef = useRef()
@@ -351,7 +356,7 @@ export const LoanTerms = () => {
                 <div className="services_box">
                   <label className={stagesOfConsent.accidentInsurance === true ? "control-label label-checkbox addr-check-label active" : "control-label label-checkbox addr-check-label"} htmlFor="extra_service_1">
                     <input type="checkbox" className="checkbox services_check" name="extra_service_match[1]" id="extra_service_1" data-identifier="1" defaultChecked="defaultChecked" defaultValue="1" onClick={handlerSetAccidentInsurance}/>
-                    <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services" data-service_id="extra_service_1" href="#/">Страховка от несчастного случая</a>
+                    <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services" data-service_id="extra_service_1" onClick={() => setShowModal({...showModal, modal: true})} href="#/">Страховка от несчастного случая</a>
                   </label>
                   <div id="extraServiceBroken">
                     <input type="hidden" id="extra_service_broken" data-products="2,3,4" />
@@ -361,36 +366,38 @@ export const LoanTerms = () => {
                   </div>
                   <label className={stagesOfConsent.selectionOfFinancialProducts === true ? "control-label label-checkbox addr-check-label extra_service_broken-label active" : "control-label label-checkbox addr-check-label extra_service_broken-label"} htmlFor="extra_service_2">
                     <input type="checkbox" className="checkbox services_check" name="extra_service_match[2]" id="extra_service_2" data-identifier="2" defaultChecked="defaultChecked" defaultValue="1" onClick={handlerSetSelectionOfFinancialProducts}/>
-                    <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_2" href="#/">Подбор финансовых продуктов</a>
+                    <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_2" onClick={() => setShowModal({...showModal, borken: true})} href="#/">Подбор финансовых продуктов</a>
                   </label>
                   <label ref={personalManagerRef} className={showNewItemsFunc("personalManager")} htmlFor="extra_service_3">
                     <input type="checkbox" className="checkbox services_check" name="extra_service_match[3]" id="extra_service_3" data-identifier="3" defaultChecked="defaultChecked" defaultValue="1" onClick={handlerSetPersonalManager}/>
-                    <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_3" href="#/">Персональный менеджер</a>
+                    <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_3" onClick={() => setShowModal({...showModal, borken: true})} href="#/">Персональный менеджер</a>
                   </label>
                   <label ref={legalServicesRef} className={showNewItemsFunc("legalServices")} htmlFor="extra_service_4">
                     <input type="checkbox" className="checkbox services_check" name="extra_service_match[4]" id="extra_service_4" data-identifier="4" defaultChecked="defaultChecked" defaultValue="1" onClick={handlerSetLegalServices}/>
-                    <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_4" href="#/">Юридические услуги</a>
+                    <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_4" onClick={() => setShowModal({...showModal, borken: true})} href="#/">Юридические услуги</a>
                   </label>
                 </div>
-                <div className="modal fade modal-very-lg hidden" id="modal_offers_extra_services" tabIndex={-1}>
-                  <div className="modal-dialog">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                        </button>
-                      </div>
-                      <div className="modal-body">
-                        {/* Страховка от несчастного случая */}
-                      </div>
+                {/* <CSSTransition in={showModal.modal} classNames="alert" unmountOnExit> */}
+                  <div className="modal fade modal-very-lg" id="modal_offers_extra_services" tabIndex={-1} style={showModal.modal === false ? {display: "none"} : {display: "block", paddingRight: "17px", height: "100vh", width: "100vw", backgroundColor: "rgba(0,0,0,0.4)", position: "fixed", top: "0", left: "0", paddingTop: "50px", zIndex: "10"}} aria-modal="true" role="dialog">
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setShowModal({...showModal, modal: false})}>
+                          <span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <div className="modal-body">
+                          {/* Страховка от несчастного случая */}
+                        </div>
+                    </div>
+                    </div>
                   </div>
-                  </div>
-                </div>
-                <div className="modal fade modal-very-lg hidden" id="modal_offers_extra_services_broken" tabIndex={-1}>
+                {/* </CSSTransition> */}
+                <div className="modal fade modal-very-lg" id="modal_offers_extra_services_broken" tabIndex={-1} style={showModal.borken === false ? {display: "none"} : {display: "block", paddingRight: "17px", height: "100vh", width: "100vw", backgroundColor: "rgba(0,0,0,0.4)", position: "fixed", top: "0", left: "0", paddingTop: "50px", zIndex: "10"}} aria-modal="true" role="dialog">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <div className="modal-header">
-                      <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                      <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setShowModal({...showModal, borken: false})}>
                       <span aria-hidden="true">×</span>
                       </button>
                     </div>
