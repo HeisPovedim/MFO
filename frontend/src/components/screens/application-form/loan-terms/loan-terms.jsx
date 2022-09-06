@@ -1,5 +1,5 @@
 // #: REACT
-import React, { useState } from "react"
+import React, { useState, useRef, useCallback, useEffect } from "react"
 
 // #HELPER
   // functions
@@ -10,6 +10,7 @@ import React, { useState } from "react"
 import { IMaskInput } from "react-imask"
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
+import { CSSTransition } from "react-transition-group"
 
 export const LoanTerms = () => {
 
@@ -21,15 +22,26 @@ export const LoanTerms = () => {
     readAndAgree: false, // ознакомлен и согласен
     accidentInsurance: false, // страховка от несчастного - изначально
     selectionOfFinancialProducts: false, // подбор финансовых продуктов - изначально
-    personalManager: false, // персональный менеджер - от 5 000к
+    personalManager: false, // персональный менеджер - от 5 000
     legalServices: false, // юридические услуги - от 6 500
     agreement: false // выражаю свое согласие на направление...
   })
   const [showPreview, setShowPreview] = useState(false) // согласия с перечисленным списком
+  const [showModal, setShowModal] = useState({
+    modal: false, 
+    borken: false
+  })
   const current = new Date()
 
+  let personalManagerRef = useRef()
+  let legalServicesRef = useRef()
+  const [stage, setStage] = useState({
+    stagePersonalManager: true, // персональный менеджер - от 5000
+    stageLegalServices: true // юридические услуги - от 6 500
+  })
 
-  React.useEffect(() => console.log(stagesOfConsent), [stagesOfConsent])
+
+  useEffect(() => console.log(stagesOfConsent), [stagesOfConsent])
 
 
   // ^ХЕНДЛЕРЫ | HANDLERS
@@ -107,6 +119,59 @@ export const LoanTerms = () => {
       })
     }
   }
+  const handlerCalcSumm = async () => {
+    if (stage.stageLegalServices === true) {
+      if (legalServicesRef.current.className === "control-label label-checkbox addr-check-label extra_service_broken-label hidden") {
+        setStagesOfConsent({
+          readAndAgree: false,
+          accidentInsurance: false,
+          selectionOfFinancialProducts: false,
+          personalManager: false,
+          legalServices: false,
+          agreement: false,
+        })
+        setStage({...stage, stageLegalServices: false})
+      }
+    } else {
+      if (legalServicesRef.current.className === "control-label label-checkbox addr-check-label extra_service_broken-label active" || legalServicesRef.current.className === "control-label label-checkbox addr-check-label extra_service_broken-label") {
+        setStagesOfConsent({
+          readAndAgree: false,
+          accidentInsurance: false,
+          selectionOfFinancialProducts: false,
+          personalManager: false,
+          legalServices: false,
+          agreement: false,
+        })
+        setStage({...stage, stageLegalServices: true})
+      }
+    }
+
+    if (stage.stagePersonalManager === true) {
+      if (personalManagerRef.current.className === "control-label label-checkbox addr-check-label extra_service_broken-label hidden") {
+        setStagesOfConsent({
+          readAndAgree: false,
+          accidentInsurance: false,
+          selectionOfFinancialProducts: false,
+          personalManager: false,
+          legalServices: false,
+          agreement: false,
+        })
+        setStage({...stage, stagePersonalManager: false})
+      }
+    } else {
+      if (personalManagerRef.current.className === "control-label label-checkbox addr-check-label extra_service_broken-label active" || personalManagerRef.current.className === "control-label label-checkbox addr-check-label extra_service_broken-label") {
+        setStagesOfConsent({
+          readAndAgree: false,
+          accidentInsurance: false,
+          selectionOfFinancialProducts: false,
+          personalManager: false,
+          legalServices: false,
+          agreement: false,
+        })
+        setStage({...stage, stagePersonalManager: true})
+      }
+    }
+  }
 
   // ?: ФУНКЦИЯ ОТРИСОВКИ НОВЫХ ПУНКТОВ => ЗАВИСЯЩИХ ОТ КОЛИЧЕСТВА ВЛОЖЕННОЙ СУММЫ
   const showNewItemsFunc = (type) => {
@@ -132,12 +197,26 @@ export const LoanTerms = () => {
 
   // ?: ФУНКЦИЯ ПОДСЧЕТА СУММЫ => ЗАВИСЯЩЕЙ ОТ ВЫБРАННЫХ ПУНКТОВ
   const calculationValueSum = () => {
+    let val
     let valSum = convertObjectValues(valueSum, false)
     let valDay = convertObjectValues(valueDay, false)
-    let val = Math.trunc(valSum / 100 * valDay) + valSum
-    console.log(val)
+    val = Math.trunc(valSum / 100 * valDay) + valSum
+
+    if (stagesOfConsent.accidentInsurance === true) {
+      val += 980
+    }
+    if (stagesOfConsent.selectionOfFinancialProducts === true) {
+      val += 850
+    }
+    if (stagesOfConsent.personalManager === true) {
+      val += 850
+    }
+    if (stagesOfConsent.legalServices === true) {
+      val += 1550
+    }
     return val
   }
+
 
   return (
   <>
@@ -186,8 +265,7 @@ export const LoanTerms = () => {
                 <div className="cd_info">
                   <p className="payment_period">Возвращаете</p>
                   <p>
-                    {/* <span className="calc-total">{ divideNumberByPieces( convertObjectValues( calculationValueSum(convertObjectValues(valueSum, false)), true ) ) } <small>₽</small></span> */}
-                    <span className="calc-total">{ divideNumberByPieces( convertObjectValues( calculationValueSum(), true ) ) } <small>₽</small></span>
+                    <span className="calc-total">{ divideNumberByPieces(convertObjectValues( calculationValueSum(), true ))} <small>₽</small></span>
                   </p>
                 </div>
                 <div className="cd_info">
@@ -206,7 +284,10 @@ export const LoanTerms = () => {
                         blocks={{ d: { mask: "₽" }, a: { mask: Number, thousandsSeparator: ' ', min: 1500, max: 15000 } }}
                         lazy={false}
                         unmask={true}
-                        onAccept={ (value) => setValueSum(value) }
+                        onAccept={ (value) => {
+                          handlerCalcSumm(value)
+                          setValueSum(value)
+                        }}
                         onBlur={handlerBlurSum}
                         onPointerLeave={handlerBlurSum}
                         onClick={handlerBlurSum}
@@ -275,7 +356,7 @@ export const LoanTerms = () => {
                 <div className="services_box">
                   <label className={stagesOfConsent.accidentInsurance === true ? "control-label label-checkbox addr-check-label active" : "control-label label-checkbox addr-check-label"} htmlFor="extra_service_1">
                     <input type="checkbox" className="checkbox services_check" name="extra_service_match[1]" id="extra_service_1" data-identifier="1" defaultChecked="defaultChecked" defaultValue="1" onClick={handlerSetAccidentInsurance}/>
-                    <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services" data-service_id="extra_service_1" href="#/">Страховка от несчастного случая</a>
+                    <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services" data-service_id="extra_service_1" onClick={() => setShowModal({...showModal, modal: true})} href="#/">Страховка от несчастного случая</a>
                   </label>
                   <div id="extraServiceBroken">
                     <input type="hidden" id="extra_service_broken" data-products="2,3,4" />
@@ -285,36 +366,38 @@ export const LoanTerms = () => {
                   </div>
                   <label className={stagesOfConsent.selectionOfFinancialProducts === true ? "control-label label-checkbox addr-check-label extra_service_broken-label active" : "control-label label-checkbox addr-check-label extra_service_broken-label"} htmlFor="extra_service_2">
                     <input type="checkbox" className="checkbox services_check" name="extra_service_match[2]" id="extra_service_2" data-identifier="2" defaultChecked="defaultChecked" defaultValue="1" onClick={handlerSetSelectionOfFinancialProducts}/>
-                    <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_2" href="#/">Подбор финансовых продуктов</a>
+                    <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_2" onClick={() => setShowModal({...showModal, borken: true})} href="#/">Подбор финансовых продуктов</a>
                   </label>
-                  <label className={ showNewItemsFunc("personalManager") }htmlFor="extra_service_3">
+                  <label ref={personalManagerRef} className={showNewItemsFunc("personalManager")} htmlFor="extra_service_3">
                     <input type="checkbox" className="checkbox services_check" name="extra_service_match[3]" id="extra_service_3" data-identifier="3" defaultChecked="defaultChecked" defaultValue="1" onClick={handlerSetPersonalManager}/>
-                    <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_3" href="#/">Персональный менеджер</a>
+                    <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_3" onClick={() => setShowModal({...showModal, borken: true})} href="#/">Персональный менеджер</a>
                   </label>
-                  <label className={showNewItemsFunc("legalServices")} htmlFor="extra_service_extra_service_4">
+                  <label ref={legalServicesRef} className={showNewItemsFunc("legalServices")} htmlFor="extra_service_4">
                     <input type="checkbox" className="checkbox services_check" name="extra_service_match[4]" id="extra_service_4" data-identifier="4" defaultChecked="defaultChecked" defaultValue="1" onClick={handlerSetLegalServices}/>
-                    <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_4" href="#/">Юридические услуги</a>
+                    <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_4" onClick={() => setShowModal({...showModal, borken: true})} href="#/">Юридические услуги</a>
                   </label>
                 </div>
-                <div className="modal fade modal-very-lg hidden" id="modal_offers_extra_services" tabIndex={-1}>
-                  <div className="modal-dialog">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                        </button>
-                      </div>
-                      <div className="modal-body">
-                        {/* Страховка от несчастного случая */}
-                      </div>
+                {/* <CSSTransition in={showModal.modal} classNames="alert" unmountOnExit> */}
+                  <div className="modal fade modal-very-lg" id="modal_offers_extra_services" tabIndex={-1} style={showModal.modal === false ? {display: "none"} : {display: "block", paddingRight: "17px", height: "100vh", width: "100vw", backgroundColor: "rgba(0,0,0,0.4)", position: "fixed", top: "0", left: "0", paddingTop: "50px", zIndex: "10"}} aria-modal="true" role="dialog">
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setShowModal({...showModal, modal: false})}>
+                          <span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <div className="modal-body">
+                          {/* Страховка от несчастного случая */}
+                        </div>
+                    </div>
+                    </div>
                   </div>
-                  </div>
-                </div>
-                <div className="modal fade modal-very-lg hidden" id="modal_offers_extra_services_broken" tabIndex={-1}>
+                {/* </CSSTransition> */}
+                <div className="modal fade modal-very-lg" id="modal_offers_extra_services_broken" tabIndex={-1} style={showModal.borken === false ? {display: "none"} : {display: "block", paddingRight: "17px", height: "100vh", width: "100vw", backgroundColor: "rgba(0,0,0,0.4)", position: "fixed", top: "0", left: "0", paddingTop: "50px", zIndex: "10"}} aria-modal="true" role="dialog">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <div className="modal-header">
-                      <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                      <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setShowModal({...showModal, borken: false})}>
                       <span aria-hidden="true">×</span>
                       </button>
                     </div>
