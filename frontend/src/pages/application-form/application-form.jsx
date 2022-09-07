@@ -8,6 +8,7 @@ import { ContactUs } from '../../components/screens/application-form/contact-us/
 import { PhoneNumberVerification } from '../../components/screens/application-form/phone-number-verification/phone-number-verification'
 import { PassportDetails } from '../../components/screens/application-form/passport-details/passport-details'
 import { EmploymentAndIncome } from '../../components/screens/application-form/employment-and-income/employment-and-income'
+import { AttachingCard } from '../../components/screens/application-form/attaching-a-card/attaching-a-card'
 import { LoanTerms } from "../../components/screens/application-form/loan-terms/loan-terms"
 
 // #: IMG | className = wrapper container site-header__wrapper
@@ -31,7 +32,8 @@ const ApplicationFormPage = () => {
     phoneNumberVerification: false, // подтверждение номера телефона - код из смс
     passportDetails: false, // паспортные данные - 2-я форма
     employmentAndIncome: false, // занятость и доходы - 3-я форма
-    loanTerms: false // условия займа - 5-я форма
+    attachingCard: false, // прикрепление карты - 4-я форма
+    loanTerms: false // условия займа - 6-я форма
   })
 
   // ?: ФУНКЦИЯ ОБНОВЛЕНИЯ СОСТОЯНИЯ
@@ -244,6 +246,12 @@ const ApplicationFormPage = () => {
                 <EmploymentAndIncome
                   onChangePassportDetails={(value) => funcStateSwitching('passportDetails', value)}
                   onChangeEmploymentAndIncome={(value) => funcStateSwitching('employmentAndIncome', value)}
+                />
+              )}
+              { questionnaireSteps.attachingCard && (
+                // прикрепление карты - 4-я форма
+                <AttachingCard
+
                 />
               )}
               { questionnaireSteps.loanTerms && (
