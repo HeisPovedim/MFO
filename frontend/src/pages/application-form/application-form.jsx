@@ -28,10 +28,10 @@ const ApplicationFormPage = () => {
 
   // ^: СТЕЙТЫ | STATES
   const [questionnaireSteps, setQuestionnaireSteps] = useState({
-    contactUs: true, // контактная информация - 1-я форма
+    contactUs: false, // контактная информация - 1-я форма
     phoneNumberVerification: false, // подтверждение номера телефона - код из смс
     passportDetails: false, // паспортные данные - 2-я форма
-    employmentAndIncome: false, // занятость и доходы - 3-я форма
+    employmentAndIncome: true, // занятость и доходы - 3-я форма
     attachingCard: false, // прикрепление карты - 4-я форма
     loanTerms: false // условия займа - 6-я форма
   })
@@ -46,6 +46,9 @@ const ApplicationFormPage = () => {
     })
     if(type === 'passportDetails') setQuestionnaireSteps(prev => {
       return {...prev, passportDetails: value}
+    })
+    if (type === 'attachingCard') setQuestionnaireSteps(prev => {
+      return {...prev, attachingCard: value}
     })
     if(type === 'employmentAndIncome') setQuestionnaireSteps(prev => {
       return {...prev, employmentAndIncome: value}
@@ -246,12 +249,14 @@ const ApplicationFormPage = () => {
                 <EmploymentAndIncome
                   onChangePassportDetails={(value) => funcStateSwitching('passportDetails', value)}
                   onChangeEmploymentAndIncome={(value) => funcStateSwitching('employmentAndIncome', value)}
+                  onChangeAttachingCard={(value) => funcStateSwitching('attachingCard', value)}
                 />
               )}
               { questionnaireSteps.attachingCard && (
                 // прикрепление карты - 4-я форма
                 <AttachingCard
-
+                  onChangeEmploymentAndIncome={(value) => funcStateSwitching('employmentAndIncome', value)}
+                  onChangeAttachingCard={(value) => funcStateSwitching('attachingCard', value)}
                 />
               )}
               { questionnaireSteps.loanTerms && (

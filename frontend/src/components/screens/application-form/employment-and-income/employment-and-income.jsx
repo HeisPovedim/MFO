@@ -14,7 +14,7 @@ import { CustomStyles } from './lib/salary-style'
   import { WarrningError } from '../../../shared/verify/warrning-error'
   import { PhoneField } from '../../../shared/fields/phone-field'
 
-export const EmploymentAndIncome = ({onChangePassportDetails, onChangeEmploymentAndIncome}) => {
+export const EmploymentAndIncome = ({onChangePassportDetails, onChangeEmploymentAndIncome, onChangeAttachingCard}) => {
 
 
   // ^: СТЕЙТЫ | STATES
@@ -48,6 +48,8 @@ export const EmploymentAndIncome = ({onChangePassportDetails, onChangeEmployment
   // ^: КНОПКИ | BUTTONS
   const onSubmit = (data) => {
     console.log(data)
+    onChangeEmploymentAndIncome(false)
+    onChangeAttachingCard(true)
   }
   const onBack = () => {
     onChangePassportDetails(true)
