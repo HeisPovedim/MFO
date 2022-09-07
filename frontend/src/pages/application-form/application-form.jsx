@@ -31,7 +31,7 @@ const ApplicationFormPage = () => {
     phoneNumberVerification: false, // подтверждение номера телефона - код из смс
     passportDetails: false, // паспортные данные - 2-я форма
     employmentAndIncome: false, // занятость и доходы - 3-я форма
-    loanTerms: true // условия займа - 5-я форма
+    loanTerms: false // условия займа - 5-я форма
   })
 
   // ?: ФУНКЦИЯ ОБНОВЛЕНИЯ СОСТОЯНИЯ
@@ -191,15 +191,15 @@ const ApplicationFormPage = () => {
               <div className="registration-steps">
                 <ul className="reg-steps-list">
                   <li>
-                    <a className={ questionnaireSteps.contactUs === true || questionnaireSteps.phoneNumberVerification === true ? "active" : undefined } >Контактная информация</a>
+                    <a className={ questionnaireSteps.contactUs === true || questionnaireSteps.phoneNumberVerification === true ? "active" : undefined }>Контактная информация</a>
                     <span className="reg-step_sp">вероятность одобрения</span>
                   </li>
                   <li>
-                    <a className={ questionnaireSteps.passportDetails === true ? "active" : undefined } >Паспортные данные</a>
+                    <a className={ questionnaireSteps.passportDetails === true ? "active" : undefined }>Паспортные данные</a>
                     <span className="reg-step_sp">вероятность одобрения</span>
                   </li>
                   <li>
-                    <a className={ questionnaireSteps.employmentAndIncome === true ? "active" : undefined } >Занятость и доходы</a>
+                    <a className={ questionnaireSteps.employmentAndIncome === true ? "active" : undefined }>Занятость и доходы</a>
                     <span className="reg-step_sp">вероятность одобрения</span>
                   </li>
                   <li>
@@ -211,7 +211,7 @@ const ApplicationFormPage = () => {
                     <span className="reg-step_sp">вероятность одобрения</span>
                   </li>
                   <li>
-                    <a>Условия займа</a>
+                    <a className={ questionnaireSteps.loanTerms === true ? "active" : undefined }>Условия займа</a>
                     <span className="reg-step_sp">вероятность одобрения</span>
                   </li>
                 </ul>
