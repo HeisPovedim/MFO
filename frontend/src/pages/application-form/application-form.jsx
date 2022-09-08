@@ -31,8 +31,8 @@ const ApplicationFormPage = () => {
     contactUs: false, // контактная информация - 1-я форма
     phoneNumberVerification: false, // подтверждение номера телефона - код из смс
     passportDetails: false, // паспортные данные - 2-я форма
-    employmentAndIncome: true, // занятость и доходы - 3-я форма
-    attachingCard: false, // прикрепление карты - 4-я форма
+    employmentAndIncome: false, // занятость и доходы - 3-я форма
+    attachingCard: true, // прикрепление карты - 4-я форма
     loanTerms: false // условия займа - 6-я форма
   })
 
@@ -47,11 +47,14 @@ const ApplicationFormPage = () => {
     if(type === 'passportDetails') setQuestionnaireSteps(prev => {
       return {...prev, passportDetails: value}
     })
+    if(type === 'employmentAndIncome') setQuestionnaireSteps(prev => {
+      return {...prev, employmentAndIncome: value}
+    })
     if (type === 'attachingCard') setQuestionnaireSteps(prev => {
       return {...prev, attachingCard: value}
     })
-    if(type === 'employmentAndIncome') setQuestionnaireSteps(prev => {
-      return {...prev, employmentAndIncome: value}
+    if (type === 'loanTerms') setQuestionnaireSteps(prev => {
+      return {...prev, loanTerms: value}
     })
 }, [setQuestionnaireSteps]);
 
@@ -208,7 +211,7 @@ const ApplicationFormPage = () => {
                     <span className="reg-step_sp">вероятность одобрения</span>
                   </li>
                   <li>
-                    <a>Прикрепление карты</a>
+                    <a className={ questionnaireSteps.attachingCard === true ? "active" : undefined }>Прикрепление карты</a>
                     <span className="reg-step_sp">вероятность одобрения</span>
                   </li>
                   <li>
@@ -257,12 +260,14 @@ const ApplicationFormPage = () => {
                 <AttachingCard
                   onChangeEmploymentAndIncome={(value) => funcStateSwitching('employmentAndIncome', value)}
                   onChangeAttachingCard={(value) => funcStateSwitching('attachingCard', value)}
+                  onChangeLoanTerms={(value) => funcStateSwitching('loanTerms', value)}
                 />
               )}
               { questionnaireSteps.loanTerms && (
                 // условия займа - 5-я форма
                 <LoanTerms
-                  
+                  onChangeLoanTerms={(value) => funcStateSwitching('loanTerms', value)}
+                  onChangeAttachingCard={(value) => funcStateSwitching('attachingCard', value)}
                 />
               )}
             </div>
