@@ -4,12 +4,13 @@ import React, { useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 
 // #: COMPONENTS
-import { ContactUs } from '../../components/screens/application-form/contact-us/contact-us'
-import { PhoneNumberVerification } from '../../components/screens/application-form/phone-number-verification/phone-number-verification'
-import { PassportDetails } from '../../components/screens/application-form/passport-details/passport-details'
-import { EmploymentAndIncome } from '../../components/screens/application-form/employment-and-income/employment-and-income'
-import { AttachingCard } from '../../components/screens/application-form/attaching-a-card/attaching-a-card'
-import { LoanTerms } from "../../components/screens/application-form/loan-terms/loan-terms"
+import { ContactUs } from '../../components/screens/application-form/contact-us/contact-us' // 1-я форма
+import { PhoneNumberVerification } from '../../components/screens/application-form/phone-number-verification/phone-number-verification' // код из смс
+import { PassportDetails } from '../../components/screens/application-form/passport-details/passport-details' // 2-я форма
+import { EmploymentAndIncome } from '../../components/screens/application-form/employment-and-income/employment-and-income' // 3-я форма
+import { AttachingCard } from '../../components/screens/application-form/attaching-a-card/attaching-a-card' // 4-я форма
+import { AttachPhoto } from '../../components/screens/application-form/attaching-a-card/attaching-a-card'
+import { LoanTerms } from "../../components/screens/application-form/loan-terms/loan-terms" // 6-я форма
 
 // #: IMG | className = wrapper container site-header__wrapper
 import PresonPng from '../../assets/img/basic/person.png'
@@ -28,11 +29,12 @@ const ApplicationFormPage = () => {
 
   // ^: СТЕЙТЫ | STATES
   const [questionnaireSteps, setQuestionnaireSteps] = useState({
-    contactUs: true, // контактная информация - 1-я форма
+    contactUs: false, // контактная информация - 1-я форма
     phoneNumberVerification: false, // подтверждение номера телефона - код из смс
     passportDetails: false, // паспортные данные - 2-я форма
     employmentAndIncome: false, // занятость и доходы - 3-я форма
     attachingCard: false, // прикрепление карты - 4-я форма
+    attachPhoto: true, // прикрепление фото - 5-я форма
     loanTerms: false // условия займа - 6-я форма
   })
 
@@ -205,11 +207,11 @@ const ApplicationFormPage = () => {
                     <span className="reg-step_sp">вероятность одобрения</span>
                   </li>
                   <li>
-                    <a>Прикрепление карты</a>
+                    <a className={ questionnaireSteps.attachingCard === true ? "active" : undefined }>Прикрепление карты</a>
                     <span className="reg-step_sp">вероятность одобрения</span>
                   </li>
                   <li>
-                    <a>Прикрепление фото</a>
+                    <a className={ questionnaireSteps.attachPhoto === true ? "active" : undefined }>Прикрепление фото</a>
                     <span className="reg-step_sp">вероятность одобрения</span>
                   </li>
                   <li>
