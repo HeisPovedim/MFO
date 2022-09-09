@@ -264,7 +264,7 @@ const ApplicationFormPage = () => {
                 />
               )}
               { questionnaireSteps.loanTerms && (
-                // условия займа - 5-я форма
+                // условия займа - 6-я форма
                 <LoanTerms
                   onChangeLoanTerms={(value) => funcStateSwitching('loanTerms', value)}
                   onChangeAttachingCard={(value) => funcStateSwitching('attachingCard', value)}
