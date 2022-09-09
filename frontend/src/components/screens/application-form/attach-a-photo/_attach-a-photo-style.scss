@@ -1,0 +1,35 @@
+.wrapper_content {
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper_content div {
+  margin-bottom: 56px;
+}
+
+.wrapper_content_passport {
+  height: 309px;
+}
+
+.wrapper_content_passport {
+  display: flex;
+}
+
+.wrapper_content_passport_info {
+  padding-left: 35px;
+}
+
+.wrapper_content_passport_info li {
+  display: flex;
+  font-size: 12px;
+  padding-bottom: 10px;
+}
+
+.wrapper_content_passport_info li::before {
+  content: url("../../../../assets/img/attach-a-photo/checked.png");
+  padding-right: 5px;
+}
+
+.wrapper_content_passport_info__buttons {
+  padding-top: 38px;
+}

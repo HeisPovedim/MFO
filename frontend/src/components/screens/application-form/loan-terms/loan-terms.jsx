@@ -12,7 +12,7 @@ import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 import { CSSTransition } from "react-transition-group"
 
-export const LoanTerms = () => {
+export const LoanTerms = ({onChangeLoanTerms, onChangeAttachingCard}) => {
 
 
   // ^СТЕЙТЫ | STATES
@@ -43,6 +43,15 @@ export const LoanTerms = () => {
 
   useEffect(() => console.log(stagesOfConsent), [stagesOfConsent])
 
+
+  // ^: КНОПКИ | BUTTONS
+  const onSubmit = (data) => {
+    
+  }
+  const onBack = () => {
+    onChangeLoanTerms(false)
+    onChangeAttachingCard(true)
+  }
 
   // ^ХЕНДЛЕРЫ | HANDLERS
   const handlerBlurSum = () => {
@@ -418,7 +427,7 @@ export const LoanTerms = () => {
         <input type="hidden" name="action[signing_of_agreements_action]" defaultValue="1" />
         <input type="hidden" name="action[add_questionnaire_action]" defaultValue="1" />
         <div className="btn-box">
-          <button type="button" className="btn btn-light btn_back_step" id="btn_back_step" defaultValue="usloviya_zayma"><span>Назад</span></button>
+          <button type="button" className="btn btn-light btn_back_step" id="btn_back_step" defaultValue="usloviya_zayma" onClick={onBack}><span>Назад</span></button>
           <button type="submit" name="btn_submit_step_save" className="btn btn-primary" id="btn_submit_step_save" defaultValue="usloviya_zayma" 
             disabled={ stagesOfConsent.agreement === true && stagesOfConsent.readAndAgree === true ? false : true }>
             <span>Продолжить</span>

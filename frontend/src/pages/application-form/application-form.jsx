@@ -9,7 +9,7 @@ import { PhoneNumberVerification } from '../../components/screens/application-fo
 import { PassportDetails } from '../../components/screens/application-form/passport-details/passport-details' // 2-я форма
 import { EmploymentAndIncome } from '../../components/screens/application-form/employment-and-income/employment-and-income' // 3-я форма
 import { AttachingCard } from '../../components/screens/application-form/attaching-a-card/attaching-a-card' // 4-я форма
-import { AttachPhoto } from '../../components/screens/application-form/attaching-a-card/attaching-a-card'
+import { AttachPhoto } from '../../components/screens/application-form/attach-a-photo/attach-a-photo' // 5-я форма
 import { LoanTerms } from "../../components/screens/application-form/loan-terms/loan-terms" // 6-я форма
 
 // #: IMG | className = wrapper container site-header__wrapper
@@ -253,13 +253,22 @@ const ApplicationFormPage = () => {
               { questionnaireSteps.attachingCard && (
                 // прикрепление карты - 4-я форма
                 <AttachingCard
+                  onChangeEmploymentAndIncome={(value) => funcStateSwitching('employmentAndIncome', value)}
+                  onChangeAttachingCard={(value) => funcStateSwitching('attachingCard', value)}
+                  onChangeLoanTerms={(value) => funcStateSwitching('loanTerms', value)}
+                />
+              )}
+              { questionnaireSteps.attachPhoto && (
+                // прикрепление фото - 5-я форма
+                <AttachPhoto
 
                 />
               )}
               { questionnaireSteps.loanTerms && (
-                // условия займа - 5-я форма
+                // условия займа - 6-я форма
                 <LoanTerms
-                  
+                  onChangeLoanTerms={(value) => funcStateSwitching('loanTerms', value)}
+                  onChangeAttachingCard={(value) => funcStateSwitching('attachingCard', value)}
                 />
               )}
             </div>
