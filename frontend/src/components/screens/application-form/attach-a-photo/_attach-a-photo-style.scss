@@ -3,16 +3,22 @@
   flex-direction: column;
 }
 
-.wrapper_content div {
-  margin-bottom: 56px;
-}
-
 .wrapper_content_passport {
+  display: flex;
   height: 309px;
 }
 
-.wrapper_content_passport {
-  display: flex;
+.wrapper_content_passport__img {
+  min-height: 309px;
+  min-width: 222px;
+  max-height: 309px;
+  max-width: 222px;
+}
+
+.wrapper_content_passport__img img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .wrapper_content_passport_info {
@@ -32,4 +38,102 @@
 
 .wrapper_content_passport_info__buttons {
   padding-top: 38px;
+}
+
+.wrapper_content_card {
+  display: flex;
+}
+
+.wrapper_content_card img {
+  width: 222px;
+  height: 139px;
+}
+
+.wrapper_content_card_info {
+  padding-left: 35px;
+}
+
+.wrapper_content_card_info li {
+  display: flex;
+  font-size: 12px;
+  padding-bottom: 10px;
+}
+
+.wrapper_content_card_info li::before {
+  content: url("../../../../assets/img/attach-a-photo/checked.png");
+  padding-right: 5px;
+}
+
+@media screen and (max-width: 760px) {
+  .wrapper_content_passport:nth-child(2) {
+    margin-bottom: 180px !important;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  // Паспорт
+  .wrapper_content_passport:nth-child(1) {
+    margin-bottom: 350px !important;
+  }
+  .wrapper_content_passport:nth-child(2) {
+    margin-bottom: 420px !important;
+  }
+  .wrapper_content_passport img {
+    margin-bottom: 15px;
+  }
+  .wrapper_content_passport {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .wrapper_content_passport_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0;
+  }
+
+  // Обычная карта
+  .wrapper_content_card_img {
+    margin-bottom: 15px;
+  }
+
+  .wrapper_content_card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .wrapper_content_card_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0;
+  }
+  .input-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .wrapper_content_passport:nth-child(1) {
+    margin-bottom: 390px !important;
+  }
+  .wrapper_content_passport:nth-child(2) {
+    margin-bottom: 465px !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .wrapper_content_passport:nth-child(1) {
+    margin-bottom: 410px !important;
+  }
+  .wrapper_content_passport:nth-child(2) {
+    margin-bottom: 510px !important;
+  }
 }
