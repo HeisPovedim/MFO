@@ -12,7 +12,7 @@ import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 import { CSSTransition } from "react-transition-group"
 
-export const LoanTerms = ({onChangeLoanTerms, onChangeAttachingCard}) => {
+export const LoanTerms = ({onChangeLoanTerms, onChangeAttachPhoto}) => {
 
 
   // ^СТЕЙТЫ | STATES
@@ -50,7 +50,7 @@ export const LoanTerms = ({onChangeLoanTerms, onChangeAttachingCard}) => {
   }
   const onBack = () => {
     onChangeLoanTerms(false)
-    onChangeAttachingCard(true)
+    onChangeAttachPhoto(true)
   }
 
   // ^ХЕНДЛЕРЫ | HANDLERS

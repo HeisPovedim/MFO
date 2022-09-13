@@ -14,7 +14,7 @@ import defCardBackTFImg from "../../../../assets/img/attach-a-photo/CardBackTF.p
 
 
 
-export const AttachPhoto = () => {
+export const AttachPhoto = ({onChangeAttachingCard, onChangeAttachPhoto, onChangeLoanTerms}) => {
 
   // ^СТЕЙТЫ | STATES
   const [cardCheckbox, setCardCheckbox] = useState(false)
@@ -47,7 +47,12 @@ export const AttachPhoto = () => {
 
   // ^ ⁡⁣⁣⁡⁣⁡⁣⁣КНОПКИ | BUTTONS
   const onSubmit = (data) => {
-    console.log("Форма отправлена")
+    onChangeLoanTerms(true)
+    onChangeAttachPhoto(false)
+  }
+  const onBack = () => {
+    onChangeAttachPhoto(false)
+    onChangeAttachingCard(true)
   }
 
   // ^ХЕНДЛЕРЫ | HANDLERS
@@ -267,7 +272,7 @@ export const AttachPhoto = () => {
       )}
     </WarrningError>
     <div className="btn-box">
-      <button type="button" className="btn btn-light btn_back_step" id="btn_back_step" value="prikreplenie_foto"><span>Назад</span></button>
+      <button type="button" className="btn btn-light btn_back_step" id="btn_back_step" value="prikreplenie_foto" onClick={onBack}><span>Назад</span></button>
       <button type="submit" name="btn_submit_step_save" className="btn btn-primary" id="btn_submit_step_save" value="prikreplenie_foto"><span>Продолжить</span></button>
     </div>
   </form>

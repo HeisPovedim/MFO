@@ -2,7 +2,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
-export const AttachingCard = ({onChangeEmploymentAndIncome, onChangeAttachingCard, onChangeLoanTerms}) => {
+export const AttachingCard = ({onChangeEmploymentAndIncome, onChangeAttachingCard, onChangeAttachPhoto}) => {
 
   // ^: ХУКИ | HOOKS
   const {
@@ -16,7 +16,7 @@ export const AttachingCard = ({onChangeEmploymentAndIncome, onChangeAttachingCar
   // ^: КНОПКИ | BUTTONS
   const onSubmit = (data) => {
     onChangeAttachingCard(false)
-    onChangeLoanTerms(true)
+    onChangeAttachPhoto(true)
   }
   const onBack = () => {
     onChangeAttachingCard(false)
