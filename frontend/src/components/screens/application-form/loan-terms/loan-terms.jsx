@@ -386,7 +386,6 @@ export const LoanTerms = ({onChangeLoanTerms, onChangeAttachingCard}) => {
                     <a className="show_modal_view_offers_services" data-modal_name="modal_offers_extra_services_broken" data-service_id="extra_services_broken_4" onClick={() => setShowModal({...showModal, borken: true})} href="#/">Юридические услуги</a>
                   </label>
                 </div>
-                {/* <CSSTransition in={showModal.modal} classNames="alert" unmountOnExit> */}
                   <div className="modal fade modal-very-lg" id="modal_offers_extra_services" tabIndex={-1} style={showModal.modal === false ? {display: "none"} : {display: "block", paddingRight: "17px", height: "100vh", width: "100vw", backgroundColor: "rgba(0,0,0,0.4)", position: "fixed", top: "0", left: "0", paddingTop: "50px", zIndex: "10"}} aria-modal="true" role="dialog">
                     <div className="modal-dialog">
                       <div className="modal-content">
@@ -401,7 +400,6 @@ export const LoanTerms = ({onChangeLoanTerms, onChangeAttachingCard}) => {
                     </div>
                     </div>
                   </div>
-                {/* </CSSTransition> */}
                 <div className="modal fade modal-very-lg" id="modal_offers_extra_services_broken" tabIndex={-1} style={showModal.borken === false ? {display: "none"} : {display: "block", paddingRight: "17px", height: "100vh", width: "100vw", backgroundColor: "rgba(0,0,0,0.4)", position: "fixed", top: "0", left: "0", paddingTop: "50px", zIndex: "10"}} aria-modal="true" role="dialog">
                 <div className="modal-dialog">
                   <div className="modal-content">

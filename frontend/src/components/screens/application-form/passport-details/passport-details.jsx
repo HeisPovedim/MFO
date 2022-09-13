@@ -354,7 +354,6 @@ export const PassportDetails = ({onChangePassportDetails, onChangeEmploymentAndI
                 />
                 </div>
                   <WarrningError>{ errors?.gender && (<p>{ errors?.gender?.message ||`*Необходимо выбрать гендор`}</p>) }</WarrningError>
-                  
               </div>
               <div className="input-box inpBxFF" id="form_snils">
                 <label className="control-label">СНИЛС</label>
