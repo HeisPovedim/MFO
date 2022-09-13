@@ -44,9 +44,17 @@
   display: flex;
 }
 
-.wrapper_content_card img {
-  width: 222px;
-  height: 139px;
+.wrapper_content_card__img {
+  min-height: 139px;
+  min-width: 222px;
+  max-height: 139px;
+  max-width: 222px;
+}
+
+.wrapper_content_card__img img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .wrapper_content_card_info {
@@ -65,8 +73,11 @@
 }
 
 @media screen and (max-width: 760px) {
+  .wrapper_content_passport:nth-child(1) {
+    margin-bottom: 110px !important;
+  }
   .wrapper_content_passport:nth-child(2) {
-    margin-bottom: 180px !important;
+    margin-bottom: 200px !important;
   }
 }
 
@@ -76,7 +87,7 @@
     margin-bottom: 350px !important;
   }
   .wrapper_content_passport:nth-child(2) {
-    margin-bottom: 420px !important;
+    margin-bottom: 450px !important;
   }
   .wrapper_content_passport img {
     margin-bottom: 15px;
@@ -94,8 +105,16 @@
     padding-left: 0;
   }
 
+  .wrapper_content_passport_info h5 {
+    text-align: center;
+  }
+
+.input-box {
+  text-align: center;
+}
+
   // Обычная карта
-  .wrapper_content_card_img {
+  .wrapper_content_card {
     margin-bottom: 15px;
   }
 
@@ -118,6 +137,10 @@
     justify-content: center;
     align-items: center;
   }
+
+  .wrapper_content_card__img {
+    margin-bottom: 90px;
+  }
 }
 
 @media screen and (max-width: 520px) {
@@ -125,7 +148,7 @@
     margin-bottom: 390px !important;
   }
   .wrapper_content_passport:nth-child(2) {
-    margin-bottom: 465px !important;
+    margin-bottom: 485px !important;
   }
 }
 

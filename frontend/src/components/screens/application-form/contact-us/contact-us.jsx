@@ -226,7 +226,7 @@ export const ContactUs = ({onChangeContactUs, onChangePhoneNumberVerification}) 
               </div>
               <div className="input-box inpBxFF" id="form_email">
                 <label className="control-label">Email адрес</label>
-                <Controller 
+                <Controller
                   control={control}
                   name="email"
                   rules={{
@@ -375,7 +375,7 @@ export const ContactUs = ({onChangeContactUs, onChangePhoneNumberVerification}) 
           </div>
         </form>
         <div className="gosuslugi_box">
-          <a id="authByEsia" className="link_authByEsia">Войти через Госуслуги</a>
+          <a id="authByEsia" className="link_authByEsia" href="#/">Войти через Госуслуги</a>
         </div>
       </div>
     </>
