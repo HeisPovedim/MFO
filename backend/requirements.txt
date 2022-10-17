@@ -1,0 +1,11 @@
+Django==4.1
+djangorestframework==3.13.1
+django-cors-headers==3.13.0
+django-debug-toolbar==3.5.0
+django-phonenumber-field==6.3.0
+phonenumbers==8.12.52
+zeep==4.1.0
+lxml==4.9.1
+python-decouple==3.6
+PyJWT==1.6.4
+pytz==2018.5
