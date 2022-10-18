@@ -12,6 +12,7 @@ class FormSerializerStep1(serializers.ModelSerializer):
 
     class Meta:
         model = Username
+        fields = '__all__'
 
 
 class FormSerializerStep2(serializers.ModelSerializer):
