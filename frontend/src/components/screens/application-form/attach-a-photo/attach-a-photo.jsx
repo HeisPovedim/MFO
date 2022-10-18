@@ -139,7 +139,7 @@ export const AttachPhoto = ({onChangeAttachingCard, onChangeAttachPhoto, onChang
   <form className="content-form" method="post" id="prikreplenie-foto" onSubmit={ handleSubmit(onSubmit) } >
     <div className="alert alert-danger hidden"></div>
     <div className="wrapper_content">
-      <div className="wrapper_content_passport" style={{marginBottom: "56px"}}>
+      <div className="wrapper_content_passport">
         <div className="wrapper_content_passport__img">
           <img src={firstPassportURL ? firstPassportURL : defPssportImg} alt="pssport img"/>
         </div>
@@ -160,7 +160,7 @@ export const AttachPhoto = ({onChangeAttachingCard, onChangeAttachPhoto, onChang
           <WarrningError>{firstPassportURL ? null : <p>{errors?.from?.message ||`Загрузите изображеие паспорта РФ*`}</p>}</WarrningError>
         </div>
       </div>
-      <div className="wrapper_content_passport" style={{marginBottom: "150px"}}>
+      <div className="wrapper_content_passport">
         <div className="wrapper_content_passport__img">
           <img src={secondPassportURL ? secondPassportURL : defPssportRegImg} alt="pssport img"/>
         </div>
@@ -177,23 +177,21 @@ export const AttachPhoto = ({onChangeAttachingCard, onChangeAttachPhoto, onChang
             <div className="wrapper_content_passport_info__buttons">
               <buttons className="btn btn-primary" style={{display: "flex", alignItems: "center", justifyContent: "center"}}><span>Загрузить файл</span></buttons>
             </div>
-            <input id="second_passport" className="hidden" type="file" onChange={handlerSetSecondPassportImg} />
           </label>
+          <input id="second_passport" className="hidden" type="file" onChange={handlerSetSecondPassportImg} />
           <WarrningError>{secondPassportURL ? null : <p>{errors?.from?.message ||`Загрузите изображеие разворота регистрации паспорта*`}</p>}</WarrningError>
         </div>
       </div>
-      <div className="wrapper_content_card" style={{marginBottom: "60px"}}>
-        <div className="wrapper_content_card" style={{width: "222px"}}>
-          <div className="wrapper_content_card__img">
-            <img src={cardDefURL ? cardDefURL : defcardImg} alt="card img"/>
-            <label for="card_def">
-              <div className="wrapper_content_card__buttons" style={{width: "222px"}}>
-                <buttons className="btn btn-primary" style={{display: "flex", alignItems: "center", justifyContent: "center"}}><span>Загрузить файл</span></buttons>
-              </div>
-            </label>
-            <input id="card_def" className="hidden" type="file" onChange={handlerSetCardDefImg} />
-            <WarrningError>{cardDefURL ? null : <p>{errors?.from?.message ||`Загрузите изображеие банковской карты*`}</p>}</WarrningError>
-          </div>
+      <div className="wrapper_content_card">
+        <div className="wrapper_content_card__img">
+          <img src={cardDefURL ? cardDefURL : defcardImg} alt="card img"/>
+          <label for="card_def" className="label_class">
+            <div className="wrapper_content_card__buttons">
+              <buttons className="btn btn-primary" style={{display: "flex", alignItems: "center", justifyContent: "center"}}><span>Загрузить файл</span></buttons>
+            </div>
+          </label>
+          <input id="card_def" className="hidden" type="file" onChange={handlerSetCardDefImg} />
+          <WarrningError>{cardDefURL ? null : <p>{errors?.from?.message ||`Загрузите изображеие банковской карты*`}</p>}</WarrningError>
         </div>
         <div className="wrapper_content_card_info">
         <h5 style={{fontWeight: "bold", paddingBottom: "30px"}}>Добавить фотографию банковской карты</h5>
@@ -205,22 +203,20 @@ export const AttachPhoto = ({onChangeAttachingCard, onChangeAttachPhoto, onChang
           </ul>
         </div>
       </div>
-        <div class="input-box" id="form_sb_use_cards" style={{marginBottom: "60px"}}>
-          <label className={cardCheckbox === true ? "control-label label-checkbox active" : "control-label label-checkbox"}><input id="sb_use_cards" type="checkbox" name="sb_use_cards" onClick={handlerSetCard}/> У Вас карта Тинькофф или Альфа банка нового образца?</label><br/>
-          <span style={{fontSize: "14px"}}>Если Вы держатель карты Тинькофф или Альфа банк нового образца, где ФИО и номер карты расположены на разных сторонах, необходимо прикрепить 2 фотографии</span>
-        </div>
-      <div className={cardCheckbox === false ? "wrapper_content_card hidden" : "wrapper_content_card"} style={{marginBottom: "60px"}}>
-        <div className="wrapper_content_card" style={{width: "222px"}}>
-          <div className="wrapper_content_card__img">
-            <img src={cardFrontTFURL ? cardFrontTFURL : defCardFrontTFImg} alt="card img"/>
-            <label for="card_front_tf">
-              <div className="wrapper_content_card__buttons" style={{width: "222px"}}>
-                <buttons className="btn btn-primary" style={{display: "flex", alignItems: "center", justifyContent: "center"}}><span>Загрузить файл</span></buttons>
-              </div>
-            </label>
-            <input id="card_front_tf" className="hidden" type="file" onChange={handlerSetCardFrontTF} />
-            <WarrningError>{cardFrontTFURL ? null : <p>{errors?.from?.message ||`Загрузите изображеие лица банковской карты*`}</p>}</WarrningError>
-          </div>
+      <div class="input-box" id="form_sb_use_cards" style={{marginBottom: "20px"}}>
+        <label className={cardCheckbox === true ? "control-label label-checkbox active" : "control-label label-checkbox"}><input id="sb_use_cards" type="checkbox" name="sb_use_cards" onClick={handlerSetCard}/> У Вас карта Тинькофф или Альфа банка нового образца?</label><br/>
+        <span style={{fontSize: "14px"}}>Если Вы держатель карты Тинькофф или Альфа банк нового образца, где ФИО и номер карты расположены на разных сторонах, необходимо прикрепить 2 фотографии</span>
+      </div>
+      <div className={cardCheckbox === false ? "wrapper_content_card hidden" : "wrapper_content_card"}>
+        <div className="wrapper_content_card__img">
+          <img src={cardFrontTFURL ? cardFrontTFURL : defCardFrontTFImg} alt="card img"/>
+          <label for="card_front_tf" className="label_class">
+            <div className="wrapper_content_card__buttons">
+              <buttons className="btn btn-primary" style={{display: "flex", alignItems: "center", justifyContent: "center"}}><span>Загрузить файл</span></buttons>
+            </div>
+          </label>
+          <input id="card_front_tf" className="hidden" type="file" onChange={handlerSetCardFrontTF} />
+          <WarrningError>{cardFrontTFURL ? null : <p>{errors?.from?.message ||`Загрузите изображеие лица банковской карты*`}</p>}</WarrningError>
         </div>
         <div className="wrapper_content_card_info">
         <h5 style={{fontWeight: "bold", paddingBottom: "30px"}}>Добавить фотографию лица банковской карты</h5>
@@ -233,17 +229,15 @@ export const AttachPhoto = ({onChangeAttachingCard, onChangeAttachPhoto, onChang
         </div>
       </div>
       <div className={cardCheckbox === false ? "wrapper_content_card hidden" : "wrapper_content_card"} style={{marginBottom: "60px"}}>
-        <div className="wrapper_content_card" style={{width: "222px"}}>
         <div className="wrapper_content_card__img">
             <img src={cardBackTFURL ? cardBackTFURL : defCardBackTFImg} alt="card img"/>
-            <label for="card_back_tf">
-              <div className="wrapper_content_card__buttons" style={{width: "222px"}}>
+            <label for="card_back_tf" className="label_class">
+              <div className="wrapper_content_card__buttons">
                 <buttons className="btn btn-primary" style={{display: "flex", alignItems: "center", justifyContent: "center"}}><span>Загрузить файл</span></buttons>
               </div>
             </label>
             <input id="card_back_tf" className="hidden" type="file" onChange={handlerSetCardBackTF} />
             <WarrningError>{cardBackTFURL ? null : <p>{errors?.from?.message ||`Загрузите изображеие оборота банковской карты*`}</p>}</WarrningError>
-        </div>
         </div>
         <div className="wrapper_content_card_info">
         <h5 style={{fontWeight: "bold", paddingBottom: "30px"}}>Добавить фотографию оборота банковской карты</h5>
