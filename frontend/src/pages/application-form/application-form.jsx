@@ -29,12 +29,12 @@ const ApplicationFormPage = () => {
 
   // ^: СТЕЙТЫ | STATES
   const [questionnaireSteps, setQuestionnaireSteps] = useState({
-    contactUs: false, // контактная информация - 1-я форма
+    contactUs: true, // контактная информация - 1-я форма
     phoneNumberVerification: false, // подтверждение номера телефона - код из смс
     passportDetails: false, // паспортные данные - 2-я форма
     employmentAndIncome: false, // занятость и доходы - 3-я форма
     attachingCard: false, // прикрепление карты - 4-я форма
-    attachPhoto: true, // прикрепление фото - 5-я форма
+    attachPhoto: false, // прикрепление фото - 5-я форма
     loanTerms: false // условия займа - 6-я форма
   })
 
@@ -382,5 +382,4 @@ const ApplicationFormPage = () => {
   </>
   )
 }
-
 export {ApplicationFormPage}

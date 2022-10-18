@@ -8,6 +8,7 @@ import './App.scss'
 import { BasicPage } from './pages/basic/basic'
 import { ApplicationFormPage } from './pages/application-form/application-form'
 import { ErrorPage } from './pages/errorPage/errorPage'
+import { PersonalAccount } from './pages/personal-account/personal-account'
 
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={ <BasicPage /> } />
       <Route path="/application-form" element={ <ApplicationFormPage /> } />
+      <Route path="/personal-account" element={ <PersonalAccount /> } />
       <Route path="*" element={ <ErrorPage /> } />
     </Routes>
     </>
