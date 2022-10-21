@@ -1,17 +1,51 @@
+import re
+
 from rest_framework import serializers
+from rest_framework.serializers import ValidationError
+from validate_email import validate_email
 
 from .models import PersonalData, Username
 
 
 class FormSerializerStep1(serializers.ModelSerializer):
-    name = serializers.CharField(label='Имя')
+    name = serializers.CharField(label='Имя', required=True)
     surname = serializers.CharField(label='Отчество', allow_blank=True)
-    lastname = serializers.CharField(label='Фамилия')
-    phone_number = serializers.CharField(label='Номер телефона')
-    email = serializers.EmailField(label='Email адрес')
+    lastname = serializers.CharField(label='Фамилия', required=True)
+    phone_number = serializers.CharField(label='Номер телефона', required=True)
+    email = serializers.EmailField(label='Email адрес', required=True)
+
+    def validate_name(self, value):
+        return self.validate_symbols(value)
+
+    def validate_surname(self, value):
+        return self.validate_symbols(value)
+
+    def validate_lastname(self, value):
+        return self.validate_symbols(value)
+
+    def validate_phone_number(self, value):
+        val = re.sub("[^0-9]", "", value)
+        if val.startswith('7') or val.startswith('8'):
+            val = val[1:]
+        if len(val) != 10:
+            raise ValidationError(f'Некорректный номер телефона: {val}')
+        return '7' + val
+
+    def validate_email(self, value):
+        if not validate_email(value):
+            raise ValidationError(f'Некорретный почтовый адрес: {value}')
+        return value
+
+    @staticmethod
+    def validate_symbols(value):
+        val = re.compile("[а_яА-ЯёЁ\-]")
+        if val.search(value) is None or len(value) < 2:
+            raise ValidationError('Принимаются только русские символы')
+        return value
 
     class Meta:
         model = Username
+        fields = '__all__'
 
 
 class FormSerializerStep2(serializers.ModelSerializer):

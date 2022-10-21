@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework import status
 
 from django.shortcuts import render
 
@@ -20,19 +21,19 @@ class BaseFormApi(APIView):
         }
         step_form = request.GET.get('step', None)
         if step_form:
-            functions[step_form](request)
+            return functions[step_form](request)
 
     def step_1(self, request):
-        data = FormSerializerStep1(data=request.data)
-        if data.is_valid():
-            data.save()
-        return Response(status=201)
+        serializer = FormSerializerStep1(data=request.data)
+        if not serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def step_2(self, request):
         data = FormSerializerStep2(data=request.data)
         if data.is_valid():
             data.save()
-        return Response(status=201)
+        return Response(status=status.HTTP_201_CREATED)
 
     def step_3(self, request):
         data = FormSerializerStep3(data=request.data)
