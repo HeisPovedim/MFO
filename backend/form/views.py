@@ -5,7 +5,12 @@ from rest_framework import status
 
 from django.shortcuts import render
 
-from .serializers import FormSerializerStep1, FormSerializerStep2, FormSerializerStep3
+from .serializers import (
+    FormSerializerStep1,
+    FormSerializerStep2,
+    FormSerializerStep3,
+    FormSerializerStep4
+)
 
 
 class BaseFormApi(APIView):
@@ -42,7 +47,7 @@ class BaseFormApi(APIView):
         return Response(status=201)
 
     def step_4(self, request):
-        pass
-
-    def step_5(self, request):
-        pass
+        data = FormSerializerStep4(data=request.data)
+        if data.is_valid():
+            data.save()
+        return Response(status=201)

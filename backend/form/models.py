@@ -39,3 +39,77 @@ class PersonalData(models.Model):
     class Meta:
         verbose_name = 'Персональные данные пользователя'
         verbose_name_plural = 'Персональные данные пользователей'
+
+
+class IncomeEmployment(models.Model):
+    MARITAL_CHOICES = [
+        ('Not married', 'Не женат / Не замужем'),
+        ('Married', 'Женат / Замужем'),
+        ('Widow', 'Вдовец / Вдова'),
+        ('Divorced', 'Разведен / Разведена'),
+        ('Civil marriage', 'Гражданский брак')
+    ]
+    EDUCATION_CHOICES = [
+        ('Higher professional', 'Высшее профессиональное'),
+        ('Specialized secondary', 'Среднее специальное'),
+        ('Incomplete Higher', 'Незаконченное высшее'),
+        ('Average', 'Среднее'),
+        ('Other', 'Другое')
+    ]
+    EMPLOYMENT_CHOICES = [
+        ('Higher professional', 'Декретный отпуск'),
+        ('Own business', 'Свое дело (предприниматель, фрилансер)'),
+        ('Pensioner', 'Пенсионер'),
+        ('Employment', 'Работа по найму'),
+        ('Student', 'Студент'),
+        ('Unemployed', 'Безработный'),
+        ('Security', 'Военнослужащий/силовые структуры/охрана'),
+        ('Civil servant', 'Госслужащий'),
+        ('Dependent', 'Иждивенец'),
+        ('Salaried office worker', 'Наемный рабочий офисный'),
+        ('Hired manual worker', 'Наемный рабочий физического труда'),
+        ('Individual entrepreneur', 'ИП'),
+        ('Other', 'Прочее'),
+    ]
+    ACTIVITY_CHOICES = [
+        ('Finance', 'Бухгалтерия, финансы, банки'),
+        ('Government services', 'Государственные службы, НКО'),
+        ('IT', 'ИТ и Интернет, Телекоммуникации и связь'),
+        ('Medicine', 'Медицина и фармация'),
+        ('Science', 'Образование, наука, языки'),
+        ('Security', 'Охрана, безопасность'),
+        ('Marketing', 'Полиграфия, издательства, СМИ, Маркетинг, реклама, PR'),
+        ('Industry', 'Промышленность'),
+        ('Restaurants', 'Рестораны, кафе, общепит'),
+        ('Construction', 'Строительство, недвижимость'),
+        ('Service', 'Сфера услуг'),
+        ('Retail', 'Торговля розничная'),
+        ('Tourism', 'Туризм, гостиничное дело'),
+        ('Other', 'Другое'),
+        ('Agriculture', 'Сельское хозяйство')
+    ]
+    marital_status = models.CharField(choices=MARITAL_CHOICES)
+    education = models.CharField(choices=EDUCATION_CHOICES)
+    employment = models.CharField(choices=EMPLOYMENT_CHOICES)
+    amount_expenses = models.IntegerField()
+    income_month = models.IntegerField()
+    car = models.BooleanField()
+    ownership = models.BooleanField()
+    activity = models.CharField(choices=ACTIVITY_CHOICES)
+
+    class Meta:
+        verbose_name = 'Занятость и доходы'
+        verbose_name_plural = 'Занятость и доходы'
+
+
+class LoanTerms(models.Model):
+    sum = models.IntegerField()
+    term = models.IntegerField()
+    insurance = models.BooleanField()
+    financial_products = models.BooleanField()
+    manager = models.BooleanField()
+    service = models.BooleanField()
+
+    class Meta:
+        verbose_name = 'Условия займа'
+        verbose_name_plural = 'Условия займа'
