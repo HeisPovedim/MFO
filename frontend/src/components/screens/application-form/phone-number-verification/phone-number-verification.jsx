@@ -16,7 +16,6 @@ export const PhoneNumberVerification = ({onChangeContactUs, onChangePassportDeta
   // ^СТЕЙТЫ | STATES
   const [statusTimer, setStatusTimer] = useState(false)
   
-  
   // ⁡⁣^HOOKS⁡⁡
   const { register, formState: { errors }, handleSubmit } = useForm({ mode: "onBlur" })
 

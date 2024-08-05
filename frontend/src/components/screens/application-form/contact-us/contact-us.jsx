@@ -57,13 +57,32 @@ export const ContactUs = ({onChangeContactUs, onChangePhoneNumberVerification}) 
       middleName: localStorage.getItem("userMiddleName"),
       email: localStorage.getItem("userEmail")
     }
-})
+  })
 
 
   // ^ ⁡⁣⁣⁡⁣⁡⁣⁣КНОПКИ | BUTTONS
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    console.log(data)
+    console.log(data.email)
+    try {
+      await fetch('http://127.0.0.1:8000/form/?step=1', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8'
+      },
+      body: JSON.stringify({
+        "name" : data.firstName,
+        "surname": data.middleName,
+        "lastname" : data.lastName,
+        "phone_number" : data.phoneNumber,
+        "email" : data.email
+      })
+    })
     onChangeContactUs(false)
     onChangePhoneNumberVerification(true)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
 

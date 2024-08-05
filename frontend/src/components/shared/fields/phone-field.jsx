@@ -4,7 +4,6 @@ import React from 'react'
 // #: CUSTOM LIBRARIES
 import NumberFormat from 'react-number-format'
 
-
 export const PhoneField = ({ phone, setPhone, onChange, onBlur }) => {
   return(
     <NumberFormat

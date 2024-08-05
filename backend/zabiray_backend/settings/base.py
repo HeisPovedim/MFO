@@ -31,6 +31,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3032',
+]
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    'http://localhost:3032',
+]
+
 ROOT_URLCONF = 'zabiray_backend.urls'
 
 TEMPLATES = [
